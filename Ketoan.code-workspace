@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../EXAMPLE-awesome-compose"
+		},
+		{
+			"path": "../ACN-ketoan-docker-lamp"
+		}
+	],
+	"settings": {}
+}
