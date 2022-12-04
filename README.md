@@ -1,4 +1,7 @@
 
+* Fine-grained personal access tokens ( hiệu lực 04/12/2023)
+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
+
 ===========================================
 echo $PATH  ( Xem PATH )
 you need to add or edit a .zshrc file or a .bash_profile or .bashrc in your home directory
