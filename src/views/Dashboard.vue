@@ -72,111 +72,69 @@
               <CCol :sm="12" :lg="6">
                 <CRow>
                   <CCol :sm="6">
-                    <div
-                      class="border-start border-start-4 border-start-info py-1 px-3 mb-3"
-                    >
+                    <div class="border-start border-start-4 border-start-info py-1 px-3 mb-3">
                       <div class="text-medium-emphasis small">New Clients</div>
                       <div class="fs-5 fw-semibold">9,123</div>
                     </div>
                   </CCol>
                   <CCol :sm="6">
-                    <div
-                      class="border-start border-start-4 border-start-danger py-1 px-3 mb-3"
-                    >
-                      <div class="text-medium-emphasis small">
-                        Recurring Clients
-                      </div>
+                    <div class="border-start border-start-4 border-start-danger py-1 px-3 mb-3">
+                      <div class="text-medium-emphasis small">Recurring Clients</div>
                       <div class="fs-5 fw-semibold">22,643</div>
                     </div>
                   </CCol>
                 </CRow>
                 <hr class="mt-0" />
-                <div
-                  v-for="item in progressGroupExample1"
-                  :key="item.title"
-                  class="progress-group mb-4"
-                >
+                <div v-for="item in progressGroupExample1" :key="item.title" class="progress-group mb-4">
                   <div class="progress-group-prepend">
-                    <span class="text-medium-emphasis small">{{
-                      item.title
-                    }}</span>
+                    <span class="text-medium-emphasis small">{{ item.title }}</span>
                   </div>
                   <div class="progress-group-bars">
-                    <CProgress
-                      thin
-                      color="info-gradient"
-                      :value="item.value1"
-                    />
-                    <CProgress
-                      thin
-                      color="danger-gradient"
-                      :value="item.value2"
-                    />
+                    <CProgress thin color="info-gradient" :value="item.value1" />
+                    <CProgress thin color="danger-gradient" :value="item.value2" />
                   </div>
                 </div>
               </CCol>
               <CCol :sm="12" :lg="6">
                 <CRow>
                   <CCol :sm="6">
-                    <div
-                      class="border-start border-start-4 border-start-warning py-1 px-3 mb-3"
-                    >
+                    <div class="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
                       <div class="text-medium-emphasis small">Pageviews</div>
                       <div class="fs-5 fw-semibold">78,623</div>
                     </div>
                   </CCol>
                   <CCol :sm="6">
-                    <div
-                      class="border-start border-start-4 border-start-success py-1 px-3 mb-3"
-                    >
+                    <div class="border-start border-start-4 border-start-success py-1 px-3 mb-3">
                       <div class="text-medium-emphasis small">Organic</div>
                       <div class="fs-5 fw-semibold">49,123</div>
                     </div>
                   </CCol>
                 </CRow>
                 <hr class="mt-0" />
-                <div
-                  v-for="item in progressGroupExample2"
-                  :key="item.title"
-                  class="progress-group"
-                >
+                <div v-for="item in progressGroupExample2" :key="item.title" class="progress-group">
                   <div class="progress-group-header">
                     <CIcon :icon="item.icon" class="me-2" size="lg" />
                     <span class="title">{{ item.title }}</span>
                     <span class="ms-auto fw-semibold">{{ item.value }}%</span>
                   </div>
                   <div class="progress-group-bars">
-                    <CProgress
-                      thin
-                      :value="item.value"
-                      color="warning-gradient"
-                    />
+                    <CProgress thin :value="item.value" color="warning-gradient" />
                   </div>
                 </div>
 
                 <div class="mb-5"></div>
 
-                <div
-                  v-for="item in progressGroupExample3"
-                  :key="item.title"
-                  class="progress-group"
-                >
+                <div v-for="item in progressGroupExample3" :key="item.title" class="progress-group">
                   <div class="progress-group-header">
                     <CIcon :icon="item.icon" class="me-2" size="lg" />
                     <span class="title">Organic Search</span>
                     <span class="ms-auto fw-semibold">
                       {{ item.value }}
-                      <span class="text-medium-emphasis small"
-                        >({{ item.percent }}%)</span
-                      >
+                      <span class="text-medium-emphasis small">({{ item.percent }}%)</span>
                     </span>
                   </div>
                   <div class="progress-group-bars">
-                    <CProgress
-                      thin
-                      :value="item.percent"
-                      color="success-gradient"
-                    />
+                    <CProgress thin :value="item.percent" color="success-gradient" />
                   </div>
                 </div>
               </CCol>
@@ -189,24 +147,16 @@
                     <CIcon name="cil-people" />
                   </CTableHeaderCell>
                   <CTableHeaderCell>User</CTableHeaderCell>
-                  <CTableHeaderCell class="text-center"
-                    >Country</CTableHeaderCell
-                  >
+                  <CTableHeaderCell class="text-center">Country</CTableHeaderCell>
                   <CTableHeaderCell>Usage</CTableHeaderCell>
-                  <CTableHeaderCell class="text-center"
-                    >Payment Method</CTableHeaderCell
-                  >
+                  <CTableHeaderCell class="text-center">Payment Method</CTableHeaderCell>
                   <CTableHeaderCell>Activity</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
                 <CTableRow v-for="item in tableExample" :key="item.name">
                   <CTableDataCell class="text-center">
-                    <CAvatar
-                      size="md"
-                      :src="item.avatar.src"
-                      :status="item.avatar.status"
-                    />
+                    <CAvatar size="md" :src="item.avatar.src" :status="item.avatar.status" />
                   </CTableDataCell>
                   <CTableDataCell>
                     <div>{{ item.user.name }}</div>
@@ -216,11 +166,7 @@
                     </div>
                   </CTableDataCell>
                   <CTableDataCell class="text-center">
-                    <CIcon
-                      size="xl"
-                      :name="item.country.flag"
-                      :title="item.country.name"
-                    />
+                    <CIcon size="xl" :name="item.country.flag" :title="item.country.name" />
                   </CTableDataCell>
                   <CTableDataCell>
                     <div class="clearfix">
@@ -233,11 +179,7 @@
                         </small>
                       </div>
                     </div>
-                    <CProgress
-                      thin
-                      :color="item.usage.color"
-                      :value="item.usage.value"
-                    />
+                    <CProgress thin :color="item.usage.color" :value="item.usage.value" />
                   </CTableDataCell>
                   <CTableDataCell class="text-center">
                     <CIcon size="xl" :name="item.payment.icon" />

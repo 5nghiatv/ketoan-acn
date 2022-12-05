@@ -74,18 +74,10 @@
             <CIcon icon="cilTags" />
           </CDropdownToggle>
           <CDropdownMenu>
-            <CDropdownItem href="#">
-              add label<CBadge color="danger-gradient"> Home</CBadge>
-            </CDropdownItem>
-            <CDropdownItem href="#">
-              add label<CBadge color="info-gradient"> Job</CBadge>
-            </CDropdownItem>
-            <CDropdownItem href="#">
-              add label<CBadge color="success-gradient"> Clients</CBadge>
-            </CDropdownItem>
-            <CDropdownItem href="#">
-              add label<CBadge color="warning-gradient"> News</CBadge>
-            </CDropdownItem>
+            <CDropdownItem href="#"> add label<CBadge color="danger-gradient"> Home</CBadge> </CDropdownItem>
+            <CDropdownItem href="#"> add label<CBadge color="info-gradient"> Job</CBadge> </CDropdownItem>
+            <CDropdownItem href="#"> add label<CBadge color="success-gradient"> Clients</CBadge> </CDropdownItem>
+            <CDropdownItem href="#"> add label<CBadge color="warning-gradient"> News</CBadge> </CDropdownItem>
           </CDropdownMenu>
         </CDropdown>
       </CButtonToolbar>

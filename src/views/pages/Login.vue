@@ -10,18 +10,12 @@
               <CCardBody>
                 <CForm @submit.prevent="submitForm">
                   <h1>Login</h1>
-                  <p class="text-medium-emphasis">
-                    Đăng nhập vào tài khoản của bạn
-                  </p>
+                  <p class="text-medium-emphasis">Đăng nhập vào tài khoản của bạn</p>
                   <CInputGroup class="mb-3">
                     <CInputGroupText>
                       <CIcon icon="cil-user" />
                     </CInputGroupText>
-                    <CFormInput
-                      v-model="email"
-                      placeholder="Username"
-                      autocomplete="username"
-                    />
+                    <CFormInput v-model="email" placeholder="Username" autocomplete="username" />
                   </CInputGroup>
                   <CInputGroup class="mb-3">
                     <CInputGroupText>
@@ -36,21 +30,10 @@
                   </CInputGroup>
                   <CRow>
                     <CCol :xs="6">
-                      <CButton
-                        type="submit"
-                        @click="login()"
-                        color="primary"
-                        class="px-4"
-                      >
-                        Login
-                      </CButton>
+                      <CButton type="submit" @click="login()" color="primary" class="px-4"> Login </CButton>
                     </CCol>
                     <CCol :xs="6" class="text-right">
-                      <CButton
-                        type="submit"
-                        @click="changePasw()"
-                        color="link"
-                        class="px-0"
+                      <CButton type="submit" @click="changePasw()" color="link" class="px-0"
                         >Forgot password</CButton
                       >
                     </CCol>
@@ -108,9 +91,7 @@
                           {{ value.taxcode }}
                         </div>
                       </template> -->
-                      <template v-slot:option="{ option }">
-                        {{ option.taxcode }} {{ option.company }}
-                      </template>
+                      <template v-slot:option="{ option }"> {{ option.taxcode }} {{ option.company }} </template>
                     </Multiselect>
                   </CCol>
                 </CRow>
@@ -120,19 +101,14 @@
                 <div class="wrapper_">
                   <div class="danhmuc">
                     <label style="color: blueviolet; cursor: pointer">
-                      <a
-                        title="Refresh Database..."
-                        v-on:click="readDanhmuc('connects', true)"
-                      >
+                      <a title="Refresh Database..." v-on:click="readDanhmuc('connects', true)">
                         Company...</a
                       ></label
                     >
                   </div>
                   <div class="author">
                     <label style="color: blueviolet; cursor: pointer">
-                      <a title="Liên hệ tác giả..." @click="contactAuthor()">
-                        Author...</a
-                      ></label
+                      <a title="Liên hệ tác giả..." @click="contactAuthor()"> Author...</a></label
                     >
                   </div>
                   <div class="d-flex flex-row-reverse">
@@ -161,13 +137,7 @@
                 <h2>Sign up</h2>
                 <CRow>
                   <CCol sm="6">
-                    <CButton
-                      color="light"
-                      variant="outline"
-                      @click="register()"
-                    >
-                      Register Now!
-                    </CButton>
+                    <CButton color="light" variant="outline" @click="register()"> Register Now! </CButton>
                   </CCol>
                   <CCol sm="6">
                     <!-- <CButton color="light" variant="outline"  @click="changePasw()" > Change Password!  </CButton> -->
@@ -257,9 +227,7 @@ export default {
     },
     gioihanthoigian() {
       const selectVal = document.getElementById('mySelect').value
-      var year = moment(this.fromtodate.pd_fromdate)
-        .format('YYYY-MM-DD')
-        .substr(0, 4)
+      var year = moment(this.fromtodate.pd_fromdate).format('YYYY-MM-DD').substr(0, 4)
       // Default Cả năm
       this.fromtodate.pd_fromdate = year + '-01-01'
       this.fromtodate.pd_todate = year + '-12-31'
@@ -306,46 +274,30 @@ export default {
           this.connect = this.connects[index]
           //console.log(this.company, this.connect)
           this.options[1] = 'Đơn vị : ' + this.company.company
-          this.options[2] =
-            '- Từ ngày  : ' + moment(item.fromdate).format('DD-MM-YYYY')
-          this.options[3] =
-            '- Đến ngày: ' + moment(item.todate).format('DD-MM-YYYY')
+          this.options[2] = '- Từ ngày  : ' + moment(item.fromdate).format('DD-MM-YYYY')
+          this.options[3] = '- Đến ngày: ' + moment(item.todate).format('DD-MM-YYYY')
           this.danhap.fromdate = item.fromdate
           this.danhap.todate = item.todate
         }
       })
     },
     testValidator(field) {
-      var fryear = new Date(this.fromtodate.pd_fromdate)
-        .toISOString()
-        .replace('T', ' ')
-        .substr(0, 4)
-      var toyear = new Date(this.fromtodate.pd_todate)
-        .toISOString()
-        .replace('T', ' ')
-        .substr(0, 4)
-      if (field == 'pd_fromdate')
-        return (this.Validator.pd_fromdate = fryear == toyear)
-      if (field == 'pd_todate')
-        return (this.Validator.pd_todate = fryear == toyear)
-      if (field == 'masothue')
-        return (this.Validator.masothue = this.company.masothue != '')
+      var fryear = new Date(this.fromtodate.pd_fromdate).toISOString().replace('T', ' ').substr(0, 4)
+      var toyear = new Date(this.fromtodate.pd_todate).toISOString().replace('T', ' ').substr(0, 4)
+      if (field == 'pd_fromdate') return (this.Validator.pd_fromdate = fryear == toyear)
+      if (field == 'pd_todate') return (this.Validator.pd_todate = fryear == toyear)
+      if (field == 'masothue') return (this.Validator.masothue = this.company.masothue != '')
       if (field == 'email') return (this.Validator.email = this.email != '')
       let passe =
         this.email &&
         this.Validator.masothue &&
         this.Validator.pd_fromdate &&
-        new Date(this.fromtodate.pd_todate) >=
-          new Date(this.fromtodate.pd_fromdate)
+        new Date(this.fromtodate.pd_todate) >= new Date(this.fromtodate.pd_fromdate)
       var mess = 'Vui lòng nhập đầy đủ thông tin ...'
       if (!passe) {
         if (fryear !== toyear) mess = 'Từ NGÀY và Đến ngày phải cùng NĂM ..'
-        if (!this.Validator.masothue)
-          mess = 'Phải chọn mã số thuế cho Công ty ..'
-        if (
-          new Date(this.fromtodate.pd_todate) <
-          new Date(this.fromtodate.pd_fromdate)
-        )
+        if (!this.Validator.masothue) mess = 'Phải chọn mã số thuế cho Công ty ..'
+        if (new Date(this.fromtodate.pd_todate) < new Date(this.fromtodate.pd_fromdate))
           mess = 'Từ NGÀY phải nhỏ hơn Đến ngày và phải cùng NĂM ..'
         //this.$message({ message: mess, type: 'warning' })
         this.$toastr.warning('', mess)
@@ -371,10 +323,7 @@ export default {
         .then(() => {
           //console.log(data);
           if (window.location.origin.includes('localhost')) console.log(url)
-          this.$toastr.success(
-            '',
-            'Vui lòng check email để nhận link thay đổi Password.',
-          )
+          this.$toastr.success('', 'Vui lòng check email để nhận link thay đổi Password.')
         })
         .catch((error) => {
           this.$toastr.error('', 'Gửi email không thành công.')
@@ -382,8 +331,7 @@ export default {
         })
     },
     changePasw() {
-      if (!this.email)
-        return this.$toastr.warning('', 'Bạn chưa nhập địa chỉ email...')
+      if (!this.email) return this.$toastr.warning('', 'Bạn chưa nhập địa chỉ email...')
       this.$apiAcn
         .get('useremail/' + this.email)
         .then((data) => {
@@ -393,18 +341,11 @@ export default {
           //console.log('id:',id, data.data.User)
           if (userid) {
             this.sendMail(userid)
-          } else
-            this.$toastr.warning(
-              '',
-              'Email: ' + this.email + ' chưa được đăng ký.',
-            )
+          } else this.$toastr.warning('', 'Email: ' + this.email + ' chưa được đăng ký.')
         })
         .catch((error) => {
           if (error.response.status == 404) {
-            this.$toastr.warning(
-              '',
-              'Email: ' + this.email + ' chưa được đăng ký.',
-            )
+            this.$toastr.warning('', 'Email: ' + this.email + ' chưa được đăng ký.')
           } else this.$toastr.error('', 'Server error. Please try again.')
           console.log(error)
         })
@@ -425,8 +366,7 @@ export default {
             this.company.connect_id = ''
             var mess = 'Vui lòng chọn dữ liệu Công ty...'
             if (data.data['connects'].length == 0)
-              mess =
-                'Email chưa đăng ký hoặc chưa cấp quyền sử dụng Database...'
+              mess = 'Email chưa đăng ký hoặc chưa cấp quyền sử dụng Database...'
             //this.$message({ message: mess, type: 'warning' ,duration: 6000 })
             this.$toastr.warning('', mess)
             this.readDanhmuc('connects', true)
@@ -441,30 +381,18 @@ export default {
             })
             .then(async (data) => {
               data.data['company'] = this.company
-              var tt200 =
-                '(Ban hành theo TT số: 200/2014/TT-BTC ngày 22/12/2014 của Bộ trưởng BTC)'
-              var tt133 =
-                '(Ban hành theo TT số: 133/2016/TT-BTC ngày 26/08/2016 của Bộ trưởng BTC)'
+              var tt200 = '(Ban hành theo TT số: 200/2014/TT-BTC ngày 22/12/2014 của Bộ trưởng BTC)'
+              var tt133 = '(Ban hành theo TT số: 133/2016/TT-BTC ngày 26/08/2016 của Bộ trưởng BTC)'
               data.data['fromtodate'] = this.fromtodate
-              data.data['fromtodate']['tungay'] = moment(
-                this.fromtodate.pd_fromdate,
-              ).format('DD-MM-YYYY')
-              data.data['fromtodate']['denngay'] = moment(
-                this.fromtodate.pd_todate,
-              ).format('DD-MM-YYYY')
+              data.data['fromtodate']['tungay'] = moment(this.fromtodate.pd_fromdate).format('DD-MM-YYYY')
+              data.data['fromtodate']['denngay'] = moment(this.fromtodate.pd_todate).format('DD-MM-YYYY')
               data.data['email'] = this.email
-              data.data['company']['thongtutc'] = this.company.dnlon
-                ? tt200
-                : tt133
+              data.data['company']['thongtutc'] = this.company.dnlon ? tt200 : tt133
               data.data['locale'] = this.locale // giữ nguyên khi this.$jwtAcn.getKetoan()
               await this.$store.dispatch('login', data)
               var cmess = 'Đăng nhập thành công...'
               if (
-                this.fromtodate.pd_fromdate >
-                  moment(this.danhap.todate, 'YYYY-MM-DD').add(
-                    'YYYY-MM-DD',
-                    1,
-                  ) ||
+                this.fromtodate.pd_fromdate > moment(this.danhap.todate, 'YYYY-MM-DD').add('YYYY-MM-DD', 1) ||
                 this.fromtodate.pd_todate < this.danhap.fromdate
               ) {
                 cmess = cmess + 'Nhưng từ đến ngày đã chọn CHƯA CÓ CHỨNG TỪ.'
@@ -476,9 +404,7 @@ export default {
                   // eslint-disable-next-line
                   if (typeof ret && typeof data && typeof customer_) {
                     if (ret.data.customer_.length == 0) {
-                      cmess =
-                        cmess +
-                        ' (...Mã số thuế Công ty chưa có trong danh mục )'
+                      cmess = cmess + ' (...Mã số thuế Công ty chưa có trong danh mục )'
                     } else {
                       let item = ret.data.customer_[0]
                       this.company['company'] = item['company']

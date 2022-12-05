@@ -43,12 +43,7 @@
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
@@ -59,18 +54,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
 
@@ -248,14 +234,10 @@ export default {
   methods: {
     submitForm() {},
     testValidator(field) {
-      if (field == 'mahang')
-        return (this.Validator.mahang = this.todo.mahang != '')
-      if (field == 'tenhang')
-        return (this.Validator.tenhang = this.todo.tenhang != '')
-      if (field == 'donvi')
-        return (this.Validator.donvi = this.todo.donvi != '')
-      let passe =
-        this.Validator.mahang && this.Validator.tenhang && this.Validator.donvi
+      if (field == 'mahang') return (this.Validator.mahang = this.todo.mahang != '')
+      if (field == 'tenhang') return (this.Validator.tenhang = this.todo.tenhang != '')
+      if (field == 'donvi') return (this.Validator.donvi = this.todo.donvi != '')
+      let passe = this.Validator.mahang && this.Validator.tenhang && this.Validator.donvi
       if (!passe) {
         this.$toastr.warning('', 'Vui lòng nhập đầy đủ thông tin.')
       }
@@ -359,9 +341,7 @@ export default {
     },
 
     deleteTodo(index, row) {
-      if (
-        !confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')
-      ) {
+      if (!confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')) {
         return
       }
 
@@ -446,15 +426,7 @@ export default {
       this.infoketoan['filename'] = 'DanhMucHangHoa.xlsx'
       this.infoketoan['sheetname'] = 'Danh mục hàng hóa'
       this.infoketoan['urlget'] = 'tenhangs'
-      this.infoketoan['fields'] = [
-        'mahang',
-        'tenhang',
-        'donvi',
-        'sotk',
-        'newdonvi',
-        'newluong',
-        'descriptio',
-      ]
+      this.infoketoan['fields'] = ['mahang', 'tenhang', 'donvi', 'sotk', 'newdonvi', 'newluong', 'descriptio']
       this.infoketoan['sumcolumn'] = 0
       this.$store.commit('set', ['isLoading', true])
       this.$apiAcn
@@ -484,9 +456,7 @@ export default {
   },
   watch: {
     updaterec() {
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
     },
   },
   computed: {

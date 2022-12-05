@@ -51,11 +51,7 @@ export default {
         :src="`/games/images/${value}.png`"
         :alt="value"
       />
-      <img
-        v-if="matched"
-        src="/games/images/checkmark.svg"
-        class="icon-checkmark"
-      />
+      <img v-if="matched" src="/games/images/checkmark.svg" class="icon-checkmark" />
     </div>
     <div class="card-face is-back"></div>
   </div>

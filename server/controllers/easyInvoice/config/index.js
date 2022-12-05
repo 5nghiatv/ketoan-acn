@@ -1,7 +1,7 @@
-"use strict";
+'use strict'
 
-var init = function() {
-  return require("./config.json");
-};
+var init = function () {
+  return require('./config.json')
+}
 
-module.exports = init();
+module.exports = init()

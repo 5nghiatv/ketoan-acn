@@ -39,65 +39,26 @@
           <span v-if="setColorNumber('pending')">Options</span> -->
 
           <div class="radio">
-            <label
-              ><input
-                @click="chonOptKetoan(0)"
-                type="radio"
-                id="optradio_0"
-                checked
-              />Chứng từ</label
-            >
+            <label><input @click="chonOptKetoan(0)" type="radio" id="optradio_0" checked />Chứng từ</label>
           </div>
           <div class="radio">
-            <label
-              ><input
-                @click="chonOptKetoan(1)"
-                type="radio"
-                id="optradio_1"
-              />Chi tiết</label
-            >
+            <label><input @click="chonOptKetoan(1)" type="radio" id="optradio_1" />Chi tiết</label>
           </div>
           <div class="radio">
-            <label
-              ><input
-                @click="chonOptKetoan(2)"
-                type="radio"
-                id="optradio_2"
-              />Hàng hóa</label
-            >
+            <label><input @click="chonOptKetoan(2)" type="radio" id="optradio_2" />Hàng hóa</label>
           </div>
           <div class="radio">
-            <label
-              ><input
-                @click="chonOptKetoan(3)"
-                type="radio"
-                id="optradio_3"
-              />Hóa đơn</label
-            >
+            <label><input @click="chonOptKetoan(3)" type="radio" id="optradio_3" />Hóa đơn</label>
           </div>
         </div>
       </div>
       <div class="right flex">
-        <button @click="toggleEditDocument" class="purple">
-          Edit&minus;Doc
-        </button>
-        <button
-          v-if="ktChitiet === 0"
-          @click="toggleEditAddDocument(currentDocument.ctid)"
-          class="dark-purple"
-        >
+        <button @click="toggleEditDocument" class="purple">Edit&minus;Doc</button>
+        <button v-if="ktChitiet === 0" @click="toggleEditAddDocument(currentDocument.ctid)" class="dark-purple">
           Edit+
         </button>
-        <button
-          v-if="ktChitiet === 0"
-          @click="copyDocument(currentDocument.ctid)"
-          class="green"
-        >
-          Copy
-        </button>
-        <button @click="deleteDocument(currentDocument.ctid)" class="red">
-          Del
-        </button>
+        <button v-if="ktChitiet === 0" @click="copyDocument(currentDocument.ctid)" class="green">Copy</button>
+        <button @click="deleteDocument(currentDocument.ctid)" class="red">Del</button>
       </div>
     </div>
 
@@ -170,11 +131,7 @@
             <p>TK_Có</p>
             <p>Số tiền</p>
           </div>
-          <div
-            v-for="(item, index) in documentDataChitiet"
-            :key="index"
-            class="item flex"
-          >
+          <div v-for="(item, index) in documentDataChitiet" :key="index" class="item flex">
             <p>{{ item.diengiai }}</p>
             <p>{{ item.tkno }}</p>
             <p>{{ item.tkco }}</p>
@@ -197,11 +154,7 @@
             <p>Số lượng</p>
             <p>Thành tiền</p>
           </div>
-          <div
-            v-for="(item, index) in documentDataVattu"
-            :key="index"
-            class="item flex"
-          >
+          <div v-for="(item, index) in documentDataVattu" :key="index" class="item flex">
             <p>{{ item.tenhang }}</p>
             <p>{{ item.mahang }}</p>
             <p>{{ item.donvi }}</p>
@@ -227,11 +180,7 @@
             <p>Thuế gtgt</p>
             <p>Giá bán</p>
           </div>
-          <div
-            v-for="(item, index) in documentDataHoadon"
-            :key="index"
-            class="item flex"
-          >
+          <div v-for="(item, index) in documentDataHoadon" :key="index" class="item flex">
             <p>{{ item.sohd }}</p>
             <p>{{ item.ngay }}</p>
             <p>{{ item.masothue }}</p>
@@ -239,12 +188,8 @@
             <p>
               {{
                 numberFormat(
-                  (typeof item.giaban === 'number'
-                    ? item.giaban
-                    : item.giaban.split('.').join('') * 1) +
-                    (typeof item.thuegtgt === 'number'
-                      ? item.thuegtgt
-                      : item.thuegtgt.split('.').join('') * 1),
+                  (typeof item.giaban === 'number' ? item.giaban : item.giaban.split('.').join('') * 1) +
+                    (typeof item.thuegtgt === 'number' ? item.thuegtgt : item.thuegtgt.split('.').join('') * 1),
                 )
               }}
             </p>
@@ -379,13 +324,7 @@ export default {
           // a: giá trị oject trước -- b: giá trị oject hiện hành
           if (this.documentDataChitiet && this.documentDataChitiet.length != 0)
             this.congChitiet.chitiet = this.documentDataChitiet.reduce(
-              (a, b) =>
-                +a +
-                +(b.sotien == 0
-                  ? 0
-                  : parseInt(
-                      b.sotien.split('.').join('').split(',').join('.'),
-                    )),
+              (a, b) => +a + +(b.sotien == 0 ? 0 : parseInt(b.sotien.split('.').join('').split(',').join('.'))),
               0,
             )
           if (this.currentDocument)
@@ -393,24 +332,12 @@ export default {
               this.congChitiet.chitiet == 0
                 ? 0
                 : this.congChitiet.chitiet -
-                  parseInt(
-                    this.currentDocument.sotien
-                      .split('.')
-                      .join('')
-                      .split(',')
-                      .join('.'),
-                  )
+                  parseInt(this.currentDocument.sotien.split('.').join('').split(',').join('.'))
           break
         case 2:
           if (this.documentDataVattu && this.documentDataVattu.length != 0)
             this.congChitiet.vattu = this.documentDataVattu.reduce(
-              (a, b) =>
-                +a +
-                +(b.sotien == 0
-                  ? 0
-                  : parseInt(
-                      b.sotien.split('.').join('').split(',').join('.'),
-                    )),
+              (a, b) => +a + +(b.sotien == 0 ? 0 : parseInt(b.sotien.split('.').join('').split(',').join('.'))),
               0,
             )
           if (this.currentDocument)
@@ -418,25 +345,13 @@ export default {
               this.congChitiet.vattu == 0
                 ? 0
                 : this.congChitiet.vattu -
-                  parseInt(
-                    this.currentDocument.sotien
-                      .split('.')
-                      .join('')
-                      .split(',')
-                      .join('.'),
-                  )
+                  parseInt(this.currentDocument.sotien.split('.').join('').split(',').join('.'))
           break
         case 3:
           //console.log(111, this.documentDataHoadon)
           if (this.documentDataHoadon && this.documentDataHoadon.length != 0)
             this.congChitiet.hoadon = this.documentDataHoadon.reduce(
-              (a, b) =>
-                +a +
-                +(b.giaban == 0
-                  ? 0
-                  : parseInt(
-                      b.giaban.split('.').join('').split(',').join('.'),
-                    )),
+              (a, b) => +a + +(b.giaban == 0 ? 0 : parseInt(b.giaban.split('.').join('').split(',').join('.'))),
               0,
             )
           //console.log(this.congChitiet.hoadon, this.documentDataHoadon)
@@ -445,13 +360,7 @@ export default {
               this.congChitiet.hoadon == 0
                 ? 0
                 : this.congChitiet.hoadon -
-                  parseInt(
-                    this.currentDocument.sotien
-                      .split('.')
-                      .join('')
-                      .split(',')
-                      .join('.'),
-                  )
+                  parseInt(this.currentDocument.sotien.split('.').join('').split(',').join('.'))
           break
         default:
           this.chenhlechChitiet = 0
@@ -503,16 +412,9 @@ export default {
       }
     },
     deleteDocument() {
-      var ctid =
-        this.currentDocumentArray.length > 0
-          ? this.currentDocumentArray[0].ctid
-          : this.$route.params.ctid
+      var ctid = this.currentDocumentArray.length > 0 ? this.currentDocumentArray[0].ctid : this.$route.params.ctid
       this.currentModel = 'Delete'
-      this.TOGGLE_MODAL_NEW(
-        `Xác nhận Thực hiện XÓA chứng từ (${ctid})` +
-          this.optMess +
-          ' hoặc Kết thúc ?',
-      )
+      this.TOGGLE_MODAL_NEW(`Xác nhận Thực hiện XÓA chứng từ (${ctid})` + this.optMess + ' hoặc Kết thúc ?')
     },
     copyDocument() {
       this.currentModel = 'Copy'

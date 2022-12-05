@@ -13,9 +13,7 @@ exports.getAllTenhang = async function (req, res) {
       tenhangs: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -30,9 +28,7 @@ exports.getSingleTenhang = async function (req, res) {
       tenhang: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -56,9 +52,7 @@ exports.createTenhang = async function (req, res) {
       tenhang: req.body,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -81,29 +75,20 @@ exports.updateTenhang = async function (req, res) {
       tenhang: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
 // delete a Tenhang
 exports.deleteTenhang = async function (req, res) {
   try {
-    let rows = await runQuerySync(
-      'DELETE FROM tenhang WHERE id = ?',
-      [req.params.id],
-      req,
-      res,
-    )
+    let rows = await runQuerySync('DELETE FROM tenhang WHERE id = ?', [req.params.id], req, res)
     res.status(204).json({
       success: true,
       message: 'Tenhang Deleted successfully',
       tenhang: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }

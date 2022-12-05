@@ -122,8 +122,7 @@ exports.updateUser = async function (req, res) {
   if (!__mongodb) {
     return updateUserSql(req, res)
   } else {
-    if (req.body.newPassword)
-      req.body.password = await bcrypt.hash(req.body.newPassword, 10)
+    if (req.body.newPassword) req.body.password = await bcrypt.hash(req.body.newPassword, 10)
     const updateObject = req.body
     User.updateOne({ _id: req.params.id }, { $set: updateObject })
       .exec()

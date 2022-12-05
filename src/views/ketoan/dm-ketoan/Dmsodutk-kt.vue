@@ -66,12 +66,7 @@
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
@@ -82,18 +77,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
               </div>
@@ -133,27 +119,15 @@
         Mang số dư</a
       >
       <a style="float: right">&nbsp;</a>
-      <a
-        class="btn btn-outline-info btn-sm"
-        style="float: right"
-        @click="tinhcandoi('tinhcandoips')"
-      >
+      <a class="btn btn-outline-info btn-sm" style="float: right" @click="tinhcandoi('tinhcandoips')">
         Tính cân đối</a
       >
     </h2>
     <CRow>
       <CCol md="3" style="float: right">
         <CInputGroup class="mb-3">
-          <CFormInput
-            size="sm"
-            id="pd_fromdate"
-            :placeholder="infoketoan.fromtodate.tungay"
-          />
-          <CFormInput
-            size="sm"
-            id="pd_todate"
-            :placeholder="infoketoan.fromtodate.denngay"
-          />
+          <CFormInput size="sm" id="pd_fromdate" :placeholder="infoketoan.fromtodate.tungay" />
+          <CFormInput size="sm" id="pd_todate" :placeholder="infoketoan.fromtodate.denngay" />
         </CInputGroup>
       </CCol>
 
@@ -369,11 +343,8 @@ export default {
       } else {
         let temp = this.todos.filter((row) => {
           return (
-            row.nodk + row.codk + row.psno + row.psco + row.nock + row.cock >
-              0 ||
-            (row.nodk + row.codk + row.psno + row.psco + row.nock + row.cock)
-              .toString()
-              .indexOf('.') != -1
+            row.nodk + row.codk + row.psno + row.psco + row.nock + row.cock > 0 ||
+            (row.nodk + row.codk + row.psno + row.psco + row.nock + row.cock).toString().indexOf('.') != -1
           )
         })
         this.todosSave = this.todos // Lưu
@@ -407,8 +378,7 @@ export default {
       if (!this.todo.ngoaite) this.todo.ngoaite = 0
 
       if (field == 'sotk') return (this.Validator.sotk = this.todo.sotk != '')
-      if (field == 'tentk')
-        return (this.Validator.tentk = this.todo.tentk != '')
+      if (field == 'tentk') return (this.Validator.tentk = this.todo.tentk != '')
       let passe = this.Validator.sotk && this.Validator.tentk
       if (!passe) {
         this.$toastr.warning('', 'Vui lòng nhập đầy đủ thông tin.')
@@ -510,9 +480,7 @@ export default {
         })
     },
     deleteTodo(index, row) {
-      if (
-        !confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')
-      ) {
+      if (!confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')) {
         return
       }
       if (!alert('Vui lòng liên hệ 0903917963...!! ')) return
@@ -626,9 +594,7 @@ export default {
   },
   watch: {
     updaterec() {
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
     },
   },
   computed: {

@@ -26,7 +26,7 @@
       </el-table-column>
 
       <el-table-column class-name="status-col" label="Status" width="110">
-        <template slot-scope="{row}">
+        <template slot-scope="{ row }">
           <el-tag :type="row.status | statusFilter">
             {{ row.status }}
           </el-tag>
@@ -34,8 +34,8 @@
       </el-table-column>
 
       <el-table-column min-width="300px" label="Title">
-        <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.id" class="link-type">
+        <template slot-scope="{ row }">
+          <router-link :to="'/example/edit/' + row.id" class="link-type">
             <span>{{ row.title }}</span>
           </router-link>
         </template>
@@ -43,16 +43,20 @@
 
       <el-table-column align="center" label="Actions" width="120">
         <template slot-scope="scope">
-          <router-link :to="'/example/edit/'+scope.row.id">
-            <el-button type="primary" size="small" icon="el-icon-edit">
-              Edit
-            </el-button>
+          <router-link :to="'/example/edit/' + scope.row.id">
+            <el-button type="primary" size="small" icon="el-icon-edit"> Edit </el-button>
           </router-link>
         </template>
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination
+      v-show="total > 0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.limit"
+      @pagination="getList"
+    />
   </div>
 </template>
 
@@ -68,10 +72,10 @@ export default {
       const statusMap = {
         published: 'success',
         draft: 'info',
-        deleted: 'danger'
+        deleted: 'danger',
       }
       return statusMap[status]
-    }
+    },
   },
   data() {
     return {
@@ -80,8 +84,8 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
-      }
+        limit: 20,
+      },
     }
   },
   created() {
@@ -90,13 +94,13 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
+      fetchList(this.listQuery).then((response) => {
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

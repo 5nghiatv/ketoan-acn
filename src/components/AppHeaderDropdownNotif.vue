@@ -2,33 +2,19 @@
   <CDropdown variant="nav-item">
     <CDropdownToggle placement="bottom-end" :caret="false">
       <CIcon class="my-1 mx-2" icon="cil-bell" size="lg" />
-      <CBadge
-        class="position-absolute top-0 end-0"
-        color="danger-gradient"
-        shape="rounded-pill"
-        >{{ itemsCount }}</CBadge
-      >
+      <CBadge class="position-absolute top-0 end-0" color="danger-gradient" shape="rounded-pill">{{
+        itemsCount
+      }}</CBadge>
     </CDropdownToggle>
     <CDropdownMenu class="pt-0">
       <CDropdownHeader class="bg-light">
         <strong>You have {{ itemsCount }} notifications</strong>
       </CDropdownHeader>
-      <CDropdownItem>
-        <CIcon icon="cil-user-follow" class="text-success" /> New user
-        registered
-      </CDropdownItem>
-      <CDropdownItem>
-        <CIcon icon="cil-user-unfollow" class="text-danger" /> User deleted
-      </CDropdownItem>
-      <CDropdownItem>
-        <CIcon icon="cil-chart-pie" class="text-info" /> Sales report is ready
-      </CDropdownItem>
-      <CDropdownItem>
-        <CIcon icon="cil-basket" class="text-primary" /> New client
-      </CDropdownItem>
-      <CDropdownItem>
-        <CIcon icon="cil-speedometer" class="text-warning" /> Server overloaded
-      </CDropdownItem>
+      <CDropdownItem> <CIcon icon="cil-user-follow" class="text-success" /> New user registered </CDropdownItem>
+      <CDropdownItem> <CIcon icon="cil-user-unfollow" class="text-danger" /> User deleted </CDropdownItem>
+      <CDropdownItem> <CIcon icon="cil-chart-pie" class="text-info" /> Sales report is ready </CDropdownItem>
+      <CDropdownItem> <CIcon icon="cil-basket" class="text-primary" /> New client </CDropdownItem>
+      <CDropdownItem> <CIcon icon="cil-speedometer" class="text-warning" /> Server overloaded </CDropdownItem>
       <CDropdownHeader class="bg-light">
         <strong>Server</strong>
       </CDropdownHeader>

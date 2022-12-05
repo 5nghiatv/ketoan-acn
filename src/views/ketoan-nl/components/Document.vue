@@ -38,10 +38,7 @@ export default {
   name: 'document',
   props: ['document'],
   methods: {
-    ...mapMutations('myDocument', [
-      'SET_CURRENT_DOCUMENT',
-      'TOGGLE_DOCUMENT_VIEW',
-    ]),
+    ...mapMutations('myDocument', ['SET_CURRENT_DOCUMENT', 'TOGGLE_DOCUMENT_VIEW']),
     async setCurrentDoc(ctid) {
       // if(!this.$route.path.includes('/documents')) this.$router.replace('/documents');
       // reset url Luôn giữ đúng vì trước đó có thể dùng gotop || bottom

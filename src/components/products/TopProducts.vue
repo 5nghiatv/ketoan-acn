@@ -38,10 +38,7 @@ export default {
           this.topProducts = response.data
         })
         .catch(() => {
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
   },

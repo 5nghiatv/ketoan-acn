@@ -1,11 +1,6 @@
 <template>
   <div class="edit-product">
-    <modal
-      :header="'Edit Product'"
-      :isShow="showModal"
-      v-if="showModal"
-      @close="showModal = false"
-    >
+    <modal :header="'Edit Product'" :isShow="showModal" v-if="showModal" @close="showModal = false">
       <product-form :product="product" v-on:submit-form="productAction" />
     </modal>
   </div>
@@ -37,13 +32,9 @@ export default {
 
     productAction: function (product) {
       product.productCategory =
-        product.productCategory === 'Create New'
-          ? product.productCategoryDummy
-          : product.productCategory
+        product.productCategory === 'Create New' ? product.productCategoryDummy : product.productCategory
       product.productSeller =
-        product.productSeller === 'Create New'
-          ? product.productSellerDummy
-          : product.productSeller
+        product.productSeller === 'Create New' ? product.productSellerDummy : product.productSeller
       console.log('Updated Product Details', product)
 
       // Update the product to server
@@ -72,10 +63,7 @@ export default {
         })
         .catch((err) => {
           console.log('Error:', err)
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
     ...mapMutations(['SET_CART_PRODUCTS']),

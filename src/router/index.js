@@ -16,8 +16,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
       },
       {
         path: '/theme',
@@ -316,8 +315,7 @@ const routes = [
           {
             path: 'peek-a-vue-main',
             name: 'Peek-a-vue-main',
-            component: () =>
-              import('@/views/games/peek-a-vue-main/peek-a-vue-main.vue'),
+            component: () => import('@/views/games/peek-a-vue-main/peek-a-vue-main.vue'),
           },
         ],
       },
@@ -534,8 +532,7 @@ const routes = [
           {
             path: '/e-commerce/cart',
             name: 'cart',
-            component: () =>
-              import('@/components/products/cart/CartProducts.vue'),
+            component: () => import('@/components/products/cart/CartProducts.vue'),
           },
           {
             path: '/e-commerce/checkout',

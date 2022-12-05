@@ -4,8 +4,7 @@
 
 // Get all Chungtu
 exports.getAllChungtu = async function (req, res) {
-  var query =
-    'SELECT * FROM ctuktoan WHERE ngay >= ? AND ngay <= ? ORDER BY ngay,soct'
+  var query = 'SELECT * FROM ctuktoan WHERE ngay >= ? AND ngay <= ? ORDER BY ngay,soct'
   var tudengay = [req.body.pd_fromdate, req.body.pd_todate]
   try {
     let rows = await runQuerySync(query, tudengay, req, res)
@@ -34,9 +33,7 @@ exports.getSingleChungtu = async function (req, res) {
       chungtu: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -73,9 +70,7 @@ exports.createChungtu = async function (req, res) {
       chungtu: req.body,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -105,29 +100,20 @@ exports.updateChungtu = async function (req, res) {
       chungtu: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
 // delete a Chungtu
 exports.deleteChungtu = async function (req, res) {
   try {
-    let rows = await runQuerySync(
-      'DELETE FROM ctuktoan WHERE id = ?',
-      [req.params.id],
-      req,
-      res,
-    )
+    let rows = await runQuerySync('DELETE FROM ctuktoan WHERE id = ?', [req.params.id], req, res)
     res.status(204).json({
       success: true,
       message: 'Chungtu Deleted successfully',
       chungtu: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }

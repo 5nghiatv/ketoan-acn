@@ -13,9 +13,7 @@ exports.getAllChitiet = async function (req, res) {
       chitiets: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -30,9 +28,7 @@ exports.getSingleChitiet = async function (req, res) {
       chitiet: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -47,9 +43,7 @@ exports.getChitiet = async function (req, res) {
       chitiets: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 // Create Chitiet
@@ -77,9 +71,7 @@ exports.createChitiet = async function (req, res) {
       chitiet: req.body,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -105,9 +97,7 @@ exports.updateChitiet = async function (req, res) {
       chitiet: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -122,8 +112,6 @@ exports.deleteChitiet = async function (req, res) {
       chitiet: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }

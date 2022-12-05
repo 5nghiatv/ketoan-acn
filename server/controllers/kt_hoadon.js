@@ -13,9 +13,7 @@ exports.getAllHoadon = async function (req, res) {
       hoadons: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -30,9 +28,7 @@ exports.getSingleHoadon = async function (req, res) {
       hoadon: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 // get masothue from Hoadon
@@ -46,18 +42,13 @@ exports.getMastHoadon = async function (req, res) {
       hoadonms: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
 // get ctID Hoadon
 exports.getHoadon = async function (req, res) {
-  var query =
-    'SELECT * FROM hoadon WHERE ctid = ' +
-    req.params.ctid +
-    ' ORDER BY ngay, sohd'
+  var query = 'SELECT * FROM hoadon WHERE ctid = ' + req.params.ctid + ' ORDER BY ngay, sohd'
   try {
     let rows = await runQuerySync(query, [], req, res)
     return res.status(200).json({
@@ -66,9 +57,7 @@ exports.getHoadon = async function (req, res) {
       hoadons: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -104,9 +93,7 @@ exports.createHoadon = async function (req, res) {
       hoadon: req.body,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -138,29 +125,20 @@ exports.updateHoadon = async function (req, res) {
       hoadon: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
 // delete a Hoadon
 exports.deleteHoadon = async function (req, res) {
   try {
-    let rows = await runQuerySync(
-      'DELETE FROM hoadon WHERE id = ?',
-      [req.params.id],
-      req,
-      res,
-    )
+    let rows = await runQuerySync('DELETE FROM hoadon WHERE id = ?', [req.params.id], req, res)
     res.status(204).json({
       success: true,
       message: 'Hoadon Deleted successfully',
       hoadon: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }

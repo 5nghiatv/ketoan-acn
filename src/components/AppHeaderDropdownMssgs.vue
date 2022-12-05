@@ -2,11 +2,7 @@
   <CDropdown variant="nav-item" alignment="end">
     <CDropdownToggle class="c-header-nav-link" :caret="false">
       <CIcon icon="cil-envelope-open" size="lg" class="my-1 mx-2" />
-      <CBadge
-        shape="rounded-pill"
-        color="info-gradient"
-        class="position-absolute top-0 end-0"
-      >
+      <CBadge shape="rounded-pill" color="info-gradient" class="position-absolute top-0 end-0">
         {{ itemsCount }}
       </CBadge>
     </CDropdownToggle>
@@ -24,12 +20,10 @@
             <small class="text-medium-emphasis float-end mt-1">Just now</small>
           </div>
           <div class="text-truncate font-weight-bold">
-            <span class="fa fa-exclamation text-danger"></span> Important
-            message
+            <span class="fa fa-exclamation text-danger"></span> Important message
           </div>
           <div class="small text-medium-emphasis text-truncate">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </div>
         </div>
       </CDropdownItem>
@@ -40,16 +34,11 @@
           </div>
           <div>
             <small class="text-medium-emphasis">Xuân Mai</small>
-            <small class="text-medium-emphasis float-end mt-1"
-              >5 minutes ago</small
-            >
+            <small class="text-medium-emphasis float-end mt-1">5 minutes ago</small>
           </div>
-          <div class="text-truncate font-weight-bold">
-            Lorem ipsum dolor sit amet
-          </div>
+          <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
           <div class="small text-medium-emphasis text-truncate">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </div>
         </div>
       </CDropdownItem>
@@ -62,12 +51,9 @@
             <small class="text-medium-emphasis">Janet Doe</small>
             <small class="text-medium-emphasis float-end mt-1">1:52 PM</small>
           </div>
-          <div class="text-truncate font-weight-bold">
-            Lorem ipsum dolor sit amet
-          </div>
+          <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
           <div class="small text-medium-emphasis text-truncate">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </div>
         </div>
       </CDropdownItem>
@@ -80,12 +66,9 @@
             <small class="text-medium-emphasis">Mr Nghĩa</small>
             <small class="text-medium-emphasis float-end mt-1">4:03 AM</small>
           </div>
-          <div class="text-truncate font-weight-bold">
-            Lorem ipsum dolor sit amet
-          </div>
+          <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
           <div class="small text-medium-emphasis text-truncate">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </div>
         </div>
       </CDropdownItem>

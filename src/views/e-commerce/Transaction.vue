@@ -173,51 +173,22 @@ export default {
           this.todos = response.data.items
           //console.log(response.data)
           this.todos.forEach((item, index) => {
-            item.amount = this.number_format(
-              item['amount'] / item['exchange_rate'],
-              0,
-              ',',
-              '.',
-            )
-            item.fee = this.number_format(
-              item['fee'] / item['exchange_rate'],
-              0,
-              ',',
-              '.',
-            )
-            item.net = this.number_format(
-              item['net'] / item['exchange_rate'],
-              0,
-              ',',
-              '.',
-            )
-            item.exchange_rate = this.number_format(
-              (1 / item['exchange_rate']) * 100,
-              0,
-              ',',
-              '.',
-            )
+            item.amount = this.number_format(item['amount'] / item['exchange_rate'], 0, ',', '.')
+            item.fee = this.number_format(item['fee'] / item['exchange_rate'], 0, ',', '.')
+            item.net = this.number_format(item['net'] / item['exchange_rate'], 0, ',', '.')
+            item.exchange_rate = this.number_format((1 / item['exchange_rate']) * 100, 0, ',', '.')
             item.btnedit = `<a class="fa fa-pencil-square-o text-info mr-1"  id=1 href="javascript:void(0)"></a> <a class="fa fa-trash-o text-warning mr-1"  id=2 href="javascript:void(0)"></a>`
-            item.created = new Date(item.created * 1000)
-              .toISOString()
-              .replace(/T/, ' ')
-              .replace(/\..+/, '')
+            item.created = new Date(item.created * 1000).toISOString().replace(/T/, ' ').replace(/\..+/, '')
             item.id = index + 1
           })
           //console.log(this.todos);
         })
         .then(() => {
-          this.$toastr.success(
-            'XuânMai-VueShop',
-            'Transactions loaded Successfully',
-          )
+          this.$toastr.success('XuânMai-VueShop', 'Transactions loaded Successfully')
         })
         .catch((error) => {
           console.log(error)
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
     number_format(number, decimals, dec_point, thousands_sep) {

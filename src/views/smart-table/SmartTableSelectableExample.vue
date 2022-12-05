@@ -17,11 +17,7 @@
     </template>
     <template #select="{ item }">
       <td class="py-2">
-        <CFormCheck
-          :id="`checkbox${item.id}`"
-          :checked="item._selected"
-          @change="(e) => check(e, item.id)"
-        />
+        <CFormCheck :id="`checkbox${item.id}`" :checked="item._selected" @change="(e) => check(e, item.id)" />
         <CFormLabel variant="custom-checkbox" :for="`checkbox${item.id}`" />
       </td>
     </template>

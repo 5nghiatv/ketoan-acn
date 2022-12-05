@@ -1,13 +1,7 @@
 import { defineComponent, h, onMounted, ref, resolveComponent } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
-import {
-  CBadge,
-  CSidebarNav,
-  CNavItem,
-  CNavGroup,
-  CNavTitle,
-} from '@coreui/vue-pro'
+import { CBadge, CSidebarNav, CNavItem, CNavGroup, CNavTitle } from '@coreui/vue-pro'
 //import nav from '@/_nav.js'
 let nav = [] // dùng trong setup() & phải khai báo tại đây
 import { useStore } from 'vuex'

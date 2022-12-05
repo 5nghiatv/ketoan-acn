@@ -6,11 +6,7 @@
       </CHeaderToggler>
       <CHeaderBrand class="mx-auto d-lg-none" to="/">
         <!-- <CIcon :icon="logo" height="48" alt="Logo" /> -->
-        <img
-          src="logo_black.png"
-          class="c-avatar-img"
-          style="width 80%; height: 60%; border-radius: 50em;"
-        />
+        <img src="logo_black.png" class="c-avatar-img" style="width 80%; height: 60%; border-radius: 50em;" />
       </CHeaderBrand>
       <CHeaderNav class="d-none d-md-flex me-auto">
         <CNavItem>
@@ -72,11 +68,7 @@
         <AppHeaderDropdownAccnt />
       </CHeaderNav>
       <CHeaderToggler class="px-md-0 me-md-3">
-        <CIcon
-          icon="cil-applications-settings"
-          size="lg"
-          @click="$store.commit('toggleAside')"
-        />
+        <CIcon icon="cil-applications-settings" size="lg" @click="$store.commit('toggleAside')" />
       </CHeaderToggler>
     </CContainer>
     <CHeaderDivider />
@@ -90,19 +82,11 @@
         style="height: 2rem; margin-top: -0.4rem"
       >
         <button class="btn btn-primary" type="button" disabled>
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           <span class="visually-hidden">Loading...</span></button
         >&nbsp;
         <button class="btn btn-primary" type="button" disabled>
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           Loading...
         </button>
       </div>

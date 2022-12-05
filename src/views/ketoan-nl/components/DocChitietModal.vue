@@ -15,12 +15,7 @@
             pending: setColorNumber('pending'),
           }"
           disabled
-          style="
-            font: caption;
-            font-weight: 600;
-            margin-top: 40px;
-            margin-bottom: 40px;
-          "
+          style="font: caption; font-weight: 600; margin-top: 40px; margin-bottom: 40px"
         >
           NHẬP LIỆU CHI TIẾT
         </button>
@@ -30,13 +25,7 @@
         <div class="location-details flex">
           <div class="input flex flex-column">
             <label for="billerCity">Số chứng từ</label>
-            <input
-              required
-              type="text"
-              id="billerCity"
-              v-model="soct"
-              disabled
-            />
+            <input required type="text" id="billerCity" v-model="soct" disabled />
           </div>
           <div class="input flex flex-column">
             <label for="billerZipCode">Ngày tháng</label>
@@ -51,36 +40,18 @@
           </div>
           <div class="input flex flex-column">
             <label for="clientCity1">TK Nợ</label>
-            <input
-              required
-              type="text"
-              id="clientCity1"
-              v-model="tkno"
-              disabled
-            />
+            <input required type="text" id="clientCity1" v-model="tkno" disabled />
           </div>
           <div class="input flex flex-column">
             <label for="clientZipCode">TK Có</label>
-            <input
-              required
-              type="text"
-              id="clientZipCode"
-              v-model="tkco"
-              disabled
-            />
+            <input required type="text" id="clientZipCode" v-model="tkco" disabled />
           </div>
         </div>
 
         <div class="location-details flex">
           <div class="input flex flex-column">
             <label for="clientCity2">Diển giãi</label>
-            <input
-              required
-              type="text"
-              id="clientCity2"
-              v-model="diengiai"
-              disabled
-            />
+            <input required type="text" id="clientCity2" v-model="diengiai" disabled />
           </div>
           <div class="input flex flex-column">
             <label for="clientCountry">Số tiền</label>
@@ -122,11 +93,7 @@
               <th class="item20">TK_Có</th>
               <th class="item20">Số tiền</th>
             </tr>
-            <tr
-              class="table-items flex"
-              v-for="(item, index) in chitietItem"
-              :key="index"
-            >
+            <tr class="table-items flex" v-for="(item, index) in chitietItem" :key="index">
               <td class="item40">
                 <input required type="text" v-model="item.diengiai" />
               </td>
@@ -148,9 +115,7 @@
                     }"
                     :options="danhmucTaikhoan"
                   >
-                    <template v-slot:option="{ option }">
-                      {{ option.value }} {{ option.tentk }}
-                    </template>
+                    <template v-slot:option="{ option }"> {{ option.value }} {{ option.tentk }} </template>
                   </Multiselect>
                 </div>
               </td>
@@ -169,9 +134,7 @@
                     }"
                     :options="danhmucTaikhoan"
                   >
-                    <template v-slot:option="{ option }">
-                      {{ option.value }} {{ option.tentk }}
-                    </template>
+                    <template v-slot:option="{ option }"> {{ option.value }} {{ option.tentk }} </template>
                   </Multiselect>
                 </div>
               </td>
@@ -194,16 +157,8 @@
                 />
               </div> -->
               <div class="table-items flex">
-                <a
-                  @click="deleteItem(item.id)"
-                  class="fa fa-trash-o text-warning mr-1"
-                  id="2"
-                ></a>
-                <a
-                  @click="copyItem(item.id)"
-                  class="fa fa-plus text-info mr-1"
-                  id="1"
-                ></a>
+                <a @click="deleteItem(item.id)" class="fa fa-trash-o text-warning mr-1" id="2"></a>
+                <a @click="copyItem(item.id)" class="fa fa-plus text-info mr-1" id="1"></a>
               </div>
               <!-- <div>  
                 <img
@@ -225,20 +180,12 @@
       <!-- Save/Exit -->
       <div class="save flex">
         <div class="left">
-          <button type="button" @click="closeInvoice" class="red">
-            Cancel
-          </button>
+          <button type="button" @click="closeInvoice" class="red">Cancel</button>
         </div>
         <div class="right flex">
           <!-- <button v-if="!editInvoice" type="submit" @click="saveDraft" class="dark-purple">Save Draft</button> -->
           <!-- <button v-if="!editInvoice" type="submit" class="purple">Create Details</button> -->
-          <button
-            v-if="editInvoice && !editAddInvoice"
-            type="sumbit"
-            class="purple"
-          >
-            Update Details
-          </button>
+          <button v-if="editInvoice && !editAddInvoice" type="sumbit" class="purple">Update Details</button>
           <!-- <button v-if="editInvoice && editAddInvoice" @click="saveDraft" type="sumbit" class="dark-purple">Add Draft</button> -->
           <!-- <button v-if="editInvoice && editAddInvoice" type="sumbit" class="purple">Add Document</button> -->
         </div>
@@ -345,15 +292,12 @@ export default {
       this.chitietItem.forEach((item) => {
         if (typeof item.sotien === 'number') itemTotal += item.sotien
         else if (typeof item.sotien === 'string')
-          itemTotal += parseInt(
-            item.sotien.split('.').join('').split(',').join('.'),
-          )
+          itemTotal += parseInt(item.sotien.split('.').join('').split(',').join('.'))
       })
       this.chenhlechChitiet =
         this.chitietItem.length <= 0
           ? 0
-          : itemTotal -
-            parseInt(this.sotien.split('.').join('').split(',').join('.'))
+          : itemTotal - parseInt(this.sotien.split('.').join('').split(',').join('.'))
       // console.log("change !!!: "+itemTotal);
     },
     // const { configMask, numberFormat, setColorNumber } = require("../utility");
@@ -362,9 +306,7 @@ export default {
     },
     setColorNumber(opt) {
       // Dòng này quá nguy hiểm
-      var sotien = this.currentDocumentArray[0].sotien
-        ? this.currentDocumentArray[0].sotien
-        : 0
+      var sotien = this.currentDocumentArray[0].sotien ? this.currentDocumentArray[0].sotien : 0
       return setColorNumber(opt, sotien)
     },
     returnView() {
@@ -388,9 +330,7 @@ export default {
       // Khi click ngoài cửa sổ hiện hành thì e.target = <div> ngoài cùng = this.$refs.invoiceWrap
       if (e.target === this.$refs.invoiceWrap) {
         //this.TOGGLE_MODAL();
-        this.TOGGLE_MODAL_NEW(
-          'Xác nhận tiếp tục Thực hiện hiệu chỉnh Chi tiết chứng từ  hoặc Kết thúc ?',
-        )
+        this.TOGGLE_MODAL_NEW('Xác nhận tiếp tục Thực hiện hiệu chỉnh Chi tiết chứng từ  hoặc Kết thúc ?')
       }
     },
 
@@ -435,11 +375,8 @@ export default {
     },
 
     async updateInvoice() {
-      var checkmaso = await this.chitietItem.filter(
-        (item) => !item.tkno || !item.tkco,
-      )
-      if (checkmaso.length > 0)
-        return this.$toastr.warning('', 'Vui lòng nhập số tài khoản.')
+      var checkmaso = await this.chitietItem.filter((item) => !item.tkno || !item.tkco)
+      if (checkmaso.length > 0) return this.$toastr.warning('', 'Vui lòng nhập số tài khoản.')
       //return console.log(this.chitietItem,this.chenhlechChitiet + this.sotien);
       //await this.closeInvoice();  // Sau kiểm tra mới được & trước chỉnh sửa số liệu
       // await this.chitietItem.forEach((element) => {
@@ -450,16 +387,13 @@ export default {
       const ret = await this.UPDATE_CHITIET({
         chitietItem: this.chitietItem,
         ctid: this.ctid,
-        updateSotien:
-          this.chenhlechChitiet +
-          parseInt(this.sotien.split('.').join('').split(',').join('.')),
+        updateSotien: this.chenhlechChitiet + parseInt(this.sotien.split('.').join('').split(',').join('.')),
       })
       // this.closeInvoice();
       if (ret) {
         this.$toastr.success('', 'Update chứng từ Chi tiết thành công.')
       }
-      if (!ret)
-        this.$toastr.warning('', 'Update chứng từ Chi tiết KHÔNG thành công.')
+      if (!ret) this.$toastr.warning('', 'Update chứng từ Chi tiết KHÔNG thành công.')
       this.$emit('refreshDoc')
       this.closeInvoice() // sau this.$emit("refreshDoc");
     },
@@ -523,8 +457,7 @@ export default {
     width: 100%;
     background-color: #141625;
     color: #fff;
-    box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
     h1 {
       margin-bottom: 48px;

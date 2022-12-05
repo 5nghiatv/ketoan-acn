@@ -14,8 +14,7 @@ var authorSchema = mongoose.Schema({
     type: String,
     validate: {
       validator: function (text) {
-        if (text !== null && text.length > 0)
-          return text.indexOf('https://twitter.com/') === 0
+        if (text !== null && text.length > 0) return text.indexOf('https://twitter.com/') === 0
         return true
       },
       message: 'Twitter handle must start with https://twitter.com/',
@@ -25,8 +24,7 @@ var authorSchema = mongoose.Schema({
     type: String,
     validate: {
       validator: function (text) {
-        if (text !== null && text.length > 0)
-          return text.indexOf('https://www.facebook.com/') === 0
+        if (text !== null && text.length > 0) return text.indexOf('https://www.facebook.com/') === 0
         return true
       },
       message: 'Facebook Page must start with https://www.facebook.com/',
@@ -36,8 +34,7 @@ var authorSchema = mongoose.Schema({
     type: String,
     validate: {
       validator: function (text) {
-        if (text !== null && text.length > 0)
-          return text.indexOf('https://www.linkedin.com/') === 0
+        if (text !== null && text.length > 0) return text.indexOf('https://www.linkedin.com/') === 0
         return true
       },
       message: 'LinkedIn must start with https://www.linkedin.com/',

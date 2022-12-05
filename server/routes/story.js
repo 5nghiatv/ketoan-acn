@@ -18,10 +18,7 @@ router.get('/login', (req, res) => {
 router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
 router.get('/twitter', passport.authenticate('twitter', { scope: ['profile'] }))
 //router.get('/facebook', passport.authenticate('facebook', { scope: ['profile'] }))
-router.get(
-  '/facebook',
-  passport.authenticate('facebook', { scope: ['profile', 'email'] }),
-)
+router.get('/facebook', passport.authenticate('facebook', { scope: ['profile', 'email'] }))
 router.get(
   '/github',
   passport.authenticate('github', {
@@ -40,53 +37,33 @@ router.get(
 // @desc    Google auth callback
 // @route   GET /story/google/callback
 
-router.get(
-  '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
-  (req, res) => {
-    //res.render('stories/dashboard')
-    res.redirect('/social') // Call router.get('/') bên dưới
-  },
-)
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
+  //res.render('stories/dashboard')
+  res.redirect('/social') // Call router.get('/') bên dưới
+})
 
 // send to twitter to do the authentication
 //  app.get('/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
-router.get(
-  '/twitter/callback',
-  passport.authenticate('twitter', { failureRedirect: '/' }),
-  (req, res) => {
-    //res.render('stories/dashboard')
-    res.redirect('/social') // Call router.get('/') bên dưới
-  },
-)
+router.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/' }), (req, res) => {
+  //res.render('stories/dashboard')
+  res.redirect('/social') // Call router.get('/') bên dưới
+})
 
-router.get(
-  '/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
-  (req, res) => {
-    //res.render('stories/dashboard')
-    res.redirect('/social') // Call router.get('/') bên dưới
-  },
-)
+router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
+  //res.render('stories/dashboard')
+  res.redirect('/social') // Call router.get('/') bên dưới
+})
 
-router.get(
-  '/linkedin/callback',
-  passport.authenticate('linkedin', { failureRedirect: '/' }),
-  (req, res) => {
-    //res.render('stories/dashboard')
-    res.redirect('/social') // Call router.get('/') bên dưới
-  },
-)
+router.get('/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/' }), (req, res) => {
+  //res.render('stories/dashboard')
+  res.redirect('/social') // Call router.get('/') bên dưới
+})
 
-router.get(
-  '/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/' }),
-  (req, res) => {
-    //res.render('stories/dashboard')
-    res.redirect('/social') // Call router.get('/') bên dưới
-  },
-)
+router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/' }), (req, res) => {
+  //res.render('stories/dashboard')
+  res.redirect('/social') // Call router.get('/') bên dưới
+})
 
 //  app.get('/auth/facebook/callback', passport.authenticate('facebook', {successRedirect : '/profile',
 //                 failureRedirect : '/'
@@ -165,10 +142,7 @@ router.post('/', ensureAuth, async (req, res) => {
 router.get('/', ensureAuth, async (req, res) => {
   try {
     //const stories = await Story.find({ status: 'public' })
-    const stories = await Story.find()
-      .populate('user')
-      .sort({ createdAt: 'desc' })
-      .lean()
+    const stories = await Story.find().populate('user').sort({ createdAt: 'desc' }).lean()
     //console.log(stories)
     //console.log(global.__user)
 

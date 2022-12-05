@@ -26,14 +26,10 @@
             </h6>
           </div>
           <h6>
-            <a href="https://ketoan.nghiajs.com/" target="_blank"
-              >ketoan.nghiajs.com</a
-            >
+            <a href="https://ketoan.nghiajs.com/" target="_blank">ketoan.nghiajs.com</a>
           </h6>
           <h6>
-            <a href="http://nghiatv.googlepages.com/" target="_blank"
-              >nghiatv.googlepages.com</a
-            >
+            <a href="http://nghiatv.googlepages.com/" target="_blank">nghiatv.googlepages.com</a>
           </h6>
           <br />
           <span class="badge badge-warning p-2 m-1">Angular</span>

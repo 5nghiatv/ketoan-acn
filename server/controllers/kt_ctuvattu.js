@@ -2,7 +2,6 @@
 // const express = require('express')
 // const dotenv = require('dotenv').config()
 
-
 // Get all Ctuvattu
 exports.getAllCtuvattu = async function (req, res) {
   var query = 'SELECT * FROM ctuvattu'
@@ -14,9 +13,7 @@ exports.getAllCtuvattu = async function (req, res) {
       ctuvattus: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -31,9 +28,7 @@ exports.getSingleCtuvattu = async function (req, res) {
       ctuvattu: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -48,9 +43,7 @@ exports.getCtuvattu = async function (req, res) {
       ctuvattus: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 // Create Ctuvattu
@@ -78,9 +71,7 @@ exports.createCtuvattu = async function (req, res) {
       ctuvattu: req.body,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -105,29 +96,20 @@ exports.updateCtuvattu = async function (req, res) {
       ctuvattu: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
 // delete a Ctuvattu
 exports.deleteCtuvattu = async function (req, res) {
   try {
-    let rows = await runQuerySync(
-      'DELETE FROM ctuvattu WHERE id = ?',
-      [req.params.id],
-      req,
-      res,
-    )
+    let rows = await runQuerySync('DELETE FROM ctuvattu WHERE id = ?', [req.params.id], req, res)
     res.status(204).json({
       success: true,
       message: 'Ctuvattu Deleted successfully',
       ctuvattu: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }

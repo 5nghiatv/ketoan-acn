@@ -9,9 +9,7 @@
       </CDropdownHeader>
       <CDropdownItem href="#/e-commerce/cart">
         <CIcon class="text-warning" name="cil-cart" /> Giỏ hàng
-        <CBadge color="info" class="ml-auto">{{
-          this.$store.getters.cartProducts.length
-        }}</CBadge>
+        <CBadge color="info" class="ml-auto">{{ this.$store.getters.cartProducts.length }}</CBadge>
       </CDropdownItem>
 
       <CDropdownDivider />

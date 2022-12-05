@@ -2,20 +2,10 @@
   <CCard>
     <CCardHeader>
       Invoice <strong>#90-98792</strong>
-      <CButton
-        class="me-1 float-end"
-        color="secondary"
-        size="sm"
-        @click.prevent="print"
-      >
+      <CButton class="me-1 float-end" color="secondary" size="sm" @click.prevent="print">
         <CIcon icon="cil-print" /> Print
       </CButton>
-      <CButton
-        class="me-1 float-end"
-        color="info"
-        size="sm"
-        @click.prevent="save"
-      >
+      <CButton class="me-1 float-end" color="info" size="sm" @click.prevent="save">
         <CIcon icon="cil-save" /> Save
       </CButton>
     </CCardHeader>
@@ -75,9 +65,7 @@
           <CTableRow>
             <CTableDataCell class="text-center">2</CTableDataCell>
             <CTableDataCell class="text-start">Custom Services</CTableDataCell>
-            <CTableDataCell class="text-start">
-              Instalation and Customization (cost per hour)
-            </CTableDataCell>
+            <CTableDataCell class="text-start"> Instalation and Customization (cost per hour) </CTableDataCell>
             <CTableDataCell class="text-center">20</CTableDataCell>
             <CTableDataCell class="text-end">$150,00</CTableDataCell>
             <CTableDataCell class="text-end">$3.000,00</CTableDataCell>
@@ -85,9 +73,7 @@
           <CTableRow>
             <CTableDataCell class="text-center">3</CTableDataCell>
             <CTableDataCell class="text-start">Hosting</CTableDataCell>
-            <CTableDataCell class="text-start"
-              >1 year subcription</CTableDataCell
-            >
+            <CTableDataCell class="text-start">1 year subcription</CTableDataCell>
             <CTableDataCell class="text-center">1</CTableDataCell>
             <CTableDataCell class="text-end">$499,00</CTableDataCell>
             <CTableDataCell class="text-end">$499,00</CTableDataCell>
@@ -95,9 +81,7 @@
           <CTableRow>
             <CTableDataCell class="text-center">4</CTableDataCell>
             <CTableDataCell class="text-start">Platinum Support</CTableDataCell>
-            <CTableDataCell class="text-start"
-              >1 year subcription 24/7</CTableDataCell
-            >
+            <CTableDataCell class="text-start">1 year subcription 24/7</CTableDataCell>
             <CTableDataCell class="text-center">1</CTableDataCell>
             <CTableDataCell class="text-end">$3.999,00</CTableDataCell>
             <CTableDataCell class="text-end">$3.999,00</CTableDataCell>
@@ -106,12 +90,10 @@
       </CTable>
       <CRow>
         <CCol lg="{4}" sm="{5}">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+          ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+          fugiat nulla pariatur.
         </CCol>
         <CCol lg="{4}" sm="{5}" class="ms-auto">
           <CTable>
@@ -144,9 +126,7 @@
               </CTableRow>
             </CTableBody>
           </CTable>
-          <CButton color="success">
-            <CIcon icon="cil-dollar" /> Proceed to Payment
-          </CButton>
+          <CButton color="success"> <CIcon icon="cil-dollar" /> Proceed to Payment </CButton>
         </CCol>
       </CRow>
     </CCardBody>

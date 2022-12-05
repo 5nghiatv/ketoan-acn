@@ -53,12 +53,7 @@
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  id="addnew"
-                >
-                  Add New </CButton
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" id="addnew"> Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
                   class="btn btn-info btn-sm"
@@ -69,18 +64,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
 
@@ -118,16 +104,8 @@
     <CRow>
       <CCol md="3" style="float: right">
         <CInputGroup class="mb-3">
-          <CFormInput
-            size="sm"
-            id="pd_fromdate"
-            :placeholder="infoketoan.fromtodate.tungay"
-          />
-          <CFormInput
-            size="sm"
-            id="pd_todate"
-            :placeholder="infoketoan.fromtodate.denngay"
-          />
+          <CFormInput size="sm" id="pd_fromdate" :placeholder="infoketoan.fromtodate.tungay" />
+          <CFormInput size="sm" id="pd_todate" :placeholder="infoketoan.fromtodate.denngay" />
         </CInputGroup>
       </CCol>
     </CRow>
@@ -347,19 +325,11 @@ export default {
     },
 
     testValidator(field) {
-      if (field == 'masc')
-        return (this.Validator.masc = this.cdketoan.masc != '')
-      if (field == 'masn')
-        return (this.Validator.masn = this.cdketoan.masn != '')
-      if (field == 'tentsc')
-        return (this.Validator.tentsc = this.cdketoan.tentsc != '')
-      if (field == 'tentsn')
-        return (this.Validator.tentsn = this.cdketoan.tentsn != '')
-      let passe =
-        this.Validator.masc &&
-        this.Validator.tentsc &&
-        this.Validator.masn &&
-        this.Validator.tentsn
+      if (field == 'masc') return (this.Validator.masc = this.cdketoan.masc != '')
+      if (field == 'masn') return (this.Validator.masn = this.cdketoan.masn != '')
+      if (field == 'tentsc') return (this.Validator.tentsc = this.cdketoan.tentsc != '')
+      if (field == 'tentsn') return (this.Validator.tentsn = this.cdketoan.tentsn != '')
+      let passe = this.Validator.masc && this.Validator.tentsc && this.Validator.masn && this.Validator.tentsn
       if (!passe) {
         this.$message({
           message: 'Vui lòng nhập đầy đủ thông tin.',
@@ -407,9 +377,7 @@ export default {
     },
     setAddnew() {
       this.updaterec = !this.updaterec
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
       if (this.updaterec) {
         this.reset()
         window.scrollTo(0, 0)
@@ -462,9 +430,7 @@ export default {
         })
     },
     deleteTodo(index, row) {
-      if (
-        !confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')
-      ) {
+      if (!confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')) {
         return
       }
       if (!alert('Vui lòng liên hệ 0903917963...!! ')) return

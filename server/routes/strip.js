@@ -54,12 +54,7 @@ router.post('/purchase_old', function (req, res) {
           })
         })
         .catch(function () {
-          console.log(
-            'Charge Fail',
-            'stripeTokenId: ' + req.body.stripeTokenId,
-            'items: ',
-            req.body.items,
-          )
+          console.log('Charge Fail', 'stripeTokenId: ' + req.body.stripeTokenId, 'items: ', req.body.items)
           res.status(500).end()
         })
     }
@@ -78,16 +73,12 @@ router.get('/custCreate', async function (req, res) {
     },
     description: 'My First Test Customer (created for API docs)',
   })
-  return res
-    .status(200)
-    .json({ message: 'Successfully customer items...', customer: customer })
+  return res.status(200).json({ message: 'Successfully customer items...', customer: customer })
 })
 
 router.get('/custList', async function (req, res) {
   const customers = await stripe.customers.list({ limit: 5 })
-  return res
-    .status(200)
-    .json({ message: 'Successfully customers items...', customers: customers })
+  return res.status(200).json({ message: 'Successfully customers items...', customers: customers })
 })
 router.get('/custDel/:id', async function (req, res) {
   var id = req.path.replace('/custDel/', '')
@@ -146,10 +137,7 @@ router.post('/purchase', (req, res) => {
             currency: 'vnd',
             product_data: {
               name: itemJson.name,
-              images: [
-                'https://i.imgur.com/EHyR2nP.png',
-                itemJson.imgName.split(' ').join(''),
-              ],
+              images: ['https://i.imgur.com/EHyR2nP.png', itemJson.imgName.split(' ').join('')],
               // Đặt tên image Không được có khoảng trắng
             },
             unit_amount: itemJson.price * item.quantity,

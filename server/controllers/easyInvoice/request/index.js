@@ -67,12 +67,7 @@ function getDataExcel(strm, res) {
     var workSheet = workbook.getWorksheet('ExportData')
     workSheet.eachRow({ includeEmpty: true }, function (row, rowNumber) {
       let currRow = workSheet.getRow(rowNumber)
-      if (
-        currRow.getCell(2).value +
-          currRow.getCell(9).value +
-          currRow.getCell(10).value >
-        0
-      ) {
+      if (currRow.getCell(2).value + currRow.getCell(9).value + currRow.getCell(10).value > 0) {
         retData.push({
           invoiceSeri: currRow.getCell(3).value,
           invoiceNumber: currRow.getCell(5).value,
@@ -80,10 +75,7 @@ function getDataExcel(strm, res) {
           buyerTaxCode: currRow.getCell(8).value,
           totalBeforeTax: currRow.getCell(9).value,
           taxAmount: currRow.getCell(10).value,
-          taxRate:
-            Math.round(
-              (currRow.getCell(10).value / currRow.getCell(9).value) * 100,
-            ) + '%',
+          taxRate: Math.round((currRow.getCell(10).value / currRow.getCell(9).value) * 100) + '%',
           buyerName: currRow.getCell(7).value,
         })
       }
@@ -125,10 +117,7 @@ function post(body, res) {
       switch (download) {
         case 1: // Download Excel file
           res.setHeader('Content-Disposition', 'attachment; filename=' + file)
-          res.setHeader(
-            'Content-Type',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          ) // 'application/zip'
+          res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') // 'application/zip'
           s.pipe(res)
           break
         case 2: // Save Excel file

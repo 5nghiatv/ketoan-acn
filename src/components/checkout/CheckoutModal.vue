@@ -1,11 +1,6 @@
 <template>
   <div class="checkout">
-    <modal
-      :header="'Checkout'"
-      :isShow="showModal"
-      v-if="showModal"
-      @close="showModal = false"
-    ></modal>
+    <modal :header="'Checkout'" :isShow="showModal" v-if="showModal" @close="showModal = false"></modal>
   </div>
 </template>
 

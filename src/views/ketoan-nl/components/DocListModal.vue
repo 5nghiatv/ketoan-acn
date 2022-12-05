@@ -1,9 +1,5 @@
 <template>
-  <div
-    @click="checkClick"
-    ref="invoiceWrap"
-    class="invoice-wrap flex flex-column"
-  >
+  <div @click="checkClick" ref="invoiceWrap" class="invoice-wrap flex flex-column">
     <ModalPublic @resSubmit="resSubmit" v-if="modalActiveNew" />
 
     <form @submit.prevent="submitForm" class="invoice-content">
@@ -19,12 +15,7 @@
             pending: setColorNumber('pending'),
           }"
           disabled
-          style="
-            font: caption;
-            font-weight: 600;
-            margin-top: 45px;
-            margin-bottom: 40px;
-          "
+          style="font: caption; font-weight: 600; margin-top: 45px; margin-bottom: 40px"
         >
           DANH MỤC KẾ TOÁN
         </button>
@@ -50,40 +41,17 @@
 
             <div class="radio">
               <label
-                ><input
-                  @click="chonOptKetoan(0)"
-                  type="radio"
-                  id="optradio_0"
-                  checked
-                />{{ optKetoan[0] }}</label
+                ><input @click="chonOptKetoan(0)" type="radio" id="optradio_0" checked />{{ optKetoan[0] }}</label
               >
             </div>
             <div class="radio">
-              <label
-                ><input
-                  @click="chonOptKetoan(1)"
-                  type="radio"
-                  id="optradio_1"
-                />{{ optKetoan[1] }}</label
-              >
+              <label><input @click="chonOptKetoan(1)" type="radio" id="optradio_1" />{{ optKetoan[1] }}</label>
             </div>
             <div class="radio">
-              <label
-                ><input
-                  @click="chonOptKetoan(2)"
-                  type="radio"
-                  id="optradio_2"
-                />{{ optKetoan[2] }}</label
-              >
+              <label><input @click="chonOptKetoan(2)" type="radio" id="optradio_2" />{{ optKetoan[2] }}</label>
             </div>
             <div class="radio">
-              <label
-                ><input
-                  @click="chonOptKetoan(3)"
-                  type="radio"
-                  id="optradio_3"
-                />{{ optKetoan[3] }}</label
-              >
+              <label><input @click="chonOptKetoan(3)" type="radio" id="optradio_3" />{{ optKetoan[3] }}</label>
             </div>
           </div>
         </div>
@@ -114,30 +82,17 @@
           :options="danhmucTaikhoan"
           @select="getDanhmuc()"
         >
-          <template v-slot:option="{ option }">
-            {{ option.value }} {{ option.tentk }}
-          </template>
+          <template v-slot:option="{ option }"> {{ option.value }} {{ option.tentk }} </template>
         </Multiselect>
 
         <div class="flexbox">
           <div class="flex20 flex-column">
             <label for="billerCity">Tài khoản</label>
-            <input
-              required
-              type="text"
-              v-model="taikhoan.sotk"
-              minlength="4"
-              maxlength="15"
-            />
+            <input required type="text" v-model="taikhoan.sotk" minlength="4" maxlength="15" />
           </div>
           <div class="flex2 flex-column">
             <label for="inputsotien">Tên tài khoản</label>
-            <input
-              required
-              v-model="taikhoan.tentk"
-              type="text"
-              minlength="10"
-            />
+            <input required v-model="taikhoan.tentk" type="text" minlength="10" />
           </div>
         </div>
       </div>
@@ -157,49 +112,27 @@
           :options="danhmucCustomer"
           @select="getDanhmuc()"
         >
-          <template v-slot:option="{ option }">
-            {{ option.value }} {{ option.company }}
-          </template>
+          <template v-slot:option="{ option }"> {{ option.value }} {{ option.company }} </template>
         </Multiselect>
 
         <div class="flexbox">
           <div class="flex70 flex-column">
             <label for="billerCity">Công ty</label>
-            <input
-              required
-              type="text"
-              v-model="khachhang.company"
-              minlength="10"
-            />
+            <input required type="text" v-model="khachhang.company" minlength="10" />
           </div>
           <div class="flex2 flex-column">
             <label for="inputsotien">Mã số thuế</label>
-            <input
-              required
-              v-model="khachhang.maso"
-              type="text"
-              pattern="^[0-9]\d{9,12}$"
-            />
+            <input required v-model="khachhang.maso" type="text" pattern="^[0-9]\d{9,12}$" />
           </div>
         </div>
         <div class="flexbox">
           <div class="flex70 flex-column">
             <label for="billerCity">Địa chỉ</label>
-            <input
-              required
-              type="text"
-              v-model="khachhang.address"
-              minlength="10"
-            />
+            <input required type="text" v-model="khachhang.address" minlength="10" />
           </div>
           <div class="flex2 flex-column">
             <label for="inputsotien">Mặt hàng</label>
-            <input
-              required
-              v-model="khachhang.ghichu"
-              type="text"
-              minlength="10"
-            />
+            <input required v-model="khachhang.ghichu" type="text" minlength="10" />
           </div>
         </div>
       </div>
@@ -219,43 +152,24 @@
           :options="danhmucTenhang"
           @select="getDanhmuc()"
         >
-          <template v-slot:option="{ option }">
-            {{ option.value }} {{ option.tenhang }}
-          </template>
+          <template v-slot:option="{ option }"> {{ option.value }} {{ option.tenhang }} </template>
         </Multiselect>
 
         <div class="flexbox">
           <div class="flex60 flex-column">
             <label for="billerCity">Mã hàng</label>
-            <input
-              required
-              type="text"
-              v-model="hanghoa.mahang"
-              minlength="4"
-              maxlength="15"
-            />
+            <input required type="text" v-model="hanghoa.mahang" minlength="4" maxlength="15" />
           </div>
           <div class="flex2 flex-column">
             <label for="inputsotien">Đơn vị</label>
-            <input
-              required
-              v-model="hanghoa.donvi"
-              type="text"
-              minlength="2"
-              maxlength="10"
-            />
+            <input required v-model="hanghoa.donvi" type="text" minlength="2" maxlength="10" />
           </div>
         </div>
 
         <div class="flexbox">
           <div class="flex2 flex-column">
             <label for="inputsotien">Tên hàng hóa</label>
-            <input
-              required
-              v-model="hanghoa.tenhang"
-              type="text"
-              minlength="10"
-            />
+            <input required v-model="hanghoa.tenhang" type="text" minlength="10" />
           </div>
         </div>
       </div>
@@ -275,41 +189,23 @@
           :options="danhmucKhohang"
           @select="getDanhmuc()"
         >
-          <template v-slot:option="{ option }">
-            {{ option.value }} {{ option.tengoi }}
-          </template>
+          <template v-slot:option="{ option }"> {{ option.value }} {{ option.tengoi }} </template>
         </Multiselect>
 
         <div class="flexbox">
           <div class="flex20 flex-column">
             <label for="billerCity">Mã kho</label>
-            <input
-              required
-              type="text"
-              v-model="khohang.makho"
-              minlength="3"
-              maxlength="3"
-            />
+            <input required type="text" v-model="khohang.makho" minlength="3" maxlength="3" />
           </div>
           <div class="flex2 flex-column">
             <label for="inputsotien">Tên kho hàng</label>
-            <input
-              required
-              v-model="khohang.tengoi"
-              type="text"
-              minlength="10"
-            />
+            <input required v-model="khohang.tengoi" type="text" minlength="10" />
           </div>
         </div>
         <div class="flexbox">
           <div class="flex2 flex-column">
             <label for="inputsotien">Địa chỉ</label>
-            <input
-              required
-              v-model="khohang.diachi"
-              type="text"
-              minlength="10"
-            />
+            <input required v-model="khohang.diachi" type="text" minlength="10" />
           </div>
         </div>
       </div>
@@ -317,9 +213,7 @@
       <!-- Save/Exit -->
       <div class="save flex">
         <div class="left" style="flex: 1">
-          <button type="button" @click="closeInvoice" class="red">
-            Go Back Docs
-          </button>
+          <button type="button" @click="closeInvoice" class="red">Go Back Docs</button>
         </div>
         <div class="right flex" style="flex: 2">
           <button type="submit" class="orange">Delete</button>
@@ -400,27 +294,19 @@ export default {
     // },
     getDanhmuc() {
       if (this.currentOpt == 0) {
-        this.taikhoan = this.danhmucTaikhoan.filter(
-          (item) => item.value === this.sotk,
-        )
+        this.taikhoan = this.danhmucTaikhoan.filter((item) => item.value === this.sotk)
         this.taikhoan = this.taikhoan[0]
       }
       if (this.currentOpt == 1) {
-        this.khachhang = this.danhmucCustomer.filter(
-          (item) => item.value === this.maso,
-        )
+        this.khachhang = this.danhmucCustomer.filter((item) => item.value === this.maso)
         this.khachhang = this.khachhang[0]
       }
       if (this.currentOpt == 2) {
-        this.hanghoa = this.danhmucTenhang.filter(
-          (item) => item.value === this.mahang,
-        )
+        this.hanghoa = this.danhmucTenhang.filter((item) => item.value === this.mahang)
         this.hanghoa = this.hanghoa[0]
       }
       if (this.currentOpt == 3) {
-        this.khohang = this.danhmucKhohang.filter(
-          (item) => item.value === this.makho,
-        )
+        this.khohang = this.danhmucKhohang.filter((item) => item.value === this.makho)
         this.khohang = this.khohang[0]
       }
     },
@@ -439,8 +325,7 @@ export default {
     setColorNumber(opt) {
       // Dòng này quá nguy hiểm
       var sotien = 0
-      if (this.currentDocumentArray.length > 0)
-        sotien = this.currentDocumentArray[0].sotien
+      if (this.currentDocumentArray.length > 0) sotien = this.currentDocumentArray[0].sotien
       return setColorNumber(opt, sotien)
     },
     resSubmit(ret) {
@@ -472,9 +357,7 @@ export default {
     checkClick(e) {
       // Khi click ngoài cửa sổ hiện hành thì e.target = <div> ngoài cùng = this.$refs.invoiceWrap
       if (e.target === this.$refs.invoiceWrap) {
-        this.TOGGLE_MODAL_NEW(
-          'Xác nhận tiếp tục Thực hiện bổ sung danh mục hoặc Kết thúc ?',
-        )
+        this.TOGGLE_MODAL_NEW('Xác nhận tiếp tục Thực hiện bổ sung danh mục hoặc Kết thúc ?')
       }
     },
     closeInvoice() {
@@ -510,9 +393,7 @@ export default {
       if (mission == 'delete') {
         if (!this.currentModel) {
           this.currentModel = mission
-          this.TOGGLE_MODAL_NEW(
-            'Xác nhận tiếp tục Thực hiện XÓA danh mục hoặc Kết thúc ?',
-          )
+          this.TOGGLE_MODAL_NEW('Xác nhận tiếp tục Thực hiện XÓA danh mục hoặc Kết thúc ?')
           return
         } else {
           this.currentModel = null // Phải có
@@ -536,18 +417,12 @@ export default {
         this.makho = null
         this.$toastr.success(
           '',
-          mission.toUpperCase() +
-            ' danh mục ' +
-            this.optKetoan[this.currentOpt] +
-            ' thành công.',
+          mission.toUpperCase() + ' danh mục ' + this.optKetoan[this.currentOpt] + ' thành công.',
         )
       }
       this.$toastr.warning(
         '',
-        mission.toUpperCase() +
-          ' danh mục ' +
-          this.optKetoan[this.currentOpt] +
-          ' KHÔNG thành công.',
+        mission.toUpperCase() + ' danh mục ' + this.optKetoan[this.currentOpt] + ' KHÔNG thành công.',
       )
       this.$store.commit('set', ['isLoading', false])
     },
@@ -609,8 +484,7 @@ export default {
     width: 100%;
     background-color: #141625;
     color: #fff;
-    box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
     h1 {
       margin-bottom: 48px;

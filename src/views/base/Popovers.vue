@@ -5,16 +5,13 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Popovers</strong> <small>Basic example</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Popovers</strong> <small>Basic example</small> </CCardHeader>
         <CCardBody>
           <DocsExample href="components/popover.html#example">
             <CButton
               v-c-popover="{
                 header: 'Popover title',
-                content:
-                  'And here\’s some amazing content. It’s very engaging. Right?',
+                content: 'And here\’s some amazing content. It’s very engaging. Right?',
                 placement: 'right',
               }"
               color="danger"
@@ -28,19 +25,16 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Popover</strong> <small>Four directions</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Popover</strong> <small>Four directions</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Four options are available: top, right, bottom, and left aligned.
-            Directions are mirrored when using CoreUI for Vue in RTL.
+            Four options are available: top, right, bottom, and left aligned. Directions are mirrored when using
+            CoreUI for Vue in RTL.
           </p>
           <DocsExample href="components/popover.html#four-directions">
             <CButton
               v-c-popover="{
-                content:
-                  'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.',
+                content: 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.',
                 placement: 'top',
               }"
               color="secondary"
@@ -48,8 +42,7 @@
             >
             <CButton
               v-c-popover="{
-                content:
-                  'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.',
+                content: 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.',
                 placement: 'right',
               }"
               color="secondary"
@@ -57,8 +50,7 @@
             >
             <CButton
               v-c-popover="{
-                content:
-                  'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.',
+                content: 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.',
                 placement: 'bottom',
               }"
               color="secondary"
@@ -66,8 +58,7 @@
             >
             <CButton
               v-c-popover="{
-                content:
-                  'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.',
+                content: 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.',
                 placement: 'left',
               }"
               color="secondary"

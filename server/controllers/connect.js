@@ -27,8 +27,7 @@ exports.getFilterConnect = function (req, res) {
           var confilter = [] // Lọc và chọn Database
           var ncount = 0
           var result = new Promise((resolve, reject) => {
-            if (singleUser.length == 0 || singleUser[0].databases.length == 0)
-              resolve(confilter)
+            if (singleUser.length == 0 || singleUser[0].databases.length == 0) resolve(confilter)
             //console.log(singleUser.length, 1,singleUser[0].databases);
             allConnect.forEach((kq, index, array) => {
               //console.log(databases,kq.database)

@@ -13,20 +13,14 @@
                 <CTableHeaderCell>User</CTableHeaderCell>
                 <CTableHeaderCell class="text-center">Country</CTableHeaderCell>
                 <CTableHeaderCell>Usage</CTableHeaderCell>
-                <CTableHeaderCell class="text-center"
-                  >Payment Method</CTableHeaderCell
-                >
+                <CTableHeaderCell class="text-center">Payment Method</CTableHeaderCell>
                 <CTableHeaderCell>Activity</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
             <CTableBody>
               <CTableRow v-for="item in tableExample" :key="item.name">
                 <CTableDataCell class="text-center">
-                  <CAvatar
-                    size="md"
-                    :src="item.avatar.src"
-                    :status="item.avatar.status"
-                  />
+                  <CAvatar size="md" :src="item.avatar.src" :status="item.avatar.status" />
                 </CTableDataCell>
                 <CTableDataCell>
                   <div>{{ item.user.name }}</div>
@@ -36,11 +30,7 @@
                   </div>
                 </CTableDataCell>
                 <CTableDataCell class="text-center">
-                  <CIcon
-                    size="xl"
-                    :name="item.country.flag"
-                    :title="item.country.name"
-                  />
+                  <CIcon size="xl" :name="item.country.flag" :title="item.country.name" />
                 </CTableDataCell>
                 <CTableDataCell>
                   <div class="clearfix">
@@ -53,11 +43,7 @@
                       </small>
                     </div>
                   </div>
-                  <CProgress
-                    thin
-                    :color="item.usage.color"
-                    :value="item.usage.value"
-                  />
+                  <CProgress thin :color="item.usage.color" :value="item.usage.value" />
                 </CTableDataCell>
                 <CTableDataCell class="text-center">
                   <CIcon size="xl" :name="item.payment.icon" />
@@ -295,10 +281,7 @@ export default {
         //console.log(ret.data.connect_config)
         var connect = ret.data.connect_config
         url.includes('Table')
-        this.infoketoan['filename'] =
-          (url.includes('Table') ? 'Backup-' : 'Backups-') +
-          connect.database +
-          '.zip'
+        this.infoketoan['filename'] = (url.includes('Table') ? 'Backup-' : 'Backups-') + connect.database + '.zip'
         this.$store.commit('set', ['isLoading', true])
         //this.$apiAcn.download('/'+url,this.infoketoan)
         var mess = url.includes('restore') ? 'Phục hồi' : 'Sao lưu'
@@ -308,15 +291,9 @@ export default {
             // console.log(1,'xong roi',ret)
             if (ret.status === 200) {
               //this.$message({ title: 'Success', message: 'Thực hiện < '+mess+' > Dữ liệu thành công ...', type: 'success' ,duration: 3000 })
-              this.$toastr.success(
-                '',
-                'Thực hiện < ' + mess + ' > Dữ liệu thành công.',
-              )
+              this.$toastr.success('', 'Thực hiện < ' + mess + ' > Dữ liệu thành công.')
             } else {
-              this.$toastr.warning(
-                '',
-                'Thực hiện < ' + mess + ' > Dữ liệu KHÔNG thành công.',
-              )
+              this.$toastr.warning('', 'Thực hiện < ' + mess + ' > Dữ liệu KHÔNG thành công.')
             }
             this.$store.commit('set', ['isLoading', false])
             this.$router.replace('/dashboard')
@@ -325,10 +302,7 @@ export default {
             mess = 'Thực hiện < ' + mess + ' > Dữ liệu KHÔNG thành công.'
             mess =
               error.response.status === 503
-                ? mess +
-                  '(Tập tin: ' +
-                  (error.response.data.message || error.message) +
-                  ')'
+                ? mess + '(Tập tin: ' + (error.response.data.message || error.message) + ')'
                 : mess
             this.$toastr.warning('', mess)
             this.$store.commit('set', ['isLoading', false])
@@ -344,10 +318,7 @@ export default {
         .get(this.models)
         .then((data) => {
           //console.log(data.data)
-          this.items =
-            typeof data.data['usersqls'] != 'undefined'
-              ? data.data['usersqls']
-              : data.data.users
+          this.items = typeof data.data['usersqls'] != 'undefined' ? data.data['usersqls'] : data.data.users
           this.items.forEach((item, index) => {
             //this.$set(item, "avatar",{ url: 'img/avatars/1.jpg', status: 'success' })
             let ite = this.tableItems[Math.floor(index % 6)]
@@ -388,15 +359,9 @@ export default {
       ) {
         return //this.$router.replace('/dashboard')
       }
-      var respond = prompt(
-        'Chứng từ upload thuộc năm đầu: Data(??) hoặc năm kế tiếp: Data(??+) ',
-        '**',
-      )
+      var respond = prompt('Chứng từ upload thuộc năm đầu: Data(??) hoặc năm kế tiếp: Data(??+) ', '**')
       if (!respond) {
-        return this.$toastr.warning(
-          '',
-          'Thư mục không được chọn, chương trình kết thúc.',
-        )
+        return this.$toastr.warning('', 'Thư mục không được chọn, chương trình kết thúc.')
       }
       this.infoketoan['firstYear'] = !respond.includes('+')
       respond = respond.replace('+', '')
@@ -410,8 +375,7 @@ export default {
           if (dat.status == 218) {
             console.log(dat.data)
             this.$toastr.warning('', dat.data.message)
-          } else
-            this.$toastr.success('', 'Upload from Vfp thực hiện THÀNH CÔNG.')
+          } else this.$toastr.success('', 'Upload from Vfp thực hiện THÀNH CÔNG.')
         })
         .catch((error) => {
           this.$store.commit('set', ['isLoading', false])
@@ -461,18 +425,11 @@ export default {
         })
     },
     downloadReport() {
-      if (
-        this.$route.path == '/users' ||
-        this.$route.path == '/users/0' ||
-        this.path == this.$route.path
-      )
-        return
+      if (this.$route.path == '/users' || this.$route.path == '/users/0' || this.path == this.$route.path) return
       this.path = this.$route.path
 
-      if (this.$route.path.includes('/users/ACCOUNT-vfpupload'))
-        return this.vfpUpload()
-      if (this.$route.path.includes('/users/ACCOUNT-uynhiemchi'))
-        return this.uynhiemchi()
+      if (this.$route.path.includes('/users/ACCOUNT-vfpupload')) return this.vfpUpload()
+      if (this.$route.path.includes('/users/ACCOUNT-uynhiemchi')) return this.uynhiemchi()
 
       this.infoketoan = this.$jwtAcn.getKetoan() // Load lại thiết lập hệ thống
       //alert(location.origin)
@@ -480,10 +437,7 @@ export default {
       var url = ''
       if (this.$route.path.includes('/users/KK-GTGT-')) {
         this.infoketoan['filename'] = 'BangKeHoaDon.xlsx'
-        this.infoketoan['patern'] = this.$route.path.replace(
-          '/users/KK-GTGT-',
-          '',
-        )
+        this.infoketoan['patern'] = this.$route.path.replace('/users/KK-GTGT-', '')
         url = '/thuegtgtXLSX'
       } else {
         if (this.$route.path.includes('/users/ACCOUNT-')) {
@@ -494,8 +448,7 @@ export default {
             var namnay = this.infoketoan.fromtodate.pd_fromdate.substr(0, 4)
             var tenfilezip =
               'Table_' +
-              (this.infoketoan.company.database.database ||
-                this.infoketoan.company.database.dataname) +
+              (this.infoketoan.company.database.database || this.infoketoan.company.database.dataname) +
               '_' +
               this.infoketoan.company.database.username +
               '.zip'
@@ -510,10 +463,7 @@ export default {
                 '  đã sao lưu : ',
               '****',
             )
-            if (
-              respond == null ||
-              (respond != namnay && !respond.includes('.zip'))
-            ) {
+            if (respond == null || (respond != namnay && !respond.includes('.zip'))) {
               return this.$toastr.warning('', 'Xác nhận không đúng định dạng.')
             }
             //respond = {file: respond, dropbox: this.infoketoan.settings.Dropbox} ;
@@ -571,8 +521,7 @@ export default {
     // console.log(temp, this.tableExample)
 
     await this.tableExample.forEach((item, index) => {
-      if (users.length >= index)
-        this.tableExample[index].user.name = users[index].username
+      if (users.length >= index) this.tableExample[index].user.name = users[index].username
     })
   },
   beforeRouteUpdate(to, from, next) {

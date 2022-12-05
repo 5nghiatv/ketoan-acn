@@ -32,9 +32,7 @@ export default function createGame(deck) {
   })
 
   const matchesFound = computed(() => {
-    const matchedCards = deck.value.filter(
-      (card) => card.matched === true,
-    ).length
+    const matchedCards = deck.value.filter((card) => card.matched === true).length
 
     return matchedCards / 2
   })

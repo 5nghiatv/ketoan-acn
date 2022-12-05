@@ -44,22 +44,13 @@
                 <CCol col="6">
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Tỷ giá..</CInputGroupText>
-                    <CFormInput
-                      v-model="todo.tygia"
-                      v-mask-decimal.br="2"
-                      class="form-control is-valid"
-                    />
+                    <CFormInput v-model="todo.tygia" v-mask-decimal.br="2" class="form-control is-valid" />
                   </CInputGroup>
                 </CCol>
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
@@ -70,18 +61,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
               </div>
@@ -264,16 +246,10 @@ export default {
     submitForm() {},
     testValidator(field) {
       if (!this.todo.tygia) this.todo.tygia = '0'
-      if (field == 'loaitien')
-        return (this.Validator.loaitien = this.todo.loaitien != '')
-      if (field == 'tengoi')
-        return (this.Validator.tengoi = this.todo.tengoi != '')
-      if (field == 'viettat')
-        return (this.Validator.viettat = this.todo.viettat != '')
-      let passe =
-        this.Validator.loaitien &&
-        this.Validator.tengoi &&
-        this.Validator.viettat
+      if (field == 'loaitien') return (this.Validator.loaitien = this.todo.loaitien != '')
+      if (field == 'tengoi') return (this.Validator.tengoi = this.todo.tengoi != '')
+      if (field == 'viettat') return (this.Validator.viettat = this.todo.viettat != '')
+      let passe = this.Validator.loaitien && this.Validator.tengoi && this.Validator.viettat
       if (!passe) {
         this.$toastr.warning('', 'Vui lòng nhập đầy đủ thông tin.')
       }
@@ -492,9 +468,7 @@ export default {
   },
   watch: {
     updaterec() {
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
     },
   },
   computed: {

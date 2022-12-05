@@ -13,9 +13,7 @@ exports.getAllCustomer_ = async function (req, res) {
       customers_: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -30,9 +28,7 @@ exports.getSingleCustomer_ = async function (req, res) {
       customer_: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -46,9 +42,7 @@ exports.getCusTaxcode = async function (req, res) {
       customer_: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -76,9 +70,7 @@ exports.createCustomer_ = async function (req, res) {
       customer_: req.body,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -111,29 +103,20 @@ exports.updateCustomer_ = async function (req, res) {
       customer_: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
 // delete a Customer
 exports.deleteCustomer_ = async function (req, res) {
   try {
-    let rows = await runQuerySync(
-      'DELETE FROM customer WHERE id = ?',
-      [req.params.id],
-      req,
-      res,
-    )
+    let rows = await runQuerySync('DELETE FROM customer WHERE id = ?', [req.params.id], req, res)
     res.status(204).json({
       success: true,
       message: 'Customer Deleted successfully',
       customer_: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }

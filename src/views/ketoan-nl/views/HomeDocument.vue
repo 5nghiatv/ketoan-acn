@@ -5,27 +5,15 @@
       <div class="left flex flex-column">
         <h2>Documents</h2>
         <span :title="this.dateFromto"
-          >There are
-          <strong> {{ documentData.length }} </strong> documents</span
+          >There are <strong> {{ documentData.length }} </strong> documents</span
         >
       </div>
       <div class="right flex" :class="{ disable: showDocumentView }">
-        <div
-          v-if="!editInvoice && !docListModal && !documentModal"
-          @click="toggleReportMenu"
-          class="filter flex"
-        >
-          <Dropdown
-            title="Report to Excel"
-            @methodClick="methodClick"
-            :DropOption="DropOption"
-          />
+        <div v-if="!editInvoice && !docListModal && !documentModal" @click="toggleReportMenu" class="filter flex">
+          <Dropdown title="Report to Excel" @methodClick="methodClick" :DropOption="DropOption" />
         </div>
 
-        <div
-          v-if="!editInvoice && !docListModal && !documentModal"
-          class="flex"
-        >
+        <div v-if="!editInvoice && !docListModal && !documentModal" class="flex">
           <CCol col="1" style="float: right">
             <select
               class="filter"
@@ -36,13 +24,7 @@
               clearable
               style="margin-right: 5px; width: 70px"
             >
-              <option
-                class="filter"
-                v-for="item in paternOptions"
-                :key="item"
-                :label="item"
-                :value="item"
-              />
+              <option class="filter" v-for="item in paternOptions" :key="item" :label="item" :value="item" />
             </select>
           </CCol>
         </div>
@@ -56,18 +38,12 @@
           />
         </div>
 
-        <div
-          v-if="!editInvoice && !docListModal && !documentModal"
-          @click="toggleFilterMenu"
-          class="filter flex"
-        >
+        <div v-if="!editInvoice && !docListModal && !documentModal" @click="toggleFilterMenu" class="filter flex">
           <span>
             {{ captionFilter }}
             <span v-if="filteredInvoice"
               >: {{ filteredInvoice || currentPage }}
-              <span v-if="typeof this.filteredInvoice === 'number'">
-                ({{ this.linePerPage }} line)</span
-              >
+              <span v-if="typeof this.filteredInvoice === 'number'"> ({{ this.linePerPage }} line)</span>
             </span></span
           >
 
@@ -97,9 +73,7 @@
               <i class="fa fa-plus-circle dropdown__icon"></i>
             </li>
             <li @click="filteredInvoices" class="dropdown__item">
-              <span class="dropdown__text" style="color: darkgoldenrod">
-                Clear Filter</span
-              >
+              <span class="dropdown__text" style="color: darkgoldenrod"> Clear Filter</span>
               <i class="fa fa-trash-o dropdown__icon"></i>
             </li>
             <li @click="filteredInvoices" class="dropdown__item">
@@ -146,11 +120,7 @@
 
     <!-- Invoices -->
     <div v-if="documentData.length > 0">
-      <Document
-        v-for="(document, index) in filteredData"
-        :document="document"
-        :key="index"
-      />
+      <Document v-for="(document, index) in filteredData" :document="document" :key="index" />
       <CSmartPagination
         @click="activePageChange"
         :activePage="currentPage"
@@ -163,9 +133,7 @@
     <div v-else class="empty flex flex-column">
       <img src="../assets/illustration-empty.svg" alt="" />
       <h3>There is nothing here</h3>
-      <p>
-        Create a new invoice by clicking the New Document button and get started
-      </p>
+      <p>Create a new invoice by clicking the New Document button and get started</p>
     </div>
   </div>
 </template>
@@ -242,31 +210,21 @@ export default {
   updated() {},
   mounted() {
     this.infoketoan = JwtService.getKetoan()
-    this.dateFromto =
-      'From: ' + moment(this.infoketoan.fromtodate.pd_fromdate).format('DD/MM')
-    this.dateFromto =
-      this.dateFromto +
-      ' - ' +
-      moment(this.infoketoan.fromtodate.pd_todate).format('DD/MM/YYYY')
+    this.dateFromto = 'From: ' + moment(this.infoketoan.fromtodate.pd_fromdate).format('DD/MM')
+    this.dateFromto = this.dateFromto + ' - ' + moment(this.infoketoan.fromtodate.pd_todate).format('DD/MM/YYYY')
     this.setPagination(10)
   },
   methods: {
     activePageChange(e) {
-      if (e.target.innerHTML == '<span>»</span>' || e.target.innerHTML == '»')
-        this.currentPage = this.totalPage
+      if (e.target.innerHTML == '<span>»</span>' || e.target.innerHTML == '»') this.currentPage = this.totalPage
       if (e.target.innerHTML == '<span>›</span>' || e.target.innerHTML == '›') {
-        this.currentPage =
-          this.currentPage + 1 < this.totalPage
-            ? this.currentPage + 1
-            : this.totalPage
+        this.currentPage = this.currentPage + 1 < this.totalPage ? this.currentPage + 1 : this.totalPage
       }
-      if (e.target.innerHTML == '<span>«</span>' || e.target.innerHTML == '«')
-        this.currentPage = 1
+      if (e.target.innerHTML == '<span>«</span>' || e.target.innerHTML == '«') this.currentPage = 1
       if (e.target.innerHTML == '<span>‹</span>' || e.target.innerHTML == '‹') {
         this.currentPage = this.currentPage - 1 < 1 ? 1 : this.currentPage - 1
       }
-      if (parseInt(e.target.innerHTML) > 0)
-        this.currentPage = parseInt(e.target.innerHTML)
+      if (parseInt(e.target.innerHTML) > 0) this.currentPage = parseInt(e.target.innerHTML)
       // console.log(this.currentPage, e.target.innerHTML)
     },
     ...mapMutations('myDocument', ['TOGGLE_DOCUMENT']),
@@ -298,26 +256,14 @@ export default {
                   ' chứng từ mới, vì thế nên < Sao lưu chứng từ > trước khi thực hiện.',
               )
             ) {
-              if (nDemsoct > 100)
-                return alert(
-                  'Số lượng chứng từ > 100 nên chương trình không hổ trợ Copy...',
-                )
-              let tungayV = moment(
-                this.infoketoan.fromtodate.pd_fromdate,
-                'YYYY-MM-DD',
-              ).format('DD/MM/YYYY')
-              let tungay = moment(
-                this.infoketoan.fromtodate.pd_fromdate,
-                'YYYY-MM-DD',
-              ).toDate() // For so sánh
+              if (nDemsoct > 100) return alert('Số lượng chứng từ > 100 nên chương trình không hổ trợ Copy...')
+              let tungayV = moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').format('DD/MM/YYYY')
+              let tungay = moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').toDate() // For so sánh
               let newdate_ = prompt(
-                'Nhập ngày tạo chứng từ có dạng : dd/mm/yyyy và phải lớn hơn ngày: ' +
-                  tungayV,
+                'Nhập ngày tạo chứng từ có dạng : dd/mm/yyyy và phải lớn hơn ngày: ' + tungayV,
                 '**/**/****',
               ) // For Check lần 2
-              let newdateV = newdate_
-                ? newdate_.split('/').reverse().join('-')
-                : '0000-00-00' // For Gửi CALL.
+              let newdateV = newdate_ ? newdate_.split('/').reverse().join('-') : '0000-00-00' // For Gửi CALL.
               let newdate = moment(newdateV, 'YYYY-MM-DD').toDate() // For so sánh
               if (moment(newdate).isValid() && newdate >= tungay) {
                 let person = prompt(
@@ -325,10 +271,7 @@ export default {
                   '**/**/****',
                 )
                 if (person == null || person != newdate_) {
-                  this.$toastr.warning(
-                    '',
-                    'Xác nhận không đúng định dạng ? nên KHÔNG COPY chứng từ.',
-                  )
+                  this.$toastr.warning('', 'Xác nhận không đúng định dạng ? nên KHÔNG COPY chứng từ.')
                   return
                 }
                 let query =
@@ -340,19 +283,11 @@ export default {
                   newdateV +
                   "')"
                 console.log(query)
-                newdate = moment(newdate, 'YYYY-MM-DD', true).format(
-                  'MM/DD/YYYY',
-                ) // chỉ để thông báo
+                newdate = moment(newdate, 'YYYY-MM-DD', true).format('MM/DD/YYYY') // chỉ để thông báo
                 this.$apiAcn
                   .post('/query', { query: query })
                   .then(() => {
-                    this.$toastr.success(
-                      '',
-                      'COPY ( ' +
-                        nDemsoct +
-                        ' ) chứng từ THÀNH CÔNG sang Ngày :' +
-                        newdate,
-                    )
+                    this.$toastr.success('', 'COPY ( ' + nDemsoct + ' ) chứng từ THÀNH CÔNG sang Ngày :' + newdate)
                     //this.readTodos();
                     this.GET_DOCUMENTS(true)
                   })
@@ -360,11 +295,7 @@ export default {
                     console.log(err)
                     this.$toastr.error('', 'COPY chứng từ KHÔNG thành công.')
                   })
-              } else
-                this.$toastr.warning(
-                  '',
-                  'Ngày không hợp lệ ? nên KHÔNG COPY chứng từ.',
-                )
+              } else this.$toastr.warning('', 'Ngày không hợp lệ ? nên KHÔNG COPY chứng từ.')
             }
           } else this.$toastr.warning('', 'KHÔNG có chứng từ để COPY.')
         })
@@ -380,19 +311,13 @@ export default {
         .then(async () => {
           await this.GET_DOCUMENTS(true)
           this.$store.commit('set', ['isLoading', false])
-          this.$toastr.success(
-            '',
-            'Tất toán Số dư trong kỳ....Thực hiện thành công !!',
-          )
+          this.$toastr.success('', 'Tất toán Số dư trong kỳ....Thực hiện thành công !!')
           this.documentFilter = this.documentData // Chuẩn bị cho refresh data
           this.filteredInvoice = this.filteredInvoice ? null : 1 // refresh data : run this.filteredData
         })
         .catch((err) => {
           console.log(err)
-          this.$toastr.warning(
-            '',
-            'Tất toán Số dư trong kỳ....KHÔNG thành công !!',
-          )
+          this.$toastr.warning('', 'Tất toán Số dư trong kỳ....KHÔNG thành công !!')
           this.$store.commit('set', ['isLoading', false])
         })
     },
@@ -432,22 +357,15 @@ export default {
             this.$store.commit('set', ['isLoading', false])
           })
           .catch((error) => {
-            this.$toastr.error(
-              '',
-              'ERROR Download file : ' + this.infoketoan['filename'],
-            )
+            this.$toastr.error('', 'ERROR Download file : ' + this.infoketoan['filename'])
             console.log(error)
             this.$store.commit('set', ['isLoading', false])
           })
       } else {
         this.infoketoan['filename'] = 'SoNhatKy.xlsx'
         if ((this.patern == 'TK' && this.sotkhoan == '') || !this.patern)
-          return this.$toastr.warning(
-            '',
-            'Chọn lọc TK phải nhập Số tài khoản hoặc nhóm.',
-          )
-        this.infoketoan['patern'] =
-          this.patern == 'TK' ? this.sotkhoan : this.patern
+          return this.$toastr.warning('', 'Chọn lọc TK phải nhập Số tài khoản hoặc nhóm.')
+        this.infoketoan['patern'] = this.patern == 'TK' ? this.sotkhoan : this.patern
         this.$store.commit('set', ['isLoading', true])
         this.$apiAcn
           .download('/sonhatky', this.infoketoan)
@@ -455,10 +373,7 @@ export default {
             this.$store.commit('set', ['isLoading', false])
           })
           .catch((error) => {
-            this.$toastr.error(
-              '',
-              'ERROR Download file : ' + this.infoketoan['filename'],
-            )
+            this.$toastr.error('', 'ERROR Download file : ' + this.infoketoan['filename'])
             console.log(error)
             this.$store.commit('set', ['isLoading', false])
           })
@@ -477,8 +392,7 @@ export default {
       this.filterMenu = !this.filterMenu
     },
     filteredInvoices(e) {
-      if ('Chứng từ,Ngày tháng,Số tiền'.includes(e.target.innerText))
-        this.orderInvoice = !this.orderInvoice
+      if ('Chứng từ,Ngày tháng,Số tiền'.includes(e.target.innerText)) this.orderInvoice = !this.orderInvoice
       if (e.target.innerText === 'Clear Filter') {
         this.filteredInvoice = null
       } else this.filteredInvoice = e.target.innerText
@@ -489,17 +403,13 @@ export default {
       return setColorNumber(opt, sotien)
     },
 
-    setPagination(
-      npage = this.linePerPage,
-      documentData = this.documentFilter,
-    ) {
+    setPagination(npage = this.linePerPage, documentData = this.documentFilter) {
       if (documentData == null) {
         return
       }
       this.linePerPage = npage
       this.totalPage = parseInt(documentData.length / this.linePerPage)
-      if (documentData.length / this.linePerPage - this.totalPage > 0)
-        this.totalPage++
+      if (documentData.length / this.linePerPage - this.totalPage > 0) this.totalPage++
       this.currentPage = 1
     },
     getPagination(documentData = this.documentFilter) {
@@ -511,8 +421,7 @@ export default {
   },
   watch: {
     showDocumentView() {
-      if (!this.showDocumentView && this.documentData)
-        this.documentFilter = this.documentData
+      if (!this.showDocumentView && this.documentData) this.documentFilter = this.documentData
       if (typeof this.filteredInvoice !== 'number') this.filteredInvoice = 1
     },
     currentPage() {
@@ -554,42 +463,23 @@ export default {
         let person = prompt('Nhập mẫu chọn lọc chứng từ')
         person = person ? person : ''
         return this.documentData.filter((doc) => {
-          return (
-            doc.sotien +
-            doc.ngay +
-            doc.soct +
-            doc.diengiai +
-            doc.tkno +
-            doc.tkco
-          ).includes(person)
+          return (doc.sotien + doc.ngay + doc.soct + doc.diengiai + doc.tkno + doc.tkco).includes(person)
         })
       }
 
       var orderby = this.orderInvoice ? 'asc' : 'desc'
       if (this.filteredInvoice === 'Chứng từ') {
         // eslint-disable-next-line
-        this.documentFilter = _.orderBy(
-          this.documentData,
-          ['soct', 'ngay_'],
-          [orderby],
-        )
+        this.documentFilter = _.orderBy(this.documentData, ['soct', 'ngay_'], [orderby])
       }
       // eslint-disable-next-line
       if (this.filteredInvoice === 'Ngày tháng') {
         // eslint-disable-next-line
-        this.documentFilter = _.sortBy(
-          this.documentData,
-          ['ngay_', 'soct'],
-          [orderby],
-        )
+        this.documentFilter = _.sortBy(this.documentData, ['ngay_', 'soct'], [orderby])
       }
       if (this.filteredInvoice === 'Số tiền') {
         // eslint-disable-next-line
-        this.documentFilter = _.sortBy(
-          this.documentData,
-          ['sotien_', 'ngay_'],
-          [orderby],
-        )
+        this.documentFilter = _.sortBy(this.documentData, ['sotien_', 'ngay_'], [orderby])
       }
 
       if (
@@ -599,12 +489,9 @@ export default {
       ) {
         // eslint-disable-next-line
         this.documentFilter = this.documentData.filter((document) => {
-          if (this.filteredInvoice === 'Draft')
-            return this.setColorNumber('draft', document.sotien)
-          if (this.filteredInvoice === 'Paid')
-            return this.setColorNumber('paid', document.sotien)
-          if (this.filteredInvoice === 'Pending')
-            return this.setColorNumber('pending', document.sotien)
+          if (this.filteredInvoice === 'Draft') return this.setColorNumber('draft', document.sotien)
+          if (this.filteredInvoice === 'Paid') return this.setColorNumber('paid', document.sotien)
+          if (this.filteredInvoice === 'Pending') return this.setColorNumber('pending', document.sotien)
           return document
         })
       }
@@ -682,8 +569,7 @@ export default {
           top: 25px;
           list-style: none;
           background-color: #1e2139;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-            0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
           li {
             transition: background-color 0.2s linear;

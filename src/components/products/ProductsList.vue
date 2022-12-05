@@ -31,9 +31,7 @@ export default {
       this.$refs.editProduct.setProduct(product)
     },
     deleteProduct(product, id) {
-      let conf = confirm(
-        'Confirm want to delete product name:  ' + product.productName + ' ?',
-      )
+      let conf = confirm('Confirm want to delete product name:  ' + product.productName + ' ?')
       if (conf === true) {
         this.loading = true
         axios
@@ -46,10 +44,7 @@ export default {
           })
           .catch((error) => {
             console.log(error)
-            this.$toastr.error(
-              'Internal Error 500',
-              'The server encountered an unexpected condition.',
-            )
+            this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
           })
       }
     },

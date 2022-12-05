@@ -31,16 +31,11 @@ module.exports = {
   select: function (selected, options) {
     return options
       .fn(this)
-      .replace(
-        new RegExp(' value="' + selected + '"'),
-        '$& selected="selected"'
-      )
-      .replace(
-        new RegExp('>' + selected + '</option>'),
-        ' selected="selected"$&'
-      )
+      .replace(new RegExp(' value="' + selected + '"'), '$& selected="selected"')
+      .replace(new RegExp('>' + selected + '</option>'), ' selected="selected"$&')
   },
-  
-  add: function (var1, var2) { return var1 + var2 
+
+  add: function (var1, var2) {
+    return var1 + var2
   },
 }

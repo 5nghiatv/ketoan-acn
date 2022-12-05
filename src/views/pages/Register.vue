@@ -12,31 +12,19 @@
                   <CInputGroupText>
                     <CIcon icon="cil-user" />
                   </CInputGroupText>
-                  <CFormInput
-                    v-model="username"
-                    placeholder="Username"
-                    autocomplete="username"
-                  />
+                  <CFormInput v-model="username" placeholder="Username" autocomplete="username" />
                 </CInputGroup>
 
                 <CInputGroup v-if="updateuser" class="mb-3">
                   <CInputGroupText>
                     <CIcon icon="cil-People" />
                   </CInputGroupText>
-                  <CFormInput
-                    v-model="name"
-                    placeholder="Name"
-                    autocomplete="name"
-                  />
+                  <CFormInput v-model="name" placeholder="Name" autocomplete="name" />
                 </CInputGroup>
 
                 <CInputGroup v-if="!updateuser" class="mb-3">
                   <CInputGroupText>@</CInputGroupText>
-                  <CFormInput
-                    v-model="email"
-                    placeholder="Email"
-                    autocomplete="email"
-                  />
+                  <CFormInput v-model="email" placeholder="Email" autocomplete="email" />
                 </CInputGroup>
 
                 <CInputGroup v-if="!updateuser" class="mb-3">
@@ -85,35 +73,23 @@
                 <CCardFooter class="p-4">
                   <CRow v-if="updateuser">
                     <CCol md="4" class="d-flex justify-content-center">
-                      <CButton @click="updateTodo()" color="info" block
-                        >Update Account</CButton
-                      >
+                      <CButton @click="updateTodo()" color="info" block>Update Account</CButton>
                     </CCol>
                     <CCol md="4" class="d-flex justify-content-center">
-                      <CButton
-                        :disabled="this.$route.params.id == '0'"
-                        @click="deleteTodo()"
-                        color="warning"
-                        block
+                      <CButton :disabled="this.$route.params.id == '0'" @click="deleteTodo()" color="warning" block
                         >Delete Account</CButton
                       >
                     </CCol>
                     <CCol md="4" class="d-flex justify-content-center">
-                      <CButton @click="gotoHome()" color="success" block
-                        >Home page</CButton
-                      >
+                      <CButton @click="gotoHome()" color="success" block>Home page</CButton>
                     </CCol>
                   </CRow>
                   <CRow v-if="!updateuser">
                     <CCol md="6" class="d-flex justify-content-center">
-                      <CButton @click="register()" color="info" block
-                        >Create Account</CButton
-                      >
+                      <CButton @click="register()" color="info" block>Create Account</CButton>
                     </CCol>
                     <CCol md="6" class="d-flex justify-content-center">
-                      <CButton @click="gotoHome()" color="success" block
-                        >Home page</CButton
-                      >
+                      <CButton @click="gotoHome()" color="success" block>Home page</CButton>
                     </CCol>
                   </CRow>
                 </CCardFooter>
@@ -223,10 +199,7 @@ export default {
           // console.log(data.data.user) ;
         })
         .catch((error) => {
-          let mess =
-            error.response.status == 400
-              ? 'User này đã được đăng ký ...'
-              : 'Lỗi đăng ký người dùng...'
+          let mess = error.response.status == 400 ? 'User này đã được đăng ký ...' : 'Lỗi đăng ký người dùng...'
           this.$toastr.error('', mess)
           console.log(error, error.response.status)
         })
@@ -263,10 +236,7 @@ export default {
     },
 
     deleteTodo() {
-      if (
-        this.$route.params.id == '0' ||
-        !confirm('Are you sure to delete this user : ' + this.email + ' ?')
-      ) {
+      if (this.$route.params.id == '0' || !confirm('Are you sure to delete this user : ' + this.email + ' ?')) {
         return
       }
       let url = this.models + '/' + this.$route.params.id

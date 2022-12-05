@@ -5,13 +5,7 @@
         class="card-img-top mt-2"
         v-bind:src="item.productImage"
         alt="Card image cap"
-        style="
-          max-height: 700px;
-          max-width: 220px;
-          min-height: 220px;
-          min-width: 220px;
-          margin: auto;
-        "
+        style="max-height: 700px; max-width: 220px; min-height: 220px; min-width: 220px; margin: auto"
       />
       <div class="card-body" style="max-height: 300px; font-size: 0.875rem">
         <h6 class="card-text">{{ item.productName }}.</h6>
@@ -82,10 +76,7 @@ export default {
   methods: {
     navigateProductDetail(product) {
       if (this.$route.name == 'productDetails')
-        return this.$toastr.info(
-          'Is current route',
-          'Current route is : ' + this.$route.name,
-        )
+        return this.$toastr.info('Is current route', 'Current route is : ' + this.$route.name)
       this.$router.push({ name: 'productDetails', params: { id: product._id } })
     },
 
@@ -94,10 +85,7 @@ export default {
     addToCart(product) {
       const data = _.find(this.$store.getters.cartProducts, product)
       if (data) {
-        this.$toastr.info(
-          'Product Already Added',
-          'Already Added,only increased by 1',
-        )
+        this.$toastr.info('Product Already Added', 'Already Added,only increased by 1')
         data.amount++ // đã có thì tăng lượng 1
         this.REP_CART_LOCAL(data)
       } else {
@@ -132,10 +120,7 @@ export default {
           //this.$refs.cartCalculator.calulateTotalPrice();
         })
         .catch(() => {
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
   },

@@ -67,10 +67,7 @@ axios.defaults.appURL = process.env.VUE_APP_URL
 if (process.env.VUE_APP_URL.includes('localhost')) {
   axios.defaults.appURL = process.env.VUE_APP_URL_LOCAL
 }
-console.log(
-  'process.env.VUE_APP_URL (for VueJS) thay đổi khi (npm run dev) : ',
-  axios.defaults.appURL,
-)
+console.log('process.env.VUE_APP_URL (for VueJS) thay đổi khi (npm run dev) : ', axios.defaults.appURL)
 //Vue.axios.defaults.appURL = 'http://localhost:8080';
 axios.defaults.baseURL = axios.defaults.appURL + '/api/'
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -108,18 +105,13 @@ router.beforeEach((to, from, next) => {
   i18n.locale = language
   const loggedIn = localStorage.getItem('token') !== null
 
-  if (
-    !(to.path.includes('/pages/register') || to.path.includes('/pages/author'))
-  ) {
+  if (!(to.path.includes('/pages/register') || to.path.includes('/pages/author'))) {
     if (!loggedIn && to.path !== '/pages/login') {
       return next('/pages/login')
     }
   }
   //console.log(store.state.isAdmin, to)
-  if (
-    (to.path.includes('-restoreData') || to.path.includes('-vfpupload')) &&
-    !store.state.isAdmin
-  ) {
+  if ((to.path.includes('-restoreData') || to.path.includes('-vfpupload')) && !store.state.isAdmin) {
     alert('Chức năng này dành riêng cho Quản trị hệ thống ...')
     return next(from.path)
   }

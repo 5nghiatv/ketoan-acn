@@ -24,9 +24,7 @@ router.use(ensureAuthenticated, function (req, res, next) {
 })
 
 // set up route- index page || Welcome Page
-router.get('/', forwardAuthenticated, (req, res) =>
-  res.render('pages/dashboard', {}),
-)
+router.get('/', forwardAuthenticated, (req, res) => res.render('pages/dashboard', {}))
 // Dashboard
 router.get('/dashboard', (req, res) => res.render('pages/dashboard', {}))
 
@@ -73,9 +71,7 @@ router.get('/backupdb', async (req, res) => {
   for (let index = 0; index < listColls.length; index++) {
     const itemname = listColls[index].name
     const myCollDat = await myDB.collection(itemname).find({}).toArray()
-    const ws = await fs.createWriteStream(
-      __dirname + '/../backup/' + itemname + '.csv',
-    )
+    const ws = await fs.createWriteStream(__dirname + '/../backup/' + itemname + '.csv')
     if (!itemname.includes('.')) {
       listbk = listbk + '  &#8226;  ' + itemname
       await fastcsv
@@ -137,9 +133,7 @@ router.get('/importcust', async function (req, res) {
         })
       } else {
         console.log(clname + ' data exported to <' + ur5 + '> ERROR !!')
-        res
-          .status(200)
-          .json({ success: 'Collection [' + clname + '] ERROR !!' })
+        res.status(200).json({ success: 'Collection [' + clname + '] ERROR !!' })
       }
     })
   stream.pipe(csvStream)
@@ -182,9 +176,7 @@ router.get('/importempl', async function (req, res) {
         })
       } else {
         console.log(clname + ' data exported to <' + ur5 + '> ERROR !!')
-        res
-          .status(200)
-          .json({ success: 'Collection [' + clname + '] ERROR !!' })
+        res.status(200).json({ success: 'Collection [' + clname + '] ERROR !!' })
       }
     })
   stream.pipe(csvStream)
@@ -234,9 +226,7 @@ router.get('/importuser', async function (req, res) {
         })
       } else {
         console.log(clname + ' data exported to <' + ur5 + '> ERROR !!')
-        res
-          .status(200)
-          .json({ success: 'Collection [' + clname + '] ERROR !!' })
+        res.status(200).json({ success: 'Collection [' + clname + '] ERROR !!' })
       }
     })
   stream.pipe(csvStream)

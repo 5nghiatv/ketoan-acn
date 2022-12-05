@@ -1,10 +1,7 @@
 <template>
   <h1 class="sr-only">Peek-a-Vue</h1>
   <img
-    srcset="
-      /games/images/peek-a-vue-title@2x.png 2x,
-      /games/images/peek-a-vue-title.png    1x
-    "
+    srcset="/games/images/peek-a-vue-title@2x.png 2x, /games/images/peek-a-vue-title.png 1x"
     src="/games/images/peek-a-vue-title.png"
     alt="Peek-a-Vue"
     class="title"
@@ -14,11 +11,7 @@
     <p :class="$style['powered-wrapper']">
       Powered by
       <a :class="$style['powered-link']" href="https://v3.vuejs.org/">
-        <img
-          :class="$style['powered-logo']"
-          src="/games/images/vue-logo.svg"
-          alt="Vue.js logo"
-        />
+        <img :class="$style['powered-logo']" src="/games/images/vue-logo.svg" alt="Vue.js logo" />
         Vue.js 3
       </a>
       <span>, </span>
@@ -26,23 +19,12 @@
         :class="$style['powered-link']"
         href="https://www.netlify.com/?utm_source=github&utm_medium=peekavue-bh&utm_campaign=devex"
       >
-        <img
-          :class="$style['powered-logo']"
-          src="/games/images/netliheart.svg"
-          alt="Netlify Heart Logo"
-        />
+        <img :class="$style['powered-logo']" src="/games/images/netliheart.svg" alt="Netlify Heart Logo" />
         Netlify
       </a>
       <span> & </span>
-      <a
-        :class="$style['powered-link']"
-        href="https://www.github.com/bencodezen/peek-a-vue"
-      >
-        <img
-          :class="$style['powered-logo']"
-          src="/games/images/github-logo.svg"
-          alt="GitHub Logo"
-        />
+      <a :class="$style['powered-link']" href="https://www.github.com/bencodezen/peek-a-vue">
+        <img :class="$style['powered-logo']" src="/games/images/github-logo.svg" alt="GitHub Logo" />
         GitHub</a
       >
     </p>

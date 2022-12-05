@@ -10,9 +10,8 @@
         </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            In the example below, we take a typical card component and recreate
-            it with placeholders applied to create a "loading card". Size and
-            proportions are the same between the two.
+            In the example below, we take a typical card component and recreate it with placeholders applied to
+            create a "loading card". Size and proportions are the same between the two.
           </p>
           <DocsExample href="components/placeholder">
             <div class="d-flex justify-content-around">
@@ -21,8 +20,7 @@
                 <CCardBody>
                   <CCardTitle>Card title</CCardTitle>
                   <CCardText>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                    Some quick example text to build on the card title and make up the bulk of the card's content.
                   </CCardText>
                   <CButton color="primary" href="#">Go somewhere</CButton>
                 </CCardBody>
@@ -38,8 +36,7 @@
                   preserveAspectRatio="xMidYMid slice"
                   focusable="false"
                 >
-                  <title>Placeholder</title
-                  ><rect width="100%" height="100%" fill="#868e96"></rect>
+                  <title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect>
                 </CCardImage>
                 <CCardBody>
                   <CCardTitle v-c-placeholder="{ animation: 'glow', xs: 7 }">
@@ -73,10 +70,9 @@
         <CCardBody>
           <p>
             Create placeholders with the
-            <code>&lt;CPlaceholder&gt;</code> component and a grid column propx
-            (e.g., <code>:xs="6"</code>) to set the <code>width</code>. They can
-            replace the text inside an element or be added as a modifier class
-            to an existing component.
+            <code>&lt;CPlaceholder&gt;</code> component and a grid column propx (e.g., <code>:xs="6"</code>) to set
+            the <code>width</code>. They can replace the text inside an element or be added as a modifier class to
+            an existing component.
           </p>
           <DocsExample href="components/placeholder">
             <p aria-hidden="true">
@@ -94,13 +90,10 @@
         </CCardBody>
       </CCard>
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Placeholder</strong> <small> Width</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Placeholder</strong> <small> Width</small> </CCardHeader>
         <CCardBody>
           <p>
-            You can change the <code>width</code> through grid column classes,
-            width utilities, or inline styles.
+            You can change the <code>width</code> through grid column classes, width utilities, or inline styles.
           </p>
           <DocsExample href="components/placeholder#width">
             <CPlaceholder :xs="6" />
@@ -110,14 +103,11 @@
         </CCardBody>
       </CCard>
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Placeholder</strong> <small> Color</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Placeholder</strong> <small> Color</small> </CCardHeader>
         <CCardBody>
           <p>
-            By default, the <code>&lt;CPlaceholder&gt;</code> uses
-            <code>currentColor</code>. This can be overridden with a custom
-            color or utility class.
+            By default, the <code>&lt;CPlaceholder&gt;</code> uses <code>currentColor</code>. This can be
+            overridden with a custom color or utility class.
           </p>
           <DocsExample href="components/placeholder#color">
             <CPlaceholder :xs="12" />
@@ -134,14 +124,11 @@
         </CCardBody>
       </CCard>
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Placeholder</strong> <small> Sizing</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Placeholder</strong> <small> Sizing</small> </CCardHeader>
         <CCardBody>
           <p>
-            The size of <code>&lt;CPlaceholder&gt;</code>s are based on the
-            typographic style of the parent element. Customize them with
-            <code>size</code> prop: <code>lg</code>, <code>sm</code>, or
+            The size of <code>&lt;CPlaceholder&gt;</code>s are based on the typographic style of the parent
+            element. Customize them with <code>size</code> prop: <code>lg</code>, <code>sm</code>, or
             <code>xs</code>.
           </p>
           <DocsExample href="components/placeholder#color">
@@ -153,14 +140,11 @@
         </CCardBody>
       </CCard>
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Placeholder</strong> <small> Animation</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Placeholder</strong> <small> Animation</small> </CCardHeader>
         <CCardBody>
           <p>
-            Animate placeholders with <code>animation="glow"</code> or
-            <code>animation="wave"</code> to better convey the perception of
-            something being <em>actively</em> loaded.
+            Animate placeholders with <code>animation="glow"</code> or <code>animation="wave"</code> to better
+            convey the perception of something being <em>actively</em> loaded.
           </p>
           <DocsExample href="components/placeholder#animation">
             <CPlaceholder component="p" animation="glow">

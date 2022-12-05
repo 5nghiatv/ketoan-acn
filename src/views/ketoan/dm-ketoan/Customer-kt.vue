@@ -98,12 +98,7 @@
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
@@ -114,18 +109,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
 
@@ -238,9 +224,7 @@
     </vue-good-table>
     <br />
 
-    <h2 style="font-size: 25px; padding-left: 20px">
-      2 - Danh sách Hóa đơn mua &#8482; bán
-    </h2>
+    <h2 style="font-size: 25px; padding-left: 20px">2 - Danh sách Hóa đơn mua &#8482; bán</h2>
 
     <vue-good-table
       id="tableACN2"
@@ -400,26 +384,14 @@ export default {
       )
     },
     testValidator(field) {
-      if (field == 'company')
-        return (this.Validator.company = this.todo.company != '')
-      if (field == 'address')
-        return (this.Validator.address = this.todo.address != '')
-      if (
-        field == 'phone1' ||
-        field == 'account' ||
-        field == 'bank' ||
-        field == 'citibank' ||
-        field == 'ghichu'
-      )
+      if (field == 'company') return (this.Validator.company = this.todo.company != '')
+      if (field == 'address') return (this.Validator.address = this.todo.address != '')
+      if (field == 'phone1' || field == 'account' || field == 'bank' || field == 'citibank' || field == 'ghichu')
         return true
       if (field == 'maso') return (this.Validator.maso = this.todo.maso != '')
-      let passe =
-        this.Validator.company && this.Validator.address && this.Validator.maso
+      let passe = this.Validator.company && this.Validator.address && this.Validator.maso
       if (!passe) {
-        this.$toastr.warning(
-          '',
-          'Vui lòng nhập đầy đủ thông tin ( Mã số thuế 10-13 ký tự )',
-        )
+        this.$toastr.warning('', 'Vui lòng nhập đầy đủ thông tin ( Mã số thuế 10-13 ký tự )')
       }
       return passe
     },
@@ -550,9 +522,7 @@ export default {
     },
 
     deleteTodo(index, row) {
-      if (
-        !confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')
-      ) {
+      if (!confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')) {
         return
       }
       this.restore() // Nếu đang sửa thì phục hồi Vì có thể sửa dòng khác dòng xóa
@@ -641,14 +611,7 @@ export default {
       this.infoketoan['filename'] = 'DanhMucKhachHang.xlsx'
       this.infoketoan['sheetname'] = 'Danh mục khách hàng'
       this.infoketoan['urlget'] = 'customers_'
-      this.infoketoan['fields'] = [
-        'maso',
-        'company',
-        'address',
-        'email',
-        'phone1',
-        'ghichu',
-      ]
+      this.infoketoan['fields'] = ['maso', 'company', 'address', 'email', 'phone1', 'ghichu']
       this.infoketoan['sumcolumn'] = 0
 
       this.$store.commit('set', ['isLoading', true])
@@ -680,9 +643,7 @@ export default {
   },
   watch: {
     updaterec() {
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
     },
   },
   computed: {

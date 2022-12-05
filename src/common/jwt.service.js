@@ -50,10 +50,8 @@ export const getDateTime = () => {
   var fromtodate = JSON.parse(window.localStorage.getItem(DATETIME_KEY))
   if (!fromtodate || fromtodate == null || !fromtodate.pd_fromdate) {
     fromtodate = {
-      pd_fromdate:
-        new Date().toISOString().replace('T', ' ').substr(0, 4) + '-01-01',
-      pd_todate:
-        new Date().toISOString().replace('T', ' ').substr(0, 4) + '-03-31',
+      pd_fromdate: new Date().toISOString().replace('T', ' ').substr(0, 4) + '-01-01',
+      pd_todate: new Date().toISOString().replace('T', ' ').substr(0, 4) + '-03-31',
     }
   }
   return fromtodate
@@ -69,10 +67,8 @@ export const getKetoan = () => {
   if (!infoketoan || infoketoan == null || !infoketoan.fromtodate.pd_fromdate) {
     infoketoan = {
       fromtodate: {
-        pd_fromdate:
-          new Date().toISOString().replace('T', ' ').substr(0, 4) + '-01-01',
-        pd_todate:
-          new Date().toISOString().replace('T', ' ').substr(0, 4) + '-03-31',
+        pd_fromdate: new Date().toISOString().replace('T', ' ').substr(0, 4) + '-01-01',
+        pd_todate: new Date().toISOString().replace('T', ' ').substr(0, 4) + '-03-31',
       },
       company: {
         masothue: '0304529821',
@@ -105,12 +101,7 @@ export const destroySocial = () => {
 }
 
 export const isEmpty = (val) => {
-  return val === 'undefined' ||
-    val === undefined ||
-    val == null ||
-    val.length <= 0
-    ? true
-    : false
+  return val === 'undefined' || val === undefined || val == null || val.length <= 0 ? true : false
 }
 
 export default {

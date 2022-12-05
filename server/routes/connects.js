@@ -49,30 +49,12 @@ router.get('/connect/:id', (req, res) => {
 
 router.post('/connect/:id', (req, res) => {
   // Check input before ------>  Addnew connect
-  const {
-    company,
-    taxcode,
-    address,
-    host,
-    username,
-    password,
-    database,
-    port,
-  } = req.body
+  const { company, taxcode, address, host, username, password, database, port } = req.body
   let errors = []
   if (password.length < 6) {
     errors.push({ msg: 'Mật khẩu có chiều dài phải lớn hơn 5 ký tự...' })
   }
-  if (
-    !company ||
-    !taxcode ||
-    !address ||
-    !host ||
-    !username ||
-    !password ||
-    !database ||
-    !port
-  ) {
+  if (!company || !taxcode || !address || !host || !username || !password || !database || !port) {
     errors.push({ msg: 'Vui lòng nhập đầy đủ nội dung cần thiết  ...' })
   }
   if (errors.length > 0) {
@@ -120,11 +102,7 @@ router.post('/connect/:id', (req, res) => {
       retcon.connect(function (err) {
         // The server is either down
         // Collection.updateMany(conditions, update, options,(err, doc) => {});
-        Connect.updateMany(
-          {},
-          { $set: { active: false } },
-          { multi: true, upsert: true },
-        ).exec()
+        Connect.updateMany({}, { $set: { active: false } }, { multi: true, upsert: true }).exec()
         req.body.active = err ? false : true
         req.body.checked = err ? false : true
         res.render('pages/addconnect', {

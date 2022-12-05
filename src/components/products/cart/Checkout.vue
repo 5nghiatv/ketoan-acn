@@ -69,25 +69,19 @@
                     name="scales"
                     checked
                   />
-                  <label for="scales"
-                    >&nbsp;Thanh toán bằng tiền mặt khi nhận hàng</label
-                  >
+                  <label for="scales">&nbsp;Thanh toán bằng tiền mặt khi nhận hàng</label>
                 </div>
               </div>
             </div>
           </div>
-          <small id="emailHelp" class="form-text text-muted"
-            >We'll never share your data with anyone else.</small
-          >
+          <small id="emailHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
           <br />
         </form>
       </div>
       <div class="col-sm-4">
         <cart-calculator ref="cartCalculator"></cart-calculator>
         <ul class="list-group mb-3">
-          <router-link
-            to="/e-commerce/products"
-            class="btn btn-primary mt-2 text-white"
+          <router-link to="/e-commerce/products" class="btn btn-primary mt-2 text-white"
             >Tiếp tục mua hàng</router-link
           >
           <a
@@ -149,16 +143,10 @@ export default {
           console.log(response.data)
           this.loading = false
           //alert('Thank you for your Purchase...')
-          this.$toastr.success(
-            'XuânMai-VueShop',
-            'Thank you for your Purchase...',
-          )
+          this.$toastr.success('XuânMai-VueShop', 'Thank you for your Purchase...')
         })
         .catch(() => {
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
 
       let products = []
@@ -176,10 +164,7 @@ export default {
       this.shippingDetail.products = this.$refs.cartCalculator.cartProducts
       this.shippingDetail.userId = this.loggedUser._id
       this.shippingDetail.totalPrice = this.$refs.cartCalculator.totalValue
-      localStorage.setItem(
-        'shippingDetail',
-        JSON.stringify(this.shippingDetail),
-      )
+      localStorage.setItem('shippingDetail', JSON.stringify(this.shippingDetail))
       // Save this.shippingDetail
 
       var stripe = window.Stripe(process.env.VUE_APP_STRIPE_KEY) // Stripe khai báo trong index.html
@@ -205,10 +190,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
   },

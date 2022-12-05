@@ -39,15 +39,11 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: ['Member', 'Staff', 'Admin'].find(
-      (_, i, ar) => Math.random() < 1 / (ar.length - i),
-    ),
+    default: ['Member', 'Staff', 'Admin'].find((_, i, ar) => Math.random() < 1 / (ar.length - i)),
   },
   status: {
     type: String,
-    default: ['Active', 'Inactive', 'Pending', 'Banned'].find(
-      (_, i, ar) => Math.random() < 1 / (ar.length - i),
-    ),
+    default: ['Active', 'Inactive', 'Pending', 'Banned'].find((_, i, ar) => Math.random() < 1 / (ar.length - i)),
   },
   admin: {
     type: Boolean,
@@ -67,16 +63,12 @@ const UserSchema = new mongoose.Schema({
 //custom method to generate authToken
 UserSchema.methods.generateAuthToken = function () {
   const expire = `${process.env.TOKENLIFE}`
-  const token = jwt.sign(
-    { _id: this._id, isAdmin: this.isAdmin, user: this },
-    process.env.PRIVATE_KEY,
-    { expiresIn: expire },
-  )
-  const refreshtoken = jwt.sign(
-    { _id: this._id, isAdmin: this.isAdmin, user: this },
-    process.env.PRIVATE_KEY,
-    { expiresIn: `${process.env.REFRESHTOKENLIFE}` },
-  )
+  const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin, user: this }, process.env.PRIVATE_KEY, {
+    expiresIn: expire,
+  })
+  const refreshtoken = jwt.sign({ _id: this._id, isAdmin: this.isAdmin, user: this }, process.env.PRIVATE_KEY, {
+    expiresIn: `${process.env.REFRESHTOKENLIFE}`,
+  })
 
   //get the private key from the config file -> environment variable
   //console.log(jwt.verify(token, process.env.PRIVATE_KEY) )

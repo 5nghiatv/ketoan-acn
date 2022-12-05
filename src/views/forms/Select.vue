@@ -5,9 +5,7 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Select</strong> <small>Default</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Select</strong> <small>Default</small> </CCardHeader>
         <CCardBody>
           <DocsExample href="forms/select.html">
             <CFormSelect aria-label="Default select example">
@@ -22,60 +20,37 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Select</strong> <small>Sizing</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Select</strong> <small>Sizing</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            You may also choose from small and large custom selects to match our
-            similarly sized text inputs.
+            You may also choose from small and large custom selects to match our similarly sized text inputs.
           </p>
           <DocsExample href="forms/select.html#sizing">
-            <CFormSelect
-              size="lg"
-              class="mb-3"
-              aria-label="Large select example"
-            >
+            <CFormSelect size="lg" class="mb-3" aria-label="Large select example">
               <option>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </CFormSelect>
-            <CFormSelect
-              size="sm"
-              class="mb-3"
-              aria-label="Small select example"
-            >
+            <CFormSelect size="sm" class="mb-3" aria-label="Small select example">
               <option>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </CFormSelect>
           </DocsExample>
-          <p class="text-medium-emphasis small">
-            The <code>multiple</code> attribute is also supported:
-          </p>
+          <p class="text-medium-emphasis small">The <code>multiple</code> attribute is also supported:</p>
           <DocsExample href="forms/select.html#sizing">
-            <CFormSelect
-              size="lg"
-              multiple
-              aria-label="Multiple select example"
-            >
+            <CFormSelect size="lg" multiple aria-label="Multiple select example">
               <option>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </CFormSelect>
           </DocsExample>
-          <p class="text-medium-emphasis small">
-            As is the <code>html-size</code> property:
-          </p>
+          <p class="text-medium-emphasis small">As is the <code>html-size</code> property:</p>
           <DocsExample href="forms/select.html#sizing">
-            <CFormSelect
-              size="lg"
-              multiple
-              aria-label="Multiple select example"
-            >
+            <CFormSelect size="lg" multiple aria-label="Multiple select example">
               <option>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -87,13 +62,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Select</strong> <small>Disabled</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Select</strong> <small>Disabled</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Add the <code>disabled</code> boolean attribute on a select to give
-            it a grayed out appearance and remove pointer events.
+            Add the <code>disabled</code> boolean attribute on a select to give it a grayed out appearance and
+            remove pointer events.
           </p>
           <DocsExample href="forms/select.html#disabled">
             <CFormSelect aria-label="Disabled select example" disabled>

@@ -11,9 +11,7 @@
     </div>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">
-          Our Best Products
-        </li>
+        <li class="breadcrumb-item active" aria-current="page">Our Best Products</li>
         <li class="ml-auto" aria-current="page">
           <router-link to="/e-commerce/products">Show All</router-link>
         </li>
@@ -22,9 +20,7 @@
     <BestProducts></BestProducts>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">
-          Our Top Products
-        </li>
+        <li class="breadcrumb-item active" aria-current="page">Our Top Products</li>
         <li class="ml-auto" aria-current="page">
           <router-link to="/e-commerce/products">Show All</router-link>
         </li>

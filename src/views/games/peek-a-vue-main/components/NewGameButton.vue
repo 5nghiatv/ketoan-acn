@@ -21,11 +21,7 @@ export default {
 <template>
   <button v-if="newPlayer" @click="startNewGame" :class="$style.button">
     <div :class="$style['button-icon']">
-      <img
-        :class="$style['icon-play']"
-        src="/games/images/play.svg"
-        alt="Play Icon"
-      /><img
+      <img :class="$style['icon-play']" src="/games/images/play.svg" alt="Play Icon" /><img
         :class="$style['icon-ghost']"
         src="/games/images/cute-ghost.svg"
         alt="Cute Ghost"

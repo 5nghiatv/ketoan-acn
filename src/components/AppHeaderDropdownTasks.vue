@@ -2,12 +2,9 @@
   <CDropdown variant="nav-item">
     <CDropdownToggle placement="bottom-end" :caret="false">
       <CIcon class="my-1 mx-2" icon="cil-list" size="lg" />
-      <CBadge
-        class="position-absolute top-0 end-0"
-        color="warning-gradient"
-        shape="rounded-pill"
-        >{{ itemsCount }}</CBadge
-      >
+      <CBadge class="position-absolute top-0 end-0" color="warning-gradient" shape="rounded-pill">{{
+        itemsCount
+      }}</CBadge>
     </CDropdownToggle>
     <CDropdownMenu class="pt-0">
       <CDropdownHeader class="bg-light" style="text-align: center">
@@ -30,11 +27,7 @@
         <strong>Development</strong>
       </CDropdownHeader>
 
-      <CDropdownItem
-        class="d-block"
-        href="https://coreui.io/demo/4.0/index.html"
-        target="_blank"
-      >
+      <CDropdownItem class="d-block" href="https://coreui.io/demo/4.0/index.html" target="_blank">
         <div class="small mb-1">
           CoreUI Vue Pro-Demo
           <span class="float-right"><strong>60%</strong></span>
@@ -52,11 +45,7 @@
         </div>
         <CProgress thin color="warning-gradient" :value="80" />
       </CDropdownItem>
-      <CDropdownItem
-        class="d-block"
-        href="https://v3.vuejs.org/guide/introduction.html"
-        target="_blank"
-      >
+      <CDropdownItem class="d-block" href="https://v3.vuejs.org/guide/introduction.html" target="_blank">
         <!-- target="_blank"  Mở trang mới -->
         <div class="small mb-1">
           VueJS 3.x
@@ -74,12 +63,8 @@
       </CDropdownHeader>
 
       <CDropdownItem @click="routeExp()">
-        <CIcon icon="cil-speedometer" class="text-danger" /><strong>
-          Back-End JS</strong
-        >
-        <CBadge style="float: right" color="success" class="ml-auto">{{
-          itemsCount
-        }}</CBadge>
+        <CIcon icon="cil-speedometer" class="text-danger" /><strong> Back-End JS</strong>
+        <CBadge style="float: right" color="success" class="ml-auto">{{ itemsCount }}</CBadge>
       </CDropdownItem>
     </CDropdownMenu>
   </CDropdown>
@@ -106,9 +91,7 @@ export default {
 
     const editUserinfo = () => {
       let id =
-        typeof store.state.loggedUser.id != 'undefined'
-          ? store.state.loggedUser.id
-          : store.state.loggedUser._id
+        typeof store.state.loggedUser.id != 'undefined' ? store.state.loggedUser.id : store.state.loggedUser._id
       let path = `/pages/register/${id}`
       store.dispatch('logout')
       router.push(path)

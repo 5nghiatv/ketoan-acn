@@ -4,29 +4,17 @@
       <div class="col">
         <div class="row">
           <template v-if="cartProducts.length > 0">
-            <div
-              class="col-md-4"
-              v-for="(item, index) in cartProducts"
-              :key="index"
-            >
+            <div class="col-md-4" v-for="(item, index) in cartProducts" :key="index">
               <div class="card mb-4 shadow-sm" style="height: 410px">
                 <img
                   class="card-img-top mt-2"
                   v-bind:src="item.productImage"
                   alt="Card image cap"
-                  style="
-                    max-height: 700px;
-                    max-width: 220px;
-                    min-height: 220px;
-                    min-width: 220px;
-                    margin: auto;
-                  "
+                  style="max-height: 700px; max-width: 220px; min-height: 220px; min-width: 220px; margin: auto"
                 />
                 <div class="card-body">
                   <h6 class="card-text">{{ item.productName }}.</h6>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
+                  <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button
                         type="button"
@@ -37,11 +25,7 @@
                       </button>
                     </div>
                     <small class="text-muted footerIcons">
-                      <a
-                        href="javascript:;;"
-                        class="p-2"
-                        v-on:click="removeProductCart(item)"
-                      >
+                      <a href="javascript:;;" class="p-2" v-on:click="removeProductCart(item)">
                         <i class="fa fa-trash"></i>
                       </a>
                     </small>
@@ -58,9 +42,7 @@
               <div class="error-actions">
                 <a class="btn text-white">
                   <span class="glyphicon glyphicon-envelope"></span>
-                  <router-link to="/e-commerce/products"
-                    >Take me to Products Page</router-link
-                  >
+                  <router-link to="/e-commerce/products">Take me to Products Page</router-link>
                 </a>
               </div>
             </div>
@@ -70,15 +52,10 @@
       <div class="col-4">
         <cart-calculator ref="cartCalculator"></cart-calculator>
         <ul class="list-group mb-3">
-          <router-link
-            to="/e-commerce/products"
-            class="btn btn-primary mt-2 text-white"
+          <router-link to="/e-commerce/products" class="btn btn-primary mt-2 text-white"
             >Tiếp tục mua hàng</router-link
           >
-          <router-link
-            v-if="totalValueCart != 0"
-            to="/e-commerce/checkout"
-            class="btn btn-warning mt-2 text-white"
+          <router-link v-if="totalValueCart != 0" to="/e-commerce/checkout" class="btn btn-warning mt-2 text-white"
             >Thanh toán</router-link
           >
         </ul>

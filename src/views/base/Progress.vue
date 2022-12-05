@@ -5,20 +5,15 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Progress</strong> <small>Basic example</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Progress</strong> <small>Basic example</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Progress components are built with two HTML elements, some CSS to
-            set the width, and a few attributes. We don&#39;tuse
-            <a
-              href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress"
-            >
+            Progress components are built with two HTML elements, some CSS to set the width, and a few attributes.
+            We don&#39;tuse
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress">
               the HTML5 <code>&lt;progress&gt;</code> element
             </a>
-            , ensuring you can stack progress bars, animate them, and place text
-            labels over them.
+            , ensuring you can stack progress bars, animate them, and place text labels over them.
           </p>
           <DocsExample href="components/progress.html">
             <CProgress class="mb-3">
@@ -42,9 +37,7 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Progress</strong> <small>Labels</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Progress</strong> <small>Labels</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
             Add labels to your progress bars by placing text within the
@@ -60,15 +53,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Progress</strong> <small>Height</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Progress</strong> <small>Height</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            We only set a <code>height</code> value on the
-            <code>&lt;CProgress&gt;</code>, so if you change that value the
-            inner <code>&lt;CProgressBar&gt;</code> will automatically resize
-            accordingly.
+            We only set a <code>height</code> value on the <code>&lt;CProgress&gt;</code>, so if you change that
+            value the inner <code>&lt;CProgressBar&gt;</code> will automatically resize accordingly.
           </p>
           <DocsExample href="components/progress.html#height">
             <CProgress :height="1" class="mb-3">
@@ -83,13 +72,10 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Progress</strong> <small>Backgrounds</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Progress</strong> <small>Backgrounds</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Use <code>color</code> prop to change the appearance of individual
-            progress bars.
+            Use <code>color</code> prop to change the appearance of individual progress bars.
           </p>
           <DocsExample href="components/progress.html#backgrounds">
             <CProgress class="mb-3">
@@ -110,9 +96,7 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Progress</strong> <small>Multiple bars</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Progress</strong> <small>Multiple bars</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
             Include multiple progress bars in a progress component if you need.
@@ -129,43 +113,24 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Progress</strong> <small>Striped</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Progress</strong> <small>Striped</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Add <code>variant=&#34;striped&#34;</code> to any
-            <code>&lt;CProgressBar&gt;</code> to apply a stripe via CSS gradient
-            over the progress bar&#39;s background color.
+            Add <code>variant=&#34;striped&#34;</code> to any <code>&lt;CProgressBar&gt;</code> to apply a stripe
+            via CSS gradient over the progress bar&#39;s background color.
           </p>
           <DocsExample href="components/progress.html#striped">
             <CProgress class="mb-3">
-              <CProgressBar
-                color="success-gradient"
-                variant="striped"
-                :value="25"
-              />
+              <CProgressBar color="success-gradient" variant="striped" :value="25" />
             </CProgress>
             <CProgress class="mb-3">
-              <CProgressBar
-                color="info-gradient"
-                variant="striped"
-                :value="50"
-              />
+              <CProgressBar color="info-gradient" variant="striped" :value="50" />
             </CProgress>
             <CProgress class="mb-3">
-              <CProgressBar
-                color="warning-gradient"
-                variant="striped"
-                :value="75"
-              />
+              <CProgressBar color="warning-gradient" variant="striped" :value="75" />
             </CProgress>
             <CProgress class="mb-3">
-              <CProgressBar
-                color="danger-gradient"
-                variant="striped"
-                :value="100"
-              />
+              <CProgressBar color="danger-gradient" variant="striped" :value="100" />
             </CProgress>
           </DocsExample>
         </CCardBody>
@@ -173,48 +138,25 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Progress</strong> <small>Animated stripes</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Progress</strong> <small>Animated stripes</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
             The striped gradient can also be animated. Add
-            <code>animated</code> property to
-            <code>&lt;CProgressBar&gt;</code> to animate the stripes right to
+            <code>animated</code> property to <code>&lt;CProgressBar&gt;</code> to animate the stripes right to
             left via CSS3 animations.
           </p>
           <DocsExample href="components/progress.html#animated-stripes">
             <CProgress class="mb-3">
-              <CProgressBar
-                color="success-gradient"
-                variant="striped"
-                animated
-                :value="25"
-              />
+              <CProgressBar color="success-gradient" variant="striped" animated :value="25" />
             </CProgress>
             <CProgress class="mb-3">
-              <CProgressBar
-                color="info"
-                variant="striped"
-                animated
-                :value="50"
-              />
+              <CProgressBar color="info" variant="striped" animated :value="50" />
             </CProgress>
             <CProgress class="mb-3">
-              <CProgressBar
-                color="warning-gradient"
-                variant="striped"
-                animated
-                :value="75"
-              />
+              <CProgressBar color="warning-gradient" variant="striped" animated :value="75" />
             </CProgress>
             <CProgress class="mb-3">
-              <CProgressBar
-                color="danger-gradient"
-                variant="striped"
-                animated
-                :value="100"
-              />
+              <CProgressBar color="danger-gradient" variant="striped" animated :value="100" />
             </CProgress>
           </DocsExample>
         </CCardBody>

@@ -14,30 +14,20 @@
             </div>
             <div class style="margin-top: 15px">
               <ul class="list-group mb-3">
-                <li
-                  class="list-group-item d-flex justify-content-between lh-condensed"
-                >
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
                     <h6 class="my-0">Product Price</h6>
                   </div>
-                  <span class="text-muted" style="color: crimson !important"
-                    >đ {{ product.productPrice }}</span
-                  >
+                  <span class="text-muted" style="color: crimson !important">đ {{ product.productPrice }}</span>
                 </li>
-                <li
-                  class="list-group-item d-flex justify-content-between lh-condensed"
-                >
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
                     <h6 class="my-0">Product Seller</h6>
                   </div>
-                  <span class="text-muted" style="color: crimson !important">{{
-                    product.productSeller
-                  }}</span>
+                  <span class="text-muted" style="color: crimson !important">{{ product.productSeller }}</span>
                 </li>
               </ul>
-              <button class="btn btn-primary" v-on:click="addToCart(product)">
-                Add to Cart
-              </button>
+              <button class="btn btn-primary" v-on:click="addToCart(product)">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -73,17 +63,11 @@
       </div>
       <nav aria-label="breadcrumb ">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active" aria-current="page">
-            Similar Products
-          </li>
+          <li class="breadcrumb-item active" aria-current="page">Similar Products</li>
         </ol>
       </nav>
       <div class="row">
-        <div
-          class="col-md-3 mt-3"
-          v-for="(item, index) in similarProduct"
-          :key="index"
-        >
+        <div class="col-md-3 mt-3" v-for="(item, index) in similarProduct" :key="index">
           <card-template :item="item" />
         </div>
       </div>
@@ -123,10 +107,7 @@ export default {
     addToCart(product) {
       const data = _.find(this.$store.getters.cartProducts, product)
       if (data) {
-        this.$toastr.info(
-          'Product Already Added',
-          'Already Added,only increased by 1',
-        )
+        this.$toastr.info('Product Already Added', 'Already Added,only increased by 1')
         data.amount++ // đã có thì tăng lượng 1
         this.REP_CART_LOCAL(data)
       } else {
@@ -147,13 +128,11 @@ export default {
       .then((response) => {
         this.product = response.data
         const starTotal = 5
-        const starPercentage =
-          (Number(this.product.productRating) / starTotal) * 100
+        const starPercentage = (Number(this.product.productRating) / starTotal) * 100
         // 3
         const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`
         // 4
-        document.querySelector(`.stars-inner`).style.width =
-          starPercentageRounded
+        document.querySelector(`.stars-inner`).style.width = starPercentageRounded
 
         // Getting Similar Product
         this.getSimilarProduct(this.product.productSeller)

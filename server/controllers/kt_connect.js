@@ -24,34 +24,29 @@ exports.getFilterConnectSql = async function (req, res) {
       })
       retcon.connect(function (err) {
         // The server is either down
-        retcon.query(
-          'SELECT MIN(ngay) AS fromdate ,MAX(ngay) AS todate FROM ctuktoan',
-          (err, rows, fields) => {
-            retcon.destroy()
-            ncount++
-            if (!err) {
-              var conn = allConnect[index]
-              conn['fromdate'] = rows[0].fromdate
-              conn['todate'] = rows[0].todate
-              conn['_id'] = kq.id // Tương thích mongodb
-              conn['database'] = kq.dataname // Tương thích mongodb
-              if (databases.includes(kq.dataname)) confilter.push(conn)
-            }
-            if (ncount === array.length) resolve(confilter)
-          },
-        )
+        retcon.query('SELECT MIN(ngay) AS fromdate ,MAX(ngay) AS todate FROM ctuktoan', (err, rows, fields) => {
+          retcon.destroy()
+          ncount++
+          if (!err) {
+            var conn = allConnect[index]
+            conn['fromdate'] = rows[0].fromdate
+            conn['todate'] = rows[0].todate
+            conn['_id'] = kq.id // Tương thích mongodb
+            conn['database'] = kq.dataname // Tương thích mongodb
+            if (databases.includes(kq.dataname)) confilter.push(conn)
+          }
+          if (ncount === array.length) resolve(confilter)
+        })
       }) //  retcon.connect()
     }) // allConnect.forEach()
   }) // result = new Promise()
   result.then((ret) => {
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: 'A list of all Connect OK',
-        connects: ret,
-        mongodb: __mongodb,
-      })
+    return res.status(200).json({
+      success: true,
+      message: 'A list of all Connect OK',
+      connects: ret,
+      mongodb: __mongodb,
+    })
   })
 }
 exports.getAllConnectSql = async function (req, res) {
@@ -64,13 +59,11 @@ exports.getAllConnectSql = async function (req, res) {
       connectsqls: kq,
     })
   } else {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: 'Server error. Please try again.',
-        error: '',
-      })
+    res.status(500).json({
+      success: false,
+      message: 'Server error. Please try again.',
+      error: '',
+    })
   }
 }
 
@@ -98,9 +91,7 @@ exports.getSingleConnectSql = function (req, res) {
         }
       })
     } else {
-      console.log(
-        'DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2),
-      )
+      console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2))
     }
   })
 }
@@ -128,9 +119,7 @@ exports.findOneConnectSql = function (req, res) {
         }
       })
     } else {
-      console.log(
-        'DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2),
-      )
+      console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2))
     }
   })
 }
@@ -166,13 +155,11 @@ exports.createConnectSql = async function (req, res) {
       connectsql: req.body,
     })
   } else {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: 'Server error. Please try again.',
-        error: '',
-      })
+    res.status(500).json({
+      success: false,
+      message: 'Server error. Please try again.',
+      error: '',
+    })
   }
 }
 
@@ -206,13 +193,11 @@ exports.updateConnectSql = async function (req, res) {
       connectsql: kq,
     })
   } else {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: 'Server error. Please try again.',
-        error: '',
-      })
+    res.status(500).json({
+      success: false,
+      message: 'Server error. Please try again.',
+      error: '',
+    })
   }
 }
 
@@ -227,12 +212,10 @@ exports.deleteConnectSql = async function (req, res) {
       connectsql: kq,
     })
   } else {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: 'Server error. Please try again.',
-        error: '',
-      })
+    res.status(500).json({
+      success: false,
+      message: 'Server error. Please try again.',
+      error: '',
+    })
   }
 }

@@ -6,8 +6,7 @@
         <CCard>
           <CCardHeader style="font-size: 25px">
             Cập nhật &#8482; <strong v-if="ischitiet == 1">Chi tiết</strong
-            ><strong v-if="ischitiet == 2">Vật tư</strong
-            ><strong v-if="ischitiet == 3">Hóa đơn</strong>
+            ><strong v-if="ischitiet == 2">Vật tư</strong><strong v-if="ischitiet == 3">Hóa đơn</strong>
           </CCardHeader>
           <CCardBody>
             <CForm @submit.prevent="submitForm">
@@ -89,22 +88,13 @@
                   <CCol md="3">
                     <CInputGroup class="mb-3">
                       <CInputGroupText>Thuế gtgt</CInputGroupText>
-                      <CFormInput
-                        class="form-control is-valid"
-                        v-model="hoadon.thuegtgt"
-                        v-mask-decimal.br="0"
-                      />
+                      <CFormInput class="form-control is-valid" v-model="hoadon.thuegtgt" v-mask-decimal.br="0" />
                     </CInputGroup>
                   </CCol>
                   <CCol md="3">
                     <CInputGroup class="mb-3">
                       <CInputGroupText>Cộng Tiền</CInputGroupText>
-                      <CFormInput
-                        class="congtien"
-                        :disabled="true"
-                        v-model="TotalHd_Tien"
-                        v-mask-decimal.br="0"
-                      />
+                      <CFormInput class="congtien" :disabled="true" v-model="TotalHd_Tien" v-mask-decimal.br="0" />
                     </CInputGroup>
                   </CCol>
                 </CRow>
@@ -162,26 +152,13 @@
                   <CCol md="3">
                     <CInputGroup class="mb-3">
                       <CInputGroupText>Cộng Thuế</CInputGroupText>
-                      <CFormInput
-                        id="congthue"
-                        :disabled="true"
-                        v-model="TotalHd_Thue"
-                        v-mask-decimal.br="0"
-                      />
+                      <CFormInput id="congthue" :disabled="true" v-model="TotalHd_Thue" v-mask-decimal.br="0" />
                     </CInputGroup>
                   </CCol>
                 </CRow>
 
-                <modal
-                  :header="'Khách hàng Mới'"
-                  :isShow="showModal"
-                  v-if="showModal"
-                  @close="showModal = false"
-                >
-                  <customer-form
-                    :customer="customer"
-                    v-on:submit-form="customerAction"
-                  />
+                <modal :header="'Khách hàng Mới'" :isShow="showModal" v-if="showModal" @close="showModal = false">
+                  <customer-form :customer="customer" v-on:submit-form="customerAction" />
                 </modal>
                 <modal
                   :header="'Download E-Invoices'"
@@ -222,14 +199,8 @@
                       <td style="text-align: right; font-weight: bold">
                         {{
                           number_format(
-                            hoadon.giaban
-                              .replace(/\./g, '')
-                              .replace(/\,/g, '.') *
-                              1 +
-                              hoadon.thuegtgt
-                                .replace(/\./g, '')
-                                .replace(/\,/g, '.') *
-                                1,
+                            hoadon.giaban.replace(/\./g, '').replace(/\,/g, '.') * 1 +
+                              hoadon.thuegtgt.replace(/\./g, '').replace(/\,/g, '.') * 1,
                             0,
                             ',',
                             '.',
@@ -238,17 +209,9 @@
                       </td>
 
                       <td style="text-align: center">
-                        <a
-                          class="fa fa-pencil-square-o text-info mr-1"
-                          @click="editHoadon(index)"
-                          id="1"
-                        ></a
+                        <a class="fa fa-pencil-square-o text-info mr-1" @click="editHoadon(index)" id="1"></a
                         >&nbsp&nbsp&nbsp
-                        <a
-                          class="fa fa-trash-o text-warning mr-1"
-                          @click="deleteHoadon(index)"
-                          id="2"
-                        ></a>
+                        <a class="fa fa-trash-o text-warning mr-1" @click="deleteHoadon(index)" id="2"></a>
                         <!-- <button  style="margin-right: 5px;" @click="editHoadon(index)" class="btn btn-outline-info btn-sm">Sửa</button> -->
                         <!-- <button  @click="deleteHoadon(index)" class="btn btn-outline-warning btn-sm">Xóa</button>             -->
                       </td>
@@ -333,16 +296,8 @@
                   </CCol>
                 </CRow>
 
-                <modal
-                  :header="'Mặt hàng Mới'"
-                  :isShow="showModal"
-                  v-if="showModal"
-                  @close="showModal = false"
-                >
-                  <product-form
-                    :product="product"
-                    v-on:submit-form="productAction"
-                  />
+                <modal :header="'Mặt hàng Mới'" :isShow="showModal" v-if="showModal" @close="showModal = false">
+                  <product-form :product="product" v-on:submit-form="productAction" />
                 </modal>
 
                 <CRow>
@@ -414,17 +369,9 @@
                       <td style="text-align: right">{{ ctuvattu.sotien }}</td>
                       <td style="text-align: right">{{ ctuvattu.ngoaite }}</td>
                       <td style="text-align: center">
-                        <a
-                          class="fa fa-pencil-square-o text-info mr-1"
-                          @click="editCtuvattu(index)"
-                          id="1"
-                        ></a
+                        <a class="fa fa-pencil-square-o text-info mr-1" @click="editCtuvattu(index)" id="1"></a
                         >&nbsp&nbsp&nbsp
-                        <a
-                          class="fa fa-trash-o text-warning mr-1"
-                          @click="deleteCtuvattu(index)"
-                          id="2"
-                        ></a>
+                        <a class="fa fa-trash-o text-warning mr-1" @click="deleteCtuvattu(index)" id="2"></a>
                         <!-- <button  style="margin-right: 5px;" @click="editCtuvattu(index)" class="btn btn-outline-info btn-sm">Sửa</button>            
                                 <button  @click="deleteCtuvattu(index)" class="btn btn-outline-warning btn-sm">Xóa</button>             -->
                       </td>
@@ -521,26 +468,13 @@
                   <CCol md="3">
                     <CInputGroup class="mb-3">
                       <CInputGroupText>Cộng tiền</CInputGroupText>
-                      <CFormInput
-                        class="congtien"
-                        :disabled="true"
-                        v-model="TotalChitiet"
-                        v-mask-decimal.br="0"
-                      />
+                      <CFormInput class="congtien" :disabled="true" v-model="TotalChitiet" v-mask-decimal.br="0" />
                     </CInputGroup>
                   </CCol>
                 </CRow>
 
-                <modal
-                  :header="'Tài khoản Mới'"
-                  :isShow="showModal"
-                  v-if="showModal"
-                  @close="showModal = false"
-                >
-                  <account-form
-                    :account="account"
-                    v-on:submit-form="accountAction"
-                  />
+                <modal :header="'Tài khoản Mới'" :isShow="showModal" v-if="showModal" @close="showModal = false">
+                  <account-form :account="account" v-on:submit-form="accountAction" />
                 </modal>
 
                 <table
@@ -568,17 +502,9 @@
                       <td style="text-align: right">{{ chitiet.ngoaite }}</td>
 
                       <td style="text-align: center">
-                        <a
-                          class="fa fa-pencil-square-o text-info mr-1"
-                          @click="editChitiet(index)"
-                          id="1"
-                        ></a
+                        <a class="fa fa-pencil-square-o text-info mr-1" @click="editChitiet(index)" id="1"></a
                         >&nbsp&nbsp&nbsp
-                        <a
-                          class="fa fa-trash-o text-warning mr-1"
-                          @click="deleteChitiet(index)"
-                          id="2"
-                        ></a>
+                        <a class="fa fa-trash-o text-warning mr-1" @click="deleteChitiet(index)" id="2"></a>
 
                         <!-- <button  style="margin-right: 5px;" @click="editChitiet(index)" class="btn btn-outline-info btn-sm">Sửa</button>            
                                 <button  @click="deleteChitiet(index)" class="btn btn-outline-warning btn-sm">Xóa</button>             -->
@@ -696,12 +622,7 @@
               <hr />
 
               <div class="form-group form-actions">
-                <CButton
-                  type="submit"
-                  class="btn btn-info btn-sm"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton type="submit" class="btn btn-info btn-sm" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <input
@@ -733,28 +654,13 @@
                 >
                   >> Restore </CLoadingButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
-                  >> Close </CButton
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close"> >> Close </CButton
                 >&nbsp;&nbsp;&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="inOneChungtu()"
-                  id="inOne"
-                >
+                <CButton class="btn btn-outline-info btn-sm" @click="inOneChungtu()" id="inOne">
                   >> In chứng từ
-                  <a style="font-style: italic; font-size: 0.7em"
-                    >{{ mess_print }}
-                  </a> </CButton
+                  <a style="font-style: italic; font-size: 0.7em">{{ mess_print }} </a> </CButton
                 >&nbsp;&nbsp;&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="inAllChungtu()"
-                  id="inAll"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="inAllChungtu()" id="inAll">
                   >> In toàn bộ </CButton
                 >&nbsp;&nbsp;&nbsp;&nbsp;
                 <CButton
@@ -838,27 +744,15 @@
       >
         Tính cân đối</a
       >
-      <a
-        class="btn btn-outline-info btn-sm"
-        style="float: right; margin-right: 5px"
-        @click="tatoansodutk()"
-      >
+      <a class="btn btn-outline-info btn-sm" style="float: right; margin-right: 5px" @click="tatoansodutk()">
         Tất toán Số dư</a
       >
     </h2>
     <CRow>
       <CCol md="3" style="float: right">
         <CInputGroup class="mb-3">
-          <CFormInput
-            size="sm"
-            id="pd_fromdate"
-            :placeholder="infoketoan.fromtodate.tungay"
-          />
-          <CFormInput
-            size="sm"
-            id="pd_todate"
-            :placeholder="infoketoan.fromtodate.denngay"
-          />
+          <CFormInput size="sm" id="pd_fromdate" :placeholder="infoketoan.fromtodate.tungay" />
+          <CFormInput size="sm" id="pd_todate" :placeholder="infoketoan.fromtodate.denngay" />
         </CInputGroup>
       </CCol>
 
@@ -1160,8 +1054,7 @@ export default {
       const company = this.danhmucCustomer.filter((item) => {
         return item.maso == this.hoadon.masothue
       })
-      if (company.length > 0 && !this.hoadon.diengiai)
-        this.hoadon.diengiai = company[0].company
+      if (company.length > 0 && !this.hoadon.diengiai) this.hoadon.diengiai = company[0].company
     },
     getCompany(masothue) {
       const company = this.danhmucCustomer.filter((item) => {
@@ -1225,8 +1118,7 @@ export default {
             this.$toastr.success('', 'Tạo khách hàng mới thành công.')
             await this.getDanhmuc('GET_DM_CUSTOMER')
             await this.setChitiet(0) // for update
-          } else
-            this.$toastr.warning('', 'Tạo khách hàng mới KHÔNG thành công.')
+          } else this.$toastr.warning('', 'Tạo khách hàng mới KHÔNG thành công.')
         })
         .catch((err) => {
           this.$toastr.warning('', 'Tạo khách hàng mới KHÔNG thành công.')
@@ -1259,10 +1151,7 @@ export default {
         let query = ''
         invoices.forEach((item) => {
           //console.log(item)
-          let diengiai_ =
-            diengiai ||
-            item.buyerName + ' (' + item.buyerTaxCode + ')' ||
-            'Bán hàng'
+          let diengiai_ = diengiai || item.buyerName + ' (' + item.buyerTaxCode + ')' || 'Bán hàng'
           diengiai_ = diengiai_.substring(0, 100)
           query +=
             'INSERT INTO hoadon (`id`,`ctid`,`sohd`,`ngay`,`diengiai`,`masothue`,`thuesuat`,`giaban`,`thuegtgt`,`mausohd`,`mamauhd`,`sohdong`,`ngayhdong`,' +
@@ -1309,26 +1198,19 @@ export default {
         .then((ret) => {
           //console.log(ctid,tongtien,tienthue,tkThue,ret.data.query[1])
           if (ret.data.query[1].affectedRows > 0)
-            this.$toastr.success(
-              '',
-              'Gán tổng tiền Hàng hóa-Thuế vào <Chi tiết> thành công.',
-            )
+            this.$toastr.success('', 'Gán tổng tiền Hàng hóa-Thuế vào <Chi tiết> thành công.')
           this.tinhTienHangHoadon = false
         })
         .catch((err) => {
           console.log(err)
-          this.$toastr.warning(
-            '',
-            'Gán tổng tiền Hàng hóa-Thuế vào <Chi tiết> KHÔNG thành công.',
-          )
+          this.$toastr.warning('', 'Gán tổng tiền Hàng hóa-Thuế vào <Chi tiết> KHÔNG thành công.')
         })
     },
     SumSubTotal() {
       if (this.ischitiet == 1) {
         this.TotalChitiet = 0
         this.chitiets.forEach((item) => {
-          this.TotalChitiet +=
-            item.sotien.split('.').join('').split(',').join('.') * 1
+          this.TotalChitiet += item.sotien.split('.').join('').split(',').join('.') * 1
         })
         var zfsotien = this.format_so(this.TotalChitiet, 0)
         if (this.todo['sotien'] != zfsotien && this.TotalChitiet != 0) {
@@ -1337,20 +1219,14 @@ export default {
           //console.log(this.todos[this.todoB.index_] )
           this.todoB.sotien_ = zfsotien // Thay luôn trị dùng phục hồi
           this.updateSotien(this.TotalChitiet) // Không định dạng
-          this.$toastr.warning(
-            '',
-            'Cập nhật Số tiền trên chứng từ = chi tiết...',
-          )
+          this.$toastr.warning('', 'Cập nhật Số tiền trên chứng từ = chi tiết...')
         }
         this.TotalChitiet = zfsotien
       }
       if (this.ischitiet == 2) {
         this.TotalCtuvattu = 0
         this.ctuvattus.forEach((item) => {
-          this.TotalCtuvattu +=
-            item.sotien == 0
-              ? 0
-              : item.sotien.split('.').join('').split(',').join('.') * 1
+          this.TotalCtuvattu += item.sotien == 0 ? 0 : item.sotien.split('.').join('').split(',').join('.') * 1
         })
         this.GanTienHangHoadon(this.TotalCtuvattu)
         this.TotalCtuvattu = this.format_so(this.TotalCtuvattu, 0)
@@ -1359,14 +1235,8 @@ export default {
         this.TotalHd_Thue = 0
         this.TotalHd_Tien = 0
         this.hoadons.forEach((item) => {
-          this.TotalHd_Thue +=
-            item.thuegtgt == 0
-              ? 0
-              : item.thuegtgt.split('.').join('').split(',').join('.') * 1
-          this.TotalHd_Tien +=
-            item.giaban == 0
-              ? 0
-              : item.giaban.split('.').join('').split(',').join('.') * 1
+          this.TotalHd_Thue += item.thuegtgt == 0 ? 0 : item.thuegtgt.split('.').join('').split(',').join('.') * 1
+          this.TotalHd_Tien += item.giaban == 0 ? 0 : item.giaban.split('.').join('').split(',').join('.') * 1
         })
         this.GanTienHangHoadon(this.TotalHd_Tien, this.TotalHd_Thue)
         this.TotalHd_Thue = this.format_so(this.TotalHd_Thue, 0)
@@ -1379,9 +1249,7 @@ export default {
       var thuegtgt =
         this.hoadon.giaban == 0
           ? 0
-          : (this.hoadon.giaban.split('.').join('').split(',').join('.') *
-              thuesuat) /
-            100
+          : (this.hoadon.giaban.split('.').join('').split(',').join('.') * thuesuat) / 100
       this.hoadon.thuegtgt = thuegtgt.toFixed().toString()
     },
     tinhGiaTien(field) {
@@ -1407,17 +1275,11 @@ export default {
           this.readTodos()
           this.updaterec = false // Đóng screen update
           this.$store.commit('set', ['isLoading', false])
-          this.$toastr.success(
-            '',
-            'Tất toán Số dư trong kỳ....Thực hiện thành công !!',
-          )
+          this.$toastr.success('', 'Tất toán Số dư trong kỳ....Thực hiện thành công !!')
         })
         .catch((err) => {
           console.log(err)
-          this.$toastr.warning(
-            '',
-            'Tất toán Số dư trong kỳ....KHÔNG thành công !!',
-          )
+          this.$toastr.warning('', 'Tất toán Số dư trong kỳ....KHÔNG thành công !!')
           this.$store.commit('set', ['isLoading', false])
         })
     },
@@ -1428,12 +1290,9 @@ export default {
       return fname // this.number_format(fname,0,',','.');
     },
     inOneChungtu() {
-      if (this.ischitiet < 2)
-        this.$router.push('reports/inphieuthuchi/' + this.todo.ctid)
-      if (this.ischitiet == 2)
-        this.$router.push('reports/inphieunhapxuat/' + this.todo.ctid)
-      if (this.ischitiet == 3)
-        this.$router.push('reports/inphieuketoan/' + this.todo.ctid)
+      if (this.ischitiet < 2) this.$router.push('reports/inphieuthuchi/' + this.todo.ctid)
+      if (this.ischitiet == 2) this.$router.push('reports/inphieunhapxuat/' + this.todo.ctid)
+      if (this.ischitiet == 3) this.$router.push('reports/inphieuketoan/' + this.todo.ctid)
     },
     inAllChungtu() {
       if (this.ischitiet < 2) this.$router.push('reports/inphieuthuchi/All')
@@ -1744,10 +1603,7 @@ export default {
       let conf = confirm('Xác nhận muốn xóa chứng từ Vật tư (' + thutu + ') ?')
       if (conf === true) {
         this.$apiAcn
-          .delete(
-            '/ctuvattu/' + this.ctuvattus[index].id,
-            this.ctuvattus[index],
-          )
+          .delete('/ctuvattu/' + this.ctuvattus[index].id, this.ctuvattus[index])
           .then(() => {
             this.ctuvattus.splice(index, 1)
             this.reset()
@@ -1885,9 +1741,7 @@ export default {
     },
     deleteChitiet(index) {
       let thutu = index + 1
-      let conf = confirm(
-        'Xác nhận muốn xóa chứng từ chi tiết (' + thutu + ') ?',
-      )
+      let conf = confirm('Xác nhận muốn xóa chứng từ chi tiết (' + thutu + ') ?')
       if (conf === true) {
         this.$apiAcn
           .delete('/chitiet/' + this.chitiets[index].id, this.chitiets[index])
@@ -1969,12 +1823,9 @@ export default {
         //if(field == 'ngay') return this.Validator.ngay = ( this.todo.ngay >= new Date(this.infoketoan.fromtodate.pd_fromdate) && this.todo.ngay <= new Date(this.infoketoan.fromtodate.pd_todate) );
         if (field == 'ngay')
           return (this.Validator.ngay =
-            new Date(this.todo.ngay) >=
-              new Date(this.infoketoan.fromtodate.pd_fromdate) &&
-            new Date(this.todo.ngay) <=
-              new Date(this.infoketoan.fromtodate.pd_todate))
-        if (field == 'diengiai')
-          return (this.Validator.diengiai = this.todo.diengiai != '')
+            new Date(this.todo.ngay) >= new Date(this.infoketoan.fromtodate.pd_fromdate) &&
+            new Date(this.todo.ngay) <= new Date(this.infoketoan.fromtodate.pd_todate))
+        if (field == 'diengiai') return (this.Validator.diengiai = this.todo.diengiai != '')
         if (field == 'tkno') return (this.Validator.tkno = this.todo.tkno != '')
         if (field == 'tkco') return (this.Validator.tkco = this.todo.tkco != '')
         if (!this.todo.sotien) this.todo.sotien = '0'
@@ -1986,37 +1837,26 @@ export default {
           this.Validator.tkco
       }
       if (this.ischitiet == 1) {
-        if (field == 'diengiai')
-          return (this.Validator.diengiai = this.chitiet.diengiai != '')
-        if (field == 'tkno')
-          return (this.Validator.tkno = this.chitiet.tkno != '')
-        if (field == 'tkco')
-          return (this.Validator.tkco = this.chitiet.tkco != '')
+        if (field == 'diengiai') return (this.Validator.diengiai = this.chitiet.diengiai != '')
+        if (field == 'tkno') return (this.Validator.tkno = this.chitiet.tkno != '')
+        if (field == 'tkco') return (this.Validator.tkco = this.chitiet.tkco != '')
         if (!this.chitiet.sotien) this.chitiet.sotien = '0'
-        passe =
-          this.Validator.diengiai && this.Validator.tkno && this.Validator.tkco
+        passe = this.Validator.diengiai && this.Validator.tkno && this.Validator.tkco
       }
       if (this.ischitiet == 2) {
-        if (field == 'mahang')
-          return (this.Validator.mahang = this.ctuvattu.mahang != '')
-        if (field == 'makho')
-          return (this.Validator.makho = this.ctuvattu.makho != '')
+        if (field == 'mahang') return (this.Validator.mahang = this.ctuvattu.mahang != '')
+        if (field == 'makho') return (this.Validator.makho = this.ctuvattu.makho != '')
         //if(field == 'soluong') return this.Validator.soluong = (this.ctuvattu.soluong != '')
         if (!this.ctuvattu.sotien) this.ctuvattu.sotien = '0'
         passe = this.Validator.mahang && this.Validator.makho
       }
       if (this.ischitiet == 3) {
-        if (field == 'sohd')
-          return (this.Validator.sohd = this.hoadon.sohd != '')
-        if (field == 'diengiai')
-          return (this.Validator.diengiai = this.hoadon.diengiai != '')
-        if (field == 'ngay')
-          return (this.Validator.ngay = this.hoadon.ngay != '')
-        if (field == 'masothue')
-          return (this.Validator.masothue = this.hoadon.masothue != '')
+        if (field == 'sohd') return (this.Validator.sohd = this.hoadon.sohd != '')
+        if (field == 'diengiai') return (this.Validator.diengiai = this.hoadon.diengiai != '')
+        if (field == 'ngay') return (this.Validator.ngay = this.hoadon.ngay != '')
+        if (field == 'masothue') return (this.Validator.masothue = this.hoadon.masothue != '')
         if (!this.hoadon.giaban) this.hoadon.giaban = '0'
-        if (field == 'thuesuat')
-          return (this.Validator.thuesuat = this.hoadon.thuesuat != '')
+        if (field == 'thuesuat') return (this.Validator.thuesuat = this.hoadon.thuesuat != '')
         passe =
           this.Validator.sohd &&
           this.Validator.diengiai &&
@@ -2083,10 +1923,7 @@ export default {
         //this.todos[dat.index_] = this.todo ;
       }
       var tmp
-      if (
-        this.ischitiet == 1 &&
-        typeof this.src_chitiet.index_ != 'undefined'
-      ) {
+      if (this.ischitiet == 1 && typeof this.src_chitiet.index_ != 'undefined') {
         tmp = this.src_chitiet
         this.chitiet['diengiai'] = tmp.diengiai_
         this.chitiet['tkno'] = tmp.tkno_
@@ -2095,10 +1932,7 @@ export default {
         this.chitiet['ngoaite'] = tmp.ngoaite_
         //this.chitiets[tmp.index_] = this.chitiet ;
       }
-      if (
-        this.ischitiet == 2 &&
-        typeof this.src_ctuvattu.index_ != 'undefined'
-      ) {
+      if (this.ischitiet == 2 && typeof this.src_ctuvattu.index_ != 'undefined') {
         tmp = this.src_ctuvattu
         this.ctuvattu['mahang'] = tmp.mahang_
         this.ctuvattu['makho'] = tmp.makho_
@@ -2261,29 +2095,14 @@ export default {
           let nDemsoct = ret.data.query.length
           if (ret.data.success && nDemsoct > 0) {
             //var strcheck = this.infoketoan.fromtodate.pd_fromdate.substr(5,2)+"-" +this.infoketoan.fromtodate.pd_todate.substr(5,2)+"/"+this.infoketoan.fromtodate.pd_fromdate.substr(0,4);
-            if (
-              confirm(
-                'Bạn muốn COPY toàn bộ ( ' +
-                  nDemsoct +
-                  ' ) chứng từ trong kỳ ?',
-              )
-            ) {
-              let tungayV = moment(
-                this.infoketoan.fromtodate.pd_fromdate,
-                'YYYY-MM-DD',
-              ).format('DD/MM/YYYY')
-              let tungay = moment(
-                this.infoketoan.fromtodate.pd_fromdate,
-                'YYYY-MM-DD',
-              ).toDate() // For so sánh
+            if (confirm('Bạn muốn COPY toàn bộ ( ' + nDemsoct + ' ) chứng từ trong kỳ ?')) {
+              let tungayV = moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').format('DD/MM/YYYY')
+              let tungay = moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').toDate() // For so sánh
               let newdate_ = prompt(
-                'Nhập ngày tạo chứng từ có dạng : dd/mm/yyyy và phải lớn hơn ngày: ' +
-                  tungayV,
+                'Nhập ngày tạo chứng từ có dạng : dd/mm/yyyy và phải lớn hơn ngày: ' + tungayV,
                 '**/**/****',
               ) // For Check lần 2
-              let newdateV = newdate_
-                ? newdate_.split('/').reverse().join('-')
-                : '0000-00-00' // For Gửi CALL.
+              let newdateV = newdate_ ? newdate_.split('/').reverse().join('-') : '0000-00-00' // For Gửi CALL.
               let newdate = moment(newdateV, 'YYYY-MM-DD').toDate() // For so sánh
               if (moment(newdate).isValid() && newdate >= tungay) {
                 let person = prompt(
@@ -2291,10 +2110,7 @@ export default {
                   '**/**/****',
                 )
                 if (person == null || person != newdate_) {
-                  this.$toastr.warning(
-                    '',
-                    'Xác nhận không đúng định dạng ? nên KHÔNG COPY chứng từ.',
-                  )
+                  this.$toastr.warning('', 'Xác nhận không đúng định dạng ? nên KHÔNG COPY chứng từ.')
                   return
                 }
                 let query =
@@ -2306,19 +2122,11 @@ export default {
                   newdateV +
                   "')"
                 //console.log(query)
-                newdate = moment(newdate, 'YYYY-MM-DD', true).format(
-                  'MM/DD/YYYY',
-                ) // chỉ để thông báo
+                newdate = moment(newdate, 'YYYY-MM-DD', true).format('MM/DD/YYYY') // chỉ để thông báo
                 this.$apiAcn
                   .post('/query', { query: query })
                   .then(() => {
-                    this.$toastr.success(
-                      '',
-                      'COPY ( ' +
-                        nDemsoct +
-                        ' ) chứng từ THÀNH CÔNG sang Ngày :' +
-                        newdate,
-                    )
+                    this.$toastr.success('', 'COPY ( ' + nDemsoct + ' ) chứng từ THÀNH CÔNG sang Ngày :' + newdate)
                     this.readTodos()
                     this.updaterec = false // Đóng screen update
                     this.reset()
@@ -2327,11 +2135,7 @@ export default {
                     console.log(err)
                     this.$toastr.error('', 'COPY chứng từ KHÔNG thành công.')
                   })
-              } else
-                this.$toastr.warning(
-                  '',
-                  'Ngày không hợp lệ ? nên KHÔNG COPY chứng từ.',
-                )
+              } else this.$toastr.warning('', 'Ngày không hợp lệ ? nên KHÔNG COPY chứng từ.')
             }
           } else this.$toastr.warning('', 'KHÔNG có chứng từ để COPY.')
         })
@@ -2348,14 +2152,7 @@ export default {
       func = func ? 'CopyChungtuID' : 'DelChungtuID'
       var query = 'CALL ' + func + "('" + row.ctid + "')"
       if (func == 'CopyChungtuID') {
-        query =
-          'CALL ' +
-          func +
-          "('" +
-          row.ctid +
-          "','" +
-          this.infoketoan.fromtodate.pd_todate +
-          "')"
+        query = 'CALL ' + func + "('" + row.ctid + "','" + this.infoketoan.fromtodate.pd_todate + "')"
       }
       this.$apiAcn
         .post('/query', { query: query })
@@ -2389,10 +2186,8 @@ export default {
               success = true
             }
             if (!noShowErr) {
-              if (success)
-                this.$toastr.success('', mess + ' chứng từ thành công.')
-              else
-                this.$toastr.warning('', mess + ' chứng từ KHÔNG thành công.')
+              if (success) this.$toastr.success('', mess + ' chứng từ thành công.')
+              else this.$toastr.warning('', mess + ' chứng từ KHÔNG thành công.')
             }
             this.updaterec = false // Đóng screen update
             this.reset()
@@ -2472,11 +2267,7 @@ export default {
         })
     },
     updateSotien(sotien) {
-      var query =
-        'UPDATE ctuktoan SET sotien = ' +
-        sotien +
-        ' WHERE id=' +
-        this.todo['id']
+      var query = 'UPDATE ctuktoan SET sotien = ' + sotien + ' WHERE id=' + this.todo['id']
       this.$apiAcn.post('/query', { query: query })
     },
     updateTodo() {
@@ -2542,22 +2333,15 @@ export default {
             this.$store.commit('set', ['isLoading', false])
           })
           .catch((error) => {
-            this.$toastr.error(
-              '',
-              'ERROR Download file : ' + this.infoketoan['filename'],
-            )
+            this.$toastr.error('', 'ERROR Download file : ' + this.infoketoan['filename'])
             console.log(error)
             this.$store.commit('set', ['isLoading', false])
           })
       } else {
         this.infoketoan['filename'] = 'SoNhatKy.xlsx'
         if (this.patern == 'TK' && this.sotkhoan == '')
-          return this.$toastr.warning(
-            '',
-            'Chọn lọc TK phải nhập Số tài khoản hoặc nhóm.',
-          )
-        this.infoketoan['patern'] =
-          this.patern == 'TK' ? this.sotkhoan : this.patern
+          return this.$toastr.warning('', 'Chọn lọc TK phải nhập Số tài khoản hoặc nhóm.')
+        this.infoketoan['patern'] = this.patern == 'TK' ? this.sotkhoan : this.patern
         this.$store.commit('set', ['isLoading', true])
         this.$apiAcn
           .download('/sonhatky', this.infoketoan)
@@ -2565,10 +2349,7 @@ export default {
             this.$store.commit('set', ['isLoading', false])
           })
           .catch((error) => {
-            this.$toastr.error(
-              '',
-              'ERROR Download file : ' + this.infoketoan['filename'],
-            )
+            this.$toastr.error('', 'ERROR Download file : ' + this.infoketoan['filename'])
             console.log(error)
             this.$store.commit('set', ['isLoading', false])
           })
@@ -2623,14 +2404,8 @@ export default {
           password: process.env.VUE_APP_VIETTEL_PASSWORD,
           patern: process.env.VUE_APP_VIETTEL_PATERN,
           Uuid: '',
-          fromDate: moment(
-            this.infoketoan.fromtodate.pd_fromdate,
-            'YYYY-MM-DD',
-          ).format('DD/MM/YYYY'),
-          toDate: moment(
-            this.infoketoan.fromtodate.pd_todate,
-            'YYYY-MM-DD',
-          ).format('DD/MM/YYYY'),
+          fromDate: moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+          toDate: moment(this.infoketoan.fromtodate.pd_todate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
           ctid: this.todo.ctid,
           supplierTaxCode: process.env.VUE_APP_VIETTEL_USERNAME,
           procedure1: 'createInvoiceDraft',
@@ -2646,11 +2421,7 @@ export default {
           //console.log(data.data)
           this.getHoadon()
           this.$store.commit('set', ['isLoading', false])
-          this.$toastr.warning(
-            '',
-            data.data.message || 'Download thành công...',
-            { timeOut: 5000 },
-          )
+          this.$toastr.warning('', data.data.message || 'Download thành công...', { timeOut: 5000 })
         })
         .catch((err) => {
           console.log(err)
@@ -2666,14 +2437,8 @@ export default {
           password: process.env.VUE_APP_VIETTEL_PASSWORD,
           patern: process.env.VUE_APP_VIETTEL_PATERN,
           Uuid: '',
-          fromDate: moment(
-            this.infoketoan.fromtodate.pd_fromdate,
-            'YYYY-MM-DD',
-          ).format('DD/MM/YYYY'),
-          toDate: moment(
-            this.infoketoan.fromtodate.pd_todate,
-            'YYYY-MM-DD',
-          ).format('DD/MM/YYYY'),
+          fromDate: moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+          toDate: moment(this.infoketoan.fromtodate.pd_todate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
           ctid: this.todo.ctid,
           supplierTaxCode: process.env.VUE_APP_VIETTEL_USERNAME,
           procedure1: 'createInvoiceDraft',
@@ -2688,11 +2453,7 @@ export default {
           //console.log(data.data)
           this.getHoadon() // update số hóa đơn
           this.$store.commit('set', ['isLoading', false])
-          this.$toastr.warning(
-            '',
-            data.data.message || 'Đã thực hiện Download...',
-            { timeOut: 5000 },
-          )
+          this.$toastr.warning('', data.data.message || 'Đã thực hiện Download...', { timeOut: 5000 })
         })
         .catch((err) => {
           console.log(err)
@@ -2703,9 +2464,7 @@ export default {
   created() {
     this.infoketoan = this.$jwtAcn.getKetoan()
     this.datetitle =
-      (window.navigator.language || window.navigator.userLanguage) == 'vi'
-        ? 'DD/MM/YYYY'
-        : 'MM/DD/YYYY'
+      (window.navigator.language || window.navigator.userLanguage) == 'vi' ? 'DD/MM/YYYY' : 'MM/DD/YYYY'
     //var userLang = window.navigator.language || window.navigator.userLanguage;
     //console.log(window.navigator, userLang);
   },
@@ -2734,9 +2493,7 @@ export default {
   watch: {
     updaterec() {
       // alert(this.updaterec);
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
       if (!this.updaterec) {
         this.src_chitiet = []
         this.src_ctuvattu = []
@@ -2749,21 +2506,12 @@ export default {
   },
   computed: {
     ...mapState(['settings']),
-    ...mapState('myDocument', [
-      'danhmucTaikhoan',
-      'danhmucCustomer',
-      'danhmucTenhang',
-      'danhmucKhohang',
-    ]),
+    ...mapState('myDocument', ['danhmucTaikhoan', 'danhmucCustomer', 'danhmucTenhang', 'danhmucKhohang']),
     // Khi biến trong 1 hàm (computed) thay đổi thì Nó sẽ tự chạy , vd: this.settings.FirstMonth, this.ischitiet
     maxDateforInput() {
       if (this.settings.FirstMonth) {
-        return moment(this.infoketoan.fromtodate.pd_fromdate)
-          .add(1, 'M')
-          .subtract(1, 'day')
-          .format('YYYY-MM-DD')
-      } else
-        return moment(this.infoketoan.fromtodate.pd_todate).format('YYYY-MM-DD')
+        return moment(this.infoketoan.fromtodate.pd_fromdate).add(1, 'M').subtract(1, 'day').format('YYYY-MM-DD')
+      } else return moment(this.infoketoan.fromtodate.pd_todate).format('YYYY-MM-DD')
     },
     checkUpdate() {
       switch (this.ischitiet) {

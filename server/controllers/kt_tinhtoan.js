@@ -34,9 +34,7 @@ if (!String.prototype.hasOwnProperty('addSlashes')) {
 exports.BaocaoBctcXML = async function (req, res) {
   req.query.fromtodate = JSON.parse(req.query.fromtodate)
   req.query.company = JSON.parse(req.query.company)
-  req.query.filename = req.query.company.dnlon
-    ? 'KK-BCTC-TT200.xml'
-    : 'KK-BCTC-TT133.xml'
+  req.query.filename = req.query.company.dnlon ? 'KK-BCTC-TT200.xml' : 'KK-BCTC-TT133.xml'
 
   req.body = req.query // Tương thích
   fs.readFile('public/download/' + req.query.filename, 'utf-8', (err, data) => {
@@ -48,16 +46,9 @@ exports.BaocaoBctcXML = async function (req, res) {
       if (err) {
         throw err
       }
-      var pd_fromdate = moment(req.query.fromtodate.pd_fromdate).format(
-        'DD-MM-YYYY',
-      )
-      var pd_todate = moment(req.query.fromtodate.pd_todate).format(
-        'DD-MM-YYYY',
-      )
-      if (
-        (req.query.company.dnlon == false) &
-        (pd_fromdate.substr(6, 4) < '2017')
-      ) {
+      var pd_fromdate = moment(req.query.fromtodate.pd_fromdate).format('DD-MM-YYYY')
+      var pd_todate = moment(req.query.fromtodate.pd_todate).format('DD-MM-YYYY')
+      if ((req.query.company.dnlon == false) & (pd_fromdate.substr(6, 4) < '2017')) {
         var pd_fromdate = moment('2017-01-01').format('DD-MM-YYYY')
         var pd_todate = moment('2017-12-31').format('DD-MM-YYYY')
       }
@@ -66,20 +57,18 @@ exports.BaocaoBctcXML = async function (req, res) {
       TTinChung[0].TTinTKhaiThue[0].NNT[0].tenNNT = ''
       TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhai =
         pd_fromdate.substr(6, 4) > '2016' ? pd_fromdate.substr(6, 4) : '2017'
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiTuNgay =
-        moment(pd_fromdate, 'DD-MM-YYYY').format('DD/MM/YYYY')
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiDenNgay =
-        moment(pd_todate, 'DD-MM-YYYY').format('DD/MM/YYYY')
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayLapTKhai = moment(
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiTuNgay = moment(
+        pd_fromdate,
+        'DD-MM-YYYY',
+      ).format('DD/MM/YYYY')
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiDenNgay = moment(
         pd_todate,
         'DD-MM-YYYY',
-      )
+      ).format('DD/MM/YYYY')
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayLapTKhai = moment(pd_todate, 'DD-MM-YYYY')
         .add('days', 2)
         .format('YYYY-MM-DD')
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayKy = moment(
-        pd_todate,
-        'DD-MM-YYYY',
-      )
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayKy = moment(pd_todate, 'DD-MM-YYYY')
         .add('days', 2)
         .format('YYYY-MM-DD')
       TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].nguoiKy = 'Trần Văn Nghĩa'
@@ -93,8 +82,7 @@ exports.BaocaoBctcXML = async function (req, res) {
       //response.data.ketquakd.forEach((kq ,index) => { console.log(index, kq['maso'],kq['chitieu'],kq['kynay'],kq['kytruoc']) })
       //     result.HSoThueDTu.HSoKhaiThue[0].PLuc[0].PL_KQHDSXKD[0].PhanKy[0].ngayLap = moment(pd_todate,'DD-MM-YYYY').add( 'days',2).format('YYYY-MM-DD');
       var cdtk = result.HSoThueDTu.HSoKhaiThue[0].PLuc[0].PL_KQHDSXKD[0].NamNay //PL_LCTTGT //PL_KQHDSXKD
-      var cdtk_ =
-        result.HSoThueDTu.HSoKhaiThue[0].PLuc[0].PL_KQHDSXKD[0].NamTruoc //PL_LCTTGT //PL_KQHDSXKD
+      var cdtk_ = result.HSoThueDTu.HSoKhaiThue[0].PLuc[0].PL_KQHDSXKD[0].NamTruoc //PL_LCTTGT //PL_KQHDSXKD
       Object.keys(cdtk[0]).forEach((ctma, index) => {
         var maso = ctma.substr(2, 2) // Tách ct01 => 01 lấy trị kynay của ketquakd có kyhieu1 = 01
         //response.data.ketquakd.forEach((kq, index) => {
@@ -123,13 +111,9 @@ exports.BaocaoBctcXML = async function (req, res) {
       if (req.query.company.dnlon == false) {
         var m_xml = result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh
       } else {
-        var m_xml =
-          result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0]
-            .CDKT_HoatDongLienTuc
+        var m_xml = result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].CDKT_HoatDongLienTuc
       }
-      m_xml[0].ngayLap = moment(pd_todate, 'DD-MM-YYYY')
-        .add('days', 2)
-        .format('YYYY-MM-DD')
+      m_xml[0].ngayLap = moment(pd_todate, 'DD-MM-YYYY').add('days', 2).format('YYYY-MM-DD')
       var cdtk = m_xml[0].SoCuoiNam
       var cdtk_ = m_xml[0].SoDauNam
       //console.log(m_xml[0]);
@@ -163,8 +147,7 @@ exports.BaocaoBctcXML = async function (req, res) {
       //console.log(result.HSoThueDTu.HSoKhaiThue[0].PLuc[0].PL_CDTK[0].SoDuDauKy[0].No );
       var xml_cdkt = result.HSoThueDTu.HSoKhaiThue[0].PLuc[0].PL_CDTK
       if (req.query.company.dnlon == false) {
-        var cdtk =
-          result.HSoThueDTu.HSoKhaiThue[0].PLuc[0].PL_CDTK[0].SoDuDauKy[0].No
+        var cdtk = result.HSoThueDTu.HSoKhaiThue[0].PLuc[0].PL_CDTK[0].SoDuDauKy[0].No
         var znodk = 0,
           zcodk = 0,
           zpsno = 0,
@@ -232,10 +215,7 @@ exports.BaocaoBctcXML = async function (req, res) {
       // convert SJON objec to XML
       const builder = new xml2js.Builder()
       const xml = builder.buildObject(result)
-      res.set(
-        'Content-Disposition',
-        'attachment; filename=' + req.query.filename,
-      )
+      res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
       res.set('Content-Type', 'text/xml')
       res.send(xml)
       res.status(200).end()
@@ -246,9 +226,7 @@ exports.BaocaoBctcXML = async function (req, res) {
 exports.BaocaoBctcXLSX = async function (req, res) {
   req.query.fromtodate = JSON.parse(req.query.fromtodate)
   req.query.company = JSON.parse(req.query.company)
-  req.query.filename = req.query.company.dnlon
-    ? 'TM-BCTC-TT200.xlsx'
-    : 'TM-BCTC-TT133.xlsx'
+  req.query.filename = req.query.company.dnlon ? 'TM-BCTC-TT200.xlsx' : 'TM-BCTC-TT133.xlsx'
 
   req.body = req.query // Tương thích
   var file1 = 'public/download/' + req.query.filename
@@ -265,17 +243,11 @@ exports.BaocaoBctcXLSX = async function (req, res) {
     var ws = wb.getWorksheet('Thuyết Minh')
     ws.getCell('A2').value = req.query.company.company
     ws.getCell('A3').value = req.query.company.address
-    ws.getCell('A9').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('A9').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
 
     ws = wb.getWorksheet('Cân đối Tài khoản')
     var sott = 7 // Dòng dữ liệu đầu tiên
-    ws.getCell('A3').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('A3').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
     cdps[0].forEach((kq, index) => {
       if (kq.nodk + kq.codk + kq.psno + kq.psco + kq.nock + kq.cock != 0) {
         ws.duplicateRow(sott, 1, true)
@@ -287,28 +259,21 @@ exports.BaocaoBctcXLSX = async function (req, res) {
         ws.getCell('F' + sott).value = kq.psco
         ws.getCell('G' + sott).value = kq.nock
         ws.getCell('H' + sott).value = kq.cock
-        ;[
-          'A' + sott,
-          'B' + sott,
-          'C' + sott,
-          'D' + sott,
-          'E' + sott,
-          'F' + sott,
-          'G' + sott,
-          'H' + sott,
-        ].map((key) => {
-          // ws.getCell(key ).fill = {
-          //     type: 'pattern',
-          //     pattern:'solid',
-          //     fgColor:{argb:'ebedef'}
-          // };
-          ws.getCell(key).border = {
-            top: { style: 'hair' },
-            left: { style: 'thin' },
-            bottom: { style: 'hair' },
-            right: { style: 'thin' },
-          }
-        })
+        ;['A' + sott, 'B' + sott, 'C' + sott, 'D' + sott, 'E' + sott, 'F' + sott, 'G' + sott, 'H' + sott].map(
+          (key) => {
+            // ws.getCell(key ).fill = {
+            //     type: 'pattern',
+            //     pattern:'solid',
+            //     fgColor:{argb:'ebedef'}
+            // };
+            ws.getCell(key).border = {
+              top: { style: 'hair' },
+              left: { style: 'thin' },
+              bottom: { style: 'hair' },
+              right: { style: 'thin' },
+            }
+          },
+        )
         sott++
       }
     }) // cdps[0].forEach
@@ -339,10 +304,7 @@ exports.BaocaoBctcXLSX = async function (req, res) {
 
     var ws = wb.getWorksheet('Kết quả Kinh doanh')
     var sott = 7 // Dòng dữ liệu đầu tiên
-    ws.getCell('A3').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('A3').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
     retKequakd.forEach((kq, index) => {
       ws.duplicateRow(sott, 1, true)
       ws.getCell('A' + sott).value = kq.chitieu
@@ -355,10 +317,7 @@ exports.BaocaoBctcXLSX = async function (req, res) {
     // ===================lctiente============
     var ws = wb.getWorksheet('Lưu chuyển Tiền tệ')
     var sott = 7 // Dòng dữ liệu đầu tiên
-    ws.getCell('A3').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('A3').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
     retLctiente.forEach((kq, index) => {
       ws.duplicateRow(sott, 1, true)
       ws.getCell('A' + sott).value = kq.chitieu
@@ -372,10 +331,7 @@ exports.BaocaoBctcXLSX = async function (req, res) {
     // =================cdketoan===============
     var ws = wb.getWorksheet('Cân đối Kế toán')
     var sott = 8 // Dòng dữ liệu đầu tiên
-    ws.getCell('A3').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('A3').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
     retCdketoan.forEach((kq, index) => {
       ws.duplicateRow(sott, 1, true)
       ws.getCell('A' + sott).value = kq.tentsc
@@ -423,10 +379,8 @@ exports.BaocaoBctcXLSX = async function (req, res) {
         if (row.getCell(colTM[0]).value == 'kqkd') {
           ws_kqkd.eachRow(function (rowkq, rowNumberkq) {
             if (row.getCell(colTM[1]).value === rowkq.getCell('B').value) {
-              if (rowkq.getCell('D').value != 0)
-                row.getCell(colKQ[0]).value = rowkq.getCell('D').value
-              if (rowkq.getCell('E').value != 0)
-                row.getCell(colKQ[1]).value = rowkq.getCell('E').value
+              if (rowkq.getCell('D').value != 0) row.getCell(colKQ[0]).value = rowkq.getCell('D').value
+              if (rowkq.getCell('E').value != 0) row.getCell(colKQ[1]).value = rowkq.getCell('E').value
             }
           })
         } else {
@@ -442,8 +396,7 @@ exports.BaocaoBctcXLSX = async function (req, res) {
             }
             var sotien = 0
             cdps[0].forEach((kq, index) => {
-              if (strfor.includes(kq.sotk.substr(0, nlen)))
-                sotien += kq[colL[k]]
+              if (strfor.includes(kq.sotk.substr(0, nlen))) sotien += kq[colL[k]]
             })
             //console.log(colL[k],nlen,strfor, colN[k],0,sotien)
             if (sotien != 0) row.getCell(colN[k]).value = sotien
@@ -461,14 +414,8 @@ exports.BaocaoBctcXLSX = async function (req, res) {
     //     filename: req.query.filename
     //   });
     // });
-    res.setHeader(
-      'Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
-    res.setHeader(
-      'Content-Disposition',
-      'attachment; filename=' + req.query.filename,
-    )
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', 'attachment; filename=' + req.query.filename)
 
     return wb.xlsx.write(res).then(function () {
       console.log('successFully !!')
@@ -494,34 +441,26 @@ exports.BaocaoTndn = async function (req, res) {
         throw err
       }
 
-      var pd_fromdate = moment(req.query.fromtodate.pd_fromdate).format(
-        'DD-MM-YYYY',
-      )
-      var pd_todate = moment(req.query.fromtodate.pd_todate).format(
-        'DD-MM-YYYY',
-      )
+      var pd_fromdate = moment(req.query.fromtodate.pd_fromdate).format('DD-MM-YYYY')
+      var pd_todate = moment(req.query.fromtodate.pd_todate).format('DD-MM-YYYY')
 
       var TTinChung = result.HSoThueDTu.HSoKhaiThue[0].TTinChung
       TTinChung[0].TTinTKhaiThue[0].NNT[0].mst = req.query.company.masothue
       TTinChung[0].TTinTKhaiThue[0].NNT[0].tenNNT = ''
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kieuKy =
-        getkykekhai('1', pd_fromdate, pd_todate)
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhai =
-        getkykekhai('', pd_fromdate, pd_todate)
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiTuNgay =
-        moment(pd_fromdate, 'DD-MM-YYYY').format('DD/MM/YYYY')
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiDenNgay =
-        moment(pd_todate, 'DD-MM-YYYY').format('DD/MM/YYYY')
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayLapTKhai = moment(
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kieuKy = getkykekhai('1', pd_fromdate, pd_todate)
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhai = getkykekhai('', pd_fromdate, pd_todate)
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiTuNgay = moment(
+        pd_fromdate,
+        'DD-MM-YYYY',
+      ).format('DD/MM/YYYY')
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiDenNgay = moment(
         pd_todate,
         'DD-MM-YYYY',
-      )
+      ).format('DD/MM/YYYY')
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayLapTKhai = moment(pd_todate, 'DD-MM-YYYY')
         .add('days', 2)
         .format('YYYY-MM-DD')
-      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayKy = moment(
-        pd_todate,
-        'DD-MM-YYYY',
-      )
+      TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayKy = moment(pd_todate, 'DD-MM-YYYY')
         .add('days', 2)
         .format('YYYY-MM-DD')
       TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].nguoiKy = 'Trần Văn Nghĩa'
@@ -551,8 +490,7 @@ exports.BaocaoTndn = async function (req, res) {
             cdtk[0][ctma] = kq.kynay
             if (maso == masolai) {
               // Tổng lãi mã 19 hoặc 22
-              result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].ctA1 =
-                kq.kynay
+              result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].ctA1 = kq.kynay
             }
           }
         })
@@ -562,10 +500,7 @@ exports.BaocaoTndn = async function (req, res) {
       // convert SJON objec to XML
       const builder = new xml2js.Builder()
       const xml = builder.buildObject(result)
-      res.set(
-        'Content-Disposition',
-        'attachment; filename=' + req.query.filename,
-      )
+      res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
       res.set('Content-Type', 'text/xml')
       res.send(xml)
       res.status(200).end()
@@ -592,132 +527,34 @@ exports.BaocaoThuegtgt = async function (req, res) {
       })
     }
     maso = '20'
-    GetThuegtgt(
-      req.query.fromtodate,
-      maso,
-      order,
-      req,
-      res,
-      function (vatzdat20) {
-        //console.log(vatzdat20)
-        var tien = 0,
-          tien0 = 0,
-          tien5 = 0,
-          thue5 = 0,
-          tien10 = 0,
-          thue10 = 0
-        if (vatzdat20.length > 0) {
-          vatzdat20[0].forEach((item, index) => {
-            var thuesuat = item.thuesuat.trim()
-            switch (thuesuat) {
-              case '10%':
-                ;(tien10 += item.sotien), (thue10 += item.thuegtgt)
-                break
-              case '5%':
-                ;(tien5 += item.sotien), (thue5 += item.thuegtgt)
-                break
-              case '0%':
-                tien0 += item.sotien
-                break
-              default:
-                tien += item.sotien
-            }
-          })
-        }
-        //console.log(tienmua, thuemua, tien ,tien0 ,tien5 , thue5, tien10, thue10)
-        fs.readFile(
-          'public/download/' + req.query.filename,
-          'utf-8',
-          (err, data) => {
-            if (err) {
-              throw err
-            }
-
-            // convert XML data to JSON object
-            xml2js.parseString(data, (err, result) => {
-              if (err) {
-                throw err
-              }
-              var pd_fromdate = moment(req.query.fromtodate.pd_fromdate).format(
-                'DD-MM-YYYY',
-              )
-              var pd_todate = moment(req.query.fromtodate.pd_todate).format(
-                'DD-MM-YYYY',
-              )
-
-              var TTinChung = result.HSoThueDTu.HSoKhaiThue[0].TTinChung
-              TTinChung[0].TTinTKhaiThue[0].NNT[0].mst =
-                req.query.company.masothue
-              TTinChung[0].TTinTKhaiThue[0].NNT[0].tenNNT = ''
-              TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kieuKy =
-                getkykekhai('1', pd_fromdate, pd_todate)
-              TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhai =
-                getkykekhai('', pd_fromdate, pd_todate)
-              TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiTuNgay =
-                moment(pd_fromdate, 'DD-MM-YYYY').format('DD/MM/YYYY')
-              TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiDenNgay =
-                moment(pd_todate, 'DD-MM-YYYY').format('DD/MM/YYYY')
-              TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayLapTKhai = moment(
-                pd_todate,
-                'DD-MM-YYYY',
-              )
-                .add('days', 2)
-                .format('YYYY-MM-DD')
-              TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayKy = moment(
-                pd_todate,
-                'DD-MM-YYYY',
-              )
-                .add('days', 2)
-                .format('YYYY-MM-DD')
-              TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].nguoiKy =
-                'Trần Văn Nghĩa'
-              //------------------ Phần tính toán
-              var m_xml = result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0]
-              var node = m_xml.GiaTriVaThueGTGTHHDVMuaVao[0]
-              node.ct23 = tienmua // Giá trị và thuế GTGT của hàng hoá, dịch vụ mua vào
-              node.ct24 = thuemua // VAT
-              m_xml.ct25 = thuemua
-              m_xml.ct26 = tien // Hàng hóa, dịch vụ bán ra không chịu thuế GTGT
-              m_xml.ct29 = tien0 // VAT 0%
-              node = m_xml.HHDVBRaChiuTSuat5[0]
-              node.ct30 = tien5 // VAT 5%
-              node.ct31 = thue5
-              node = m_xml.HHDVBRaChiuTSuat10[0]
-              node.ct32 = tien10 // VAT 10%
-              node.ct33 = thue10
-              //m_xml.HHDVBRaKhongTinhThue[0].ct32a = 0
-              m_xml.ct32a = 0
-              m_xml.HHDVBRaChiuThueGTGT[0].ct27 = tien0 + tien5 + tien10 + 0
-              m_xml.HHDVBRaChiuThueGTGT[0].ct28 = thue5 + thue10
-
-              // convert SJON objec to XML
-              const builder = new xml2js.Builder()
-              const xml = builder.buildObject(result)
-              res.set(
-                'Content-Disposition',
-                'attachment; filename=' + req.query.filename,
-              )
-              res.set('Content-Type', 'text/xml')
-              res.send(xml)
-              res.status(200).end()
-            })
-          },
-        )
-      },
-    ) //GetThuegtgt20
-  }) //GetThuegtgt10
-}
-
-//============================  baocaohoadon
-exports.BaocaoHoadon = function (req, res) {
-  req.query.fromtodate = JSON.parse(req.query.fromtodate)
-  req.query.company = JSON.parse(req.query.company)
-
-  TinhHoadonSudung(req.query.fromtodate, req, res, function (xmlData) {
-    fs.readFile(
-      'public/download/' + req.query.filename,
-      'utf-8',
-      (err, data) => {
+    GetThuegtgt(req.query.fromtodate, maso, order, req, res, function (vatzdat20) {
+      //console.log(vatzdat20)
+      var tien = 0,
+        tien0 = 0,
+        tien5 = 0,
+        thue5 = 0,
+        tien10 = 0,
+        thue10 = 0
+      if (vatzdat20.length > 0) {
+        vatzdat20[0].forEach((item, index) => {
+          var thuesuat = item.thuesuat.trim()
+          switch (thuesuat) {
+            case '10%':
+              ;(tien10 += item.sotien), (thue10 += item.thuegtgt)
+              break
+            case '5%':
+              ;(tien5 += item.sotien), (thue5 += item.thuegtgt)
+              break
+            case '0%':
+              tien0 += item.sotien
+              break
+            default:
+              tien += item.sotien
+          }
+        })
+      }
+      //console.log(tienmua, thuemua, tien ,tien0 ,tien5 , thue5, tien10, thue10)
+      fs.readFile('public/download/' + req.query.filename, 'utf-8', (err, data) => {
         if (err) {
           throw err
         }
@@ -727,126 +564,184 @@ exports.BaocaoHoadon = function (req, res) {
           if (err) {
             throw err
           }
-          var pd_fromdate = moment(req.query.fromtodate.pd_fromdate).format(
-            'DD-MM-YYYY',
-          )
-          var pd_todate = moment(req.query.fromtodate.pd_todate).format(
-            'DD-MM-YYYY',
-          )
+          var pd_fromdate = moment(req.query.fromtodate.pd_fromdate).format('DD-MM-YYYY')
+          var pd_todate = moment(req.query.fromtodate.pd_todate).format('DD-MM-YYYY')
 
           var TTinChung = result.HSoThueDTu.HSoKhaiThue[0].TTinChung
           TTinChung[0].TTinTKhaiThue[0].NNT[0].mst = req.query.company.masothue
           TTinChung[0].TTinTKhaiThue[0].NNT[0].tenNNT = ''
-          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kieuKy =
-            getkykekhai('1', pd_fromdate, pd_todate)
-          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhai =
-            getkykekhai('', pd_fromdate, pd_todate)
-          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiTuNgay =
-            moment(pd_fromdate, 'DD-MM-YYYY').format('DD/MM/YYYY')
-          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiDenNgay =
-            moment(pd_todate, 'DD-MM-YYYY').format('DD/MM/YYYY')
-          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayLapTKhai = moment(
+          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kieuKy = getkykekhai(
+            '1',
+            pd_fromdate,
+            pd_todate,
+          )
+          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhai = getkykekhai(
+            '',
+            pd_fromdate,
+            pd_todate,
+          )
+          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiTuNgay = moment(
+            pd_fromdate,
+            'DD-MM-YYYY',
+          ).format('DD/MM/YYYY')
+          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiDenNgay = moment(
             pd_todate,
             'DD-MM-YYYY',
-          )
+          ).format('DD/MM/YYYY')
+          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayLapTKhai = moment(pd_todate, 'DD-MM-YYYY')
             .add('days', 2)
             .format('YYYY-MM-DD')
-          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayKy = moment(
-            pd_todate,
-            'DD-MM-YYYY',
-          )
+          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayKy = moment(pd_todate, 'DD-MM-YYYY')
             .add('days', 2)
             .format('YYYY-MM-DD')
           TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].nguoiKy = 'Trần Văn Nghĩa'
-          TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].maTKhai =
-            getkykekhai('1', pd_fromdate, pd_todate) == 'Q' ? '102' : '131'
-          result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].ngayBCao = moment(
-            pd_todate,
-            'DD-MM-YYYY',
-          )
-            .add('days', 2)
-            .format('YYYY-MM-DD')
-          result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].ngayDauKyBC =
-            moment(pd_fromdate, 'DD-MM-YYYY').format('YYYY-MM-DD')
-          result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].ngayCuoiKyBC =
-            moment(pd_todate, 'DD-MM-YYYY').format('YYYY-MM-DD')
+          //------------------ Phần tính toán
+          var m_xml = result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0]
+          var node = m_xml.GiaTriVaThueGTGTHHDVMuaVao[0]
+          node.ct23 = tienmua // Giá trị và thuế GTGT của hàng hoá, dịch vụ mua vào
+          node.ct24 = thuemua // VAT
+          m_xml.ct25 = thuemua
+          m_xml.ct26 = tien // Hàng hóa, dịch vụ bán ra không chịu thuế GTGT
+          m_xml.ct29 = tien0 // VAT 0%
+          node = m_xml.HHDVBRaChiuTSuat5[0]
+          node.ct30 = tien5 // VAT 5%
+          node.ct31 = thue5
+          node = m_xml.HHDVBRaChiuTSuat10[0]
+          node.ct32 = tien10 // VAT 10%
+          node.ct33 = thue10
+          //m_xml.HHDVBRaKhongTinhThue[0].ct32a = 0
+          m_xml.ct32a = 0
+          m_xml.HHDVBRaChiuThueGTGT[0].ct27 = tien0 + tien5 + tien10 + 0
+          m_xml.HHDVBRaChiuThueGTGT[0].ct28 = thue5 + thue10
 
-          const xmlChitiet = {
-            maHoaDon: '01GTKT',
-            tenHDon: 'Hóa đơn giá trị gia tăng',
-            kHieuMauHDon: '01GTKT3/001',
-            kHieuHDon: 'NM/11P',
-            soTonMuaTrKy_tongSo: 0,
-            soTonDauKy_tuSo: '',
-            soTonDauKy_denSo: '',
-            muaTrongKy_tuSo: '',
-            muaTrongKy_denSo: '',
-            tongSoSuDung_tuSo: '',
-            tongSoSuDung_denSo: '',
-            tongSoSuDung_cong: 0,
-            soDaSDung: 0,
-            xoaBo_soLuong: 0,
-            xoaBo_so: '',
-            mat_soLuong: 0,
-            mat_so: '',
-            huy_soLuong: 0,
-            huy_so: '',
-            tonCuoiKy_tuSo: '',
-            tonCuoiKy_denSo: '',
-            tonCuoiKy_soLuong: 0,
-          }
-
-          var addChitiet = { ChiTiet: [] }
-          var count, DauKy_denSo, toncuoikyso
-          for (var key = 0; key < xmlData.length; key++) {
-            addChitiet.ChiTiet.push(xmlChitiet)
-            count = xmlData[key]['sohd_end']
-            while (count % 500 != 0) {
-              count++
-            }
-
-            DauKy_denSo = ('0000' + count).substr(-7)
-            toncuoikyso = xmlData[key]['sohd_end'] + 1
-
-            addChitiet.ChiTiet[key].kHieuHDon = xmlData[key]['mauhd']
-            addChitiet.ChiTiet[key].soTonDauKy_tuSo = xmlData[key]['sohd_begin']
-            addChitiet.ChiTiet[key].soTonDauKy_denSo = DauKy_denSo
-            addChitiet.ChiTiet[key].tongSoSuDung_tuSo =
-              xmlData[key]['sohd_begin']
-            addChitiet.ChiTiet[key].soTonMuaTrKy_tongSo =
-              DauKy_denSo - xmlData[key]['sohd_begin'] + 1
-            addChitiet.ChiTiet[key].soDaSDung = xmlData[key]['soluong_sd']
-            addChitiet.ChiTiet[key].tongSoSuDung_denSo =
-              xmlData[key]['sohd_end']
-            addChitiet.ChiTiet[key].tongSoSuDung_cong = xmlData[key]['tongdung']
-            addChitiet.ChiTiet[key].huy_soLuong = xmlData[key]['soluong_huy']
-            addChitiet.ChiTiet[key].tonCuoiKy_denSo = DauKy_denSo
-            addChitiet.ChiTiet[key].tonCuoiKy_tuSo = (
-              '0000' + toncuoikyso
-            ).substr(-7)
-            addChitiet.ChiTiet[key].tonCuoiKy_soLuong =
-              DauKy_denSo - xmlData[key]['sohd_end']
-            addChitiet.ChiTiet[key] = JSON.stringify(addChitiet.ChiTiet[key])
-            addChitiet.ChiTiet[key] = JSON.parse(addChitiet.ChiTiet[key])
-            //result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].HoaDon.push(addChitiet.ChiTiet[key])
-          }
-          result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].HoaDon.push(
-            addChitiet,
-          )
-          delete result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].HoaDon[0]
           // convert SJON objec to XML
           const builder = new xml2js.Builder()
           const xml = builder.buildObject(result)
-          res.set(
-            'Content-Disposition',
-            'attachment; filename=' + req.query.filename,
-          )
+          res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
           res.set('Content-Type', 'text/xml')
           res.send(xml)
           res.status(200).end()
         })
-      },
-    )
+      })
+    }) //GetThuegtgt20
+  }) //GetThuegtgt10
+}
+
+//============================  baocaohoadon
+exports.BaocaoHoadon = function (req, res) {
+  req.query.fromtodate = JSON.parse(req.query.fromtodate)
+  req.query.company = JSON.parse(req.query.company)
+
+  TinhHoadonSudung(req.query.fromtodate, req, res, function (xmlData) {
+    fs.readFile('public/download/' + req.query.filename, 'utf-8', (err, data) => {
+      if (err) {
+        throw err
+      }
+
+      // convert XML data to JSON object
+      xml2js.parseString(data, (err, result) => {
+        if (err) {
+          throw err
+        }
+        var pd_fromdate = moment(req.query.fromtodate.pd_fromdate).format('DD-MM-YYYY')
+        var pd_todate = moment(req.query.fromtodate.pd_todate).format('DD-MM-YYYY')
+
+        var TTinChung = result.HSoThueDTu.HSoKhaiThue[0].TTinChung
+        TTinChung[0].TTinTKhaiThue[0].NNT[0].mst = req.query.company.masothue
+        TTinChung[0].TTinTKhaiThue[0].NNT[0].tenNNT = ''
+        TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kieuKy = getkykekhai('1', pd_fromdate, pd_todate)
+        TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhai = getkykekhai('', pd_fromdate, pd_todate)
+        TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiTuNgay = moment(
+          pd_fromdate,
+          'DD-MM-YYYY',
+        ).format('DD/MM/YYYY')
+        TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].KyKKhaiThue[0].kyKKhaiDenNgay = moment(
+          pd_todate,
+          'DD-MM-YYYY',
+        ).format('DD/MM/YYYY')
+        TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayLapTKhai = moment(pd_todate, 'DD-MM-YYYY')
+          .add('days', 2)
+          .format('YYYY-MM-DD')
+        TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].ngayKy = moment(pd_todate, 'DD-MM-YYYY')
+          .add('days', 2)
+          .format('YYYY-MM-DD')
+        TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].nguoiKy = 'Trần Văn Nghĩa'
+        TTinChung[0].TTinTKhaiThue[0].TKhaiThue[0].maTKhai =
+          getkykekhai('1', pd_fromdate, pd_todate) == 'Q' ? '102' : '131'
+        result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].ngayBCao = moment(pd_todate, 'DD-MM-YYYY')
+          .add('days', 2)
+          .format('YYYY-MM-DD')
+        result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].ngayDauKyBC = moment(pd_fromdate, 'DD-MM-YYYY').format(
+          'YYYY-MM-DD',
+        )
+        result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].ngayCuoiKyBC = moment(pd_todate, 'DD-MM-YYYY').format(
+          'YYYY-MM-DD',
+        )
+
+        const xmlChitiet = {
+          maHoaDon: '01GTKT',
+          tenHDon: 'Hóa đơn giá trị gia tăng',
+          kHieuMauHDon: '01GTKT3/001',
+          kHieuHDon: 'NM/11P',
+          soTonMuaTrKy_tongSo: 0,
+          soTonDauKy_tuSo: '',
+          soTonDauKy_denSo: '',
+          muaTrongKy_tuSo: '',
+          muaTrongKy_denSo: '',
+          tongSoSuDung_tuSo: '',
+          tongSoSuDung_denSo: '',
+          tongSoSuDung_cong: 0,
+          soDaSDung: 0,
+          xoaBo_soLuong: 0,
+          xoaBo_so: '',
+          mat_soLuong: 0,
+          mat_so: '',
+          huy_soLuong: 0,
+          huy_so: '',
+          tonCuoiKy_tuSo: '',
+          tonCuoiKy_denSo: '',
+          tonCuoiKy_soLuong: 0,
+        }
+
+        var addChitiet = { ChiTiet: [] }
+        var count, DauKy_denSo, toncuoikyso
+        for (var key = 0; key < xmlData.length; key++) {
+          addChitiet.ChiTiet.push(xmlChitiet)
+          count = xmlData[key]['sohd_end']
+          while (count % 500 != 0) {
+            count++
+          }
+
+          DauKy_denSo = ('0000' + count).substr(-7)
+          toncuoikyso = xmlData[key]['sohd_end'] + 1
+
+          addChitiet.ChiTiet[key].kHieuHDon = xmlData[key]['mauhd']
+          addChitiet.ChiTiet[key].soTonDauKy_tuSo = xmlData[key]['sohd_begin']
+          addChitiet.ChiTiet[key].soTonDauKy_denSo = DauKy_denSo
+          addChitiet.ChiTiet[key].tongSoSuDung_tuSo = xmlData[key]['sohd_begin']
+          addChitiet.ChiTiet[key].soTonMuaTrKy_tongSo = DauKy_denSo - xmlData[key]['sohd_begin'] + 1
+          addChitiet.ChiTiet[key].soDaSDung = xmlData[key]['soluong_sd']
+          addChitiet.ChiTiet[key].tongSoSuDung_denSo = xmlData[key]['sohd_end']
+          addChitiet.ChiTiet[key].tongSoSuDung_cong = xmlData[key]['tongdung']
+          addChitiet.ChiTiet[key].huy_soLuong = xmlData[key]['soluong_huy']
+          addChitiet.ChiTiet[key].tonCuoiKy_denSo = DauKy_denSo
+          addChitiet.ChiTiet[key].tonCuoiKy_tuSo = ('0000' + toncuoikyso).substr(-7)
+          addChitiet.ChiTiet[key].tonCuoiKy_soLuong = DauKy_denSo - xmlData[key]['sohd_end']
+          addChitiet.ChiTiet[key] = JSON.stringify(addChitiet.ChiTiet[key])
+          addChitiet.ChiTiet[key] = JSON.parse(addChitiet.ChiTiet[key])
+          //result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].HoaDon.push(addChitiet.ChiTiet[key])
+        }
+        result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].HoaDon.push(addChitiet)
+        delete result.HSoThueDTu.HSoKhaiThue[0].CTieuTKhaiChinh[0].HoaDon[0]
+        // convert SJON objec to XML
+        const builder = new xml2js.Builder()
+        const xml = builder.buildObject(result)
+        res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
+        res.set('Content-Type', 'text/xml')
+        res.send(xml)
+        res.status(200).end()
+      })
+    })
   }) // sudung hoadon
 }
 
@@ -1009,38 +904,30 @@ exports.chuyensodutk = async function (req, res) {
           mysqlConnection.query(query2, tudengay_nn1, (err, rows, fields) => {
             if (!err) {
               // Lần 2: Chuyển số dư Cuối kỳ Năm trước sang Đầu Năm Nay (query2)
-              mysqlConnection.query(
-                query2,
-                tudengay_nn2,
-                (err, rows, fields) => {
-                  if (!err) {
-                    // Tính cho Kỳ này ( Phải có ) - query1
-                    mysqlConnection.query(
-                      query1,
-                      tudengay_nn,
-                      (err, rows, fields) => {
-                        mysqlConnection.destroy()
-                        if (!err) {
-                          rows.tudengay = tudengay_nn
-                          return res.status(200).json({
-                            chuyensodutk: {
-                              success: true,
-                              message: 'Chuyển số dư Tài khoản THÀNH CÔNG !!',
-                              data: rows,
-                            },
-                          })
-                        } else {
-                          res.status(500).json({
-                            success: false,
-                            message: 'Server error. Please try again.',
-                            error: err.message,
-                          })
-                        }
-                      },
-                    )
-                  }
-                },
-              )
+              mysqlConnection.query(query2, tudengay_nn2, (err, rows, fields) => {
+                if (!err) {
+                  // Tính cho Kỳ này ( Phải có ) - query1
+                  mysqlConnection.query(query1, tudengay_nn, (err, rows, fields) => {
+                    mysqlConnection.destroy()
+                    if (!err) {
+                      rows.tudengay = tudengay_nn
+                      return res.status(200).json({
+                        chuyensodutk: {
+                          success: true,
+                          message: 'Chuyển số dư Tài khoản THÀNH CÔNG !!',
+                          data: rows,
+                        },
+                      })
+                    } else {
+                      res.status(500).json({
+                        success: false,
+                        message: 'Server error. Please try again.',
+                        error: err.message,
+                      })
+                    }
+                  })
+                }
+              })
             }
           })
         } else {
@@ -1052,9 +939,7 @@ exports.chuyensodutk = async function (req, res) {
         }
       })
     } else {
-      console.log(
-        'DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2),
-      )
+      console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2))
     }
   })
 }
@@ -1083,38 +968,30 @@ exports.chuyensoduhang = async function (req, res) {
           mysqlConnection.query(query2, tudengay_nn1, (err, rows, fields) => {
             if (!err) {
               // Lần 2: Chuyển số dư Cuối kỳ Năm trước sang Đầu Năm Nay
-              mysqlConnection.query(
-                query2,
-                tudengay_nn2,
-                (err, rows, fields) => {
-                  if (!err) {
-                    // Tính cho Kỳ này ( Phải có )
-                    mysqlConnection.query(
-                      query1,
-                      tudengay_nn,
-                      (err, rows, fields) => {
-                        mysqlConnection.destroy()
-                        if (!err) {
-                          rows.tudengay = tudengay_nn
-                          return res.status(200).json({
-                            chuyensoduhang: {
-                              success: true,
-                              message: 'Chuyển số dư Hàng hóa THÀNH CÔNG !!',
-                              data: rows,
-                            },
-                          })
-                        } else {
-                          res.status(500).json({
-                            success: false,
-                            message: 'Server error. Please try again.',
-                            error: err.message,
-                          })
-                        }
-                      },
-                    )
-                  }
-                },
-              )
+              mysqlConnection.query(query2, tudengay_nn2, (err, rows, fields) => {
+                if (!err) {
+                  // Tính cho Kỳ này ( Phải có )
+                  mysqlConnection.query(query1, tudengay_nn, (err, rows, fields) => {
+                    mysqlConnection.destroy()
+                    if (!err) {
+                      rows.tudengay = tudengay_nn
+                      return res.status(200).json({
+                        chuyensoduhang: {
+                          success: true,
+                          message: 'Chuyển số dư Hàng hóa THÀNH CÔNG !!',
+                          data: rows,
+                        },
+                      })
+                    } else {
+                      res.status(500).json({
+                        success: false,
+                        message: 'Server error. Please try again.',
+                        error: err.message,
+                      })
+                    }
+                  })
+                }
+              })
             }
           })
         } else {
@@ -1126,9 +1003,7 @@ exports.chuyensoduhang = async function (req, res) {
         }
       })
     } else {
-      console.log(
-        'DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2),
-      )
+      console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2))
     }
   })
 }
@@ -1228,55 +1103,31 @@ async function tinh_cdketoan(req, res) {
     res,
   )
   //function (cdketoan) {
-  let cdps = await runQuerySync(
-    `CALL TinhCanDoiTaiKhoan2(?,?,?)`,
-    [pd_fromdate, pd_todate, ''],
-    req,
-    res,
-  )
+  let cdps = await runQuerySync(`CALL TinhCanDoiTaiKhoan2(?,?,?)`, [pd_fromdate, pd_todate, ''], req, res)
   // function (cdps) {
-  if (!cdps)
-    return res
-      .status(503)
-      .json({ success: false, error: '503 Service Unavailable...' })
+  if (!cdps) return res.status(503).json({ success: false, error: '503 Service Unavailable...' })
   //console.log(Tinhcdketoan('1-129-139-159,3-331','nodn'))
   var field = 'nodn'
   for (var k = 0; k < cdketoan.length; k++) {
-    if (
-      cdketoan[k].tk1.indexOf('*') != -1 ||
-      cdketoan[k].tk1.indexOf('+') != -1 ||
-      cdketoan[k].tk1 != ''
-    ) {
+    if (cdketoan[k].tk1.indexOf('*') != -1 || cdketoan[k].tk1.indexOf('+') != -1 || cdketoan[k].tk1 != '') {
       cdketoan[k].tscd = Tinhcdketoan(cdketoan[k].tk1, field, cdps[0])
     }
   }
   var field = 'nock'
   for (var k = 0; k < cdketoan.length; k++) {
-    if (
-      cdketoan[k].tk1.indexOf('*') != -1 ||
-      cdketoan[k].tk1.indexOf('+') != -1 ||
-      cdketoan[k].tk1 != ''
-    ) {
+    if (cdketoan[k].tk1.indexOf('*') != -1 || cdketoan[k].tk1.indexOf('+') != -1 || cdketoan[k].tk1 != '') {
       cdketoan[k].tscc = Tinhcdketoan(cdketoan[k].tk1, field, cdps[0])
     }
   }
   var field = 'codn'
   for (var k = 0; k < cdketoan.length; k++) {
-    if (
-      cdketoan[k].tk2.indexOf('*') != -1 ||
-      cdketoan[k].tk2.indexOf('+') != -1 ||
-      cdketoan[k].tk2 != ''
-    ) {
+    if (cdketoan[k].tk2.indexOf('*') != -1 || cdketoan[k].tk2.indexOf('+') != -1 || cdketoan[k].tk2 != '') {
       cdketoan[k].tsnd = Tinhcdketoan(cdketoan[k].tk2, field, cdps[0])
     }
   }
   var field = 'cock'
   for (var k = 0; k < cdketoan.length; k++) {
-    if (
-      cdketoan[k].tk2.indexOf('*') != -1 ||
-      cdketoan[k].tk2.indexOf('+') != -1 ||
-      cdketoan[k].tk2 != ''
-    ) {
+    if (cdketoan[k].tk2.indexOf('*') != -1 || cdketoan[k].tk2.indexOf('+') != -1 || cdketoan[k].tk2 != '') {
       cdketoan[k].tsnc = Tinhcdketoan(cdketoan[k].tk2, field, cdps[0])
     }
   }
@@ -1284,10 +1135,7 @@ async function tinh_cdketoan(req, res) {
   for (var i = 0; i <= 1; i++) {
     var dausao = i == 0 ? '*' : i == 1 ? '**' : '***'
     for (var key = 0; key < cdketoan.length; key++) {
-      if (
-        (cdketoan[key].masc.indexOf(dausao) > -1) &
-        cdketoan[key].tk1.includes('+')
-      ) {
+      if ((cdketoan[key].masc.indexOf(dausao) > -1) & cdketoan[key].tk1.includes('+')) {
         var zkycuoi = 0,
           zkydau = 0,
           strcachtinh = cdketoan[key].tk1.replace(' ', '')
@@ -1307,18 +1155,12 @@ async function tinh_cdketoan(req, res) {
   for (var i = 0; i <= 2; i++) {
     var dausao = i == 0 ? '*' : i == 1 ? '**' : '***'
     for (var key = 0; key < cdketoan.length; key++) {
-      if (
-        (cdketoan[key].masn.indexOf(dausao) > -1) &
-        cdketoan[key].tk2.includes('+')
-      ) {
+      if ((cdketoan[key].masn.indexOf(dausao) > -1) & cdketoan[key].tk2.includes('+')) {
         var zkycuoi = 0,
           zkydau = 0,
           strcachtinh = cdketoan[key].tk2.replace(' ', '')
         for (var k = 0; k < cdketoan.length; k++) {
-          if (
-            strcachtinh.includes(cdketoan[k].masn.substr(0, 3)) &
-            (cdketoan[k].masn != '')
-          ) {
+          if (strcachtinh.includes(cdketoan[k].masn.substr(0, 3)) & (cdketoan[k].masn != '')) {
             if ((cdketoan[k].masn != '421a') & (cdketoan[k].masn != '421b')) {
               zkycuoi += cdketoan[k].tsnc
               zkydau += cdketoan[k].tsnd
@@ -1372,33 +1214,13 @@ async function tinh_lctiente(req, res) {
     res,
   )
   // function (lctiente) {
-  let cdpsnn = await runQuerySync(
-    `CALL TinhCanDoiTaiKhoan2(?,?,?)`,
-    [pd_fromdate, pd_todate, ''],
-    req,
-    res,
-  )
+  let cdpsnn = await runQuerySync(`CALL TinhCanDoiTaiKhoan2(?,?,?)`, [pd_fromdate, pd_todate, ''], req, res)
   // function (cdpsnn) {
-  let cdpsnt = await runQuerySync(
-    `CALL TinhCanDoiTaiKhoan2(?,?,?)`,
-    [dfromt, dtot, ''],
-    req,
-    res,
-  )
+  let cdpsnt = await runQuerySync(`CALL TinhCanDoiTaiKhoan2(?,?,?)`, [dfromt, dtot, ''], req, res)
   // function (cdpsnt) {
-  let datann = await runQuerySync(
-    'call Create_Ctuketoan_Rg(?,?)',
-    [pd_fromdate, pd_todate],
-    req,
-    res,
-  )
+  let datann = await runQuerySync('call Create_Ctuketoan_Rg(?,?)', [pd_fromdate, pd_todate], req, res)
   // function (datann) {
-  let datant = await runQuerySync(
-    'call Create_Ctuketoan_Rg(?,?)',
-    [dfromt, dtot],
-    req,
-    res,
-  )
+  let datant = await runQuerySync('call Create_Ctuketoan_Rg(?,?)', [dfromt, dtot], req, res)
   // function (datant) {
   if (!datant || !datann || !cdpsnn || !cdpsnt) {
     return res.status(503).json({
@@ -1418,10 +1240,7 @@ async function tinh_lctiente(req, res) {
       //var congtien = global.cookie.congtien;
       if (congtien == 0) {
         for (var zz = 0; zz < data.length; zz++) {
-          if (
-            Check_psnoco(lctiente[k].cachtinh, data[zz].tkno, data[zz].tkco) ==
-            2
-          ) {
+          if (Check_psnoco(lctiente[k].cachtinh, data[zz].tkno, data[zz].tkco) == 2) {
             congtien += data[zz].sotien
           }
           if (lctiente[k].maso.indexOf('01') > -1) {
@@ -1454,20 +1273,14 @@ async function tinh_lctiente(req, res) {
   }
 
   for (var k = 0; k < lctiente.length; k++) {
-    if (
-      (lctiente[k].chitieu.indexOf(mathu) > -1) &
-      (global.cookie.kytruoc > 0)
-    ) {
+    if ((lctiente[k].chitieu.indexOf(mathu) > -1) & (global.cookie.kytruoc > 0)) {
       lctiente[k].kytruoc = global.cookie.kytruoc + lctiente[k].kytruoc
     }
     if ((lctiente[k].chitieu.indexOf(mathu) > -1) & (global.cookie.kynay > 0)) {
       lctiente[k].kynay = global.cookie.kynay + lctiente[k].kynay
     }
     // machi
-    if (
-      (lctiente[k].chitieu.indexOf(machi) > -1) &
-      (global.cookie.kytruoc < 0)
-    ) {
+    if ((lctiente[k].chitieu.indexOf(machi) > -1) & (global.cookie.kytruoc < 0)) {
       lctiente[k].kytruoc = global.cookie.kytruoc + lctiente[k].kytruoc
     }
     if ((lctiente[k].chitieu.indexOf(machi) > -1) & (global.cookie.kynay < 0)) {
@@ -1526,20 +1339,10 @@ async function tinh_ketquakd(req, res) {
   )
   // function (ketqua) {
   // console.log(ketqua)
-  let datant = await runQuerySync(
-    'call Create_Ctuketoan_Rg(?,?)',
-    [dfromt, dtot],
-    req,
-    res,
-  )
+  let datant = await runQuerySync('call Create_Ctuketoan_Rg(?,?)', [dfromt, dtot], req, res)
   // function (datant) {
   //console.log(datant)
-  let datann = await runQuerySync(
-    'call Create_Ctuketoan_Rg(?,?)',
-    [pd_fromdate, pd_todate],
-    req,
-    res,
-  )
+  let datann = await runQuerySync('call Create_Ctuketoan_Rg(?,?)', [pd_fromdate, pd_todate], req, res)
   // function (datann) {
   //console.log(datann)
   for (var i = 0; i <= 1; i++) {
@@ -1569,19 +1372,13 @@ async function tinh_ketquakd(req, res) {
 function getkykekhai(opt = '', pd_fromdate, pd_todate) {
   var namnay = pd_todate.substr(6, 4)
   var qui = 'X'
-  if (pd_fromdate.substr(3, 2) == '01' && pd_todate.substr(3, 2) == '03')
-    qui = '1'
-  if (pd_fromdate.substr(3, 2) == '04' && pd_todate.substr(3, 2) == '06')
-    qui = '2'
-  if (pd_fromdate.substr(3, 2) == '07' && pd_todate.substr(3, 2) == '09')
-    qui = '3'
-  if (pd_fromdate.substr(3, 2) == '10' && pd_todate.substr(3, 2) == '12')
-    qui = '4'
+  if (pd_fromdate.substr(3, 2) == '01' && pd_todate.substr(3, 2) == '03') qui = '1'
+  if (pd_fromdate.substr(3, 2) == '04' && pd_todate.substr(3, 2) == '06') qui = '2'
+  if (pd_fromdate.substr(3, 2) == '07' && pd_todate.substr(3, 2) == '09') qui = '3'
+  if (pd_fromdate.substr(3, 2) == '10' && pd_todate.substr(3, 2) == '12') qui = '4'
 
-  if (pd_fromdate.substr(3, 2) == pd_todate.substr(3, 2))
-    return opt ? 'M' : pd_todate.substr(3, 2) + '/' + namnay
-  if (pd_fromdate.substr(3, 2) == '01' && pd_todate.substr(3, 2) == '12')
-    return opt ? 'Y' : namnay
+  if (pd_fromdate.substr(3, 2) == pd_todate.substr(3, 2)) return opt ? 'M' : pd_todate.substr(3, 2) + '/' + namnay
+  if (pd_fromdate.substr(3, 2) == '01' && pd_todate.substr(3, 2) == '12') return opt ? 'Y' : namnay
   return opt ? 'Q' : qui + '/' + namnay
 }
 
@@ -1590,20 +1387,14 @@ function getfromtodate(pd_fromdate, pd_todate) {
   pd_todate = moment(pd_todate).format('DD-MM-YYYY')
   var namnay = pd_todate.substr(6, 4)
   var qui = ''
-  if ((pd_fromdate.substr(3, 2) == '01') & (pd_todate.substr(3, 2) == '03'))
-    qui = '1'
-  if ((pd_fromdate.substr(3, 2) == '04') & (pd_todate.substr(3, 2) == '03'))
-    qui = '2'
-  if ((pd_fromdate.substr(3, 2) == '07') & (pd_todate.substr(3, 2) == '09'))
-    qui = '3'
-  if ((pd_fromdate.substr(3, 2) == '10') & (pd_todate.substr(3, 2) == '12'))
-    qui = '4'
+  if ((pd_fromdate.substr(3, 2) == '01') & (pd_todate.substr(3, 2) == '03')) qui = '1'
+  if ((pd_fromdate.substr(3, 2) == '04') & (pd_todate.substr(3, 2) == '03')) qui = '2'
+  if ((pd_fromdate.substr(3, 2) == '07') & (pd_todate.substr(3, 2) == '09')) qui = '3'
+  if ((pd_fromdate.substr(3, 2) == '10') & (pd_todate.substr(3, 2) == '12')) qui = '4'
 
   if (qui) return 'Quí ' + qui + '/' + namnay
-  if ((pd_fromdate.substr(3, 2) == '01') & (pd_todate.substr(3, 2) == '12'))
-    return 'Năm ' + namnay
-  if (pd_fromdate.substr(3, 2) == pd_todate.substr(3, 2))
-    return 'Tháng ' + pd_todate.substr(3, 2) + '/' + namnay
+  if ((pd_fromdate.substr(3, 2) == '01') & (pd_todate.substr(3, 2) == '12')) return 'Năm ' + namnay
+  if (pd_fromdate.substr(3, 2) == pd_todate.substr(3, 2)) return 'Tháng ' + pd_todate.substr(3, 2) + '/' + namnay
 
   return 'Từ ' + pd_fromdate.substr(0, 5) + '/' + pd_todate
 }
@@ -1611,13 +1402,7 @@ function getfromtodate(pd_fromdate, pd_todate) {
 //==================================================
 async function TinhHoadonSudung(fromtodate, req, res, fn) {
   var query = `CALL getHoadon(?,?,?,?,?)`
-  var tudengay = [
-    fromtodate.pd_fromdate,
-    fromtodate.pd_todate,
-    '20',
-    'sohd',
-    '',
-  ]
+  var tudengay = [fromtodate.pd_fromdate, fromtodate.pd_todate, '20', 'sohd', '']
 
   let rows = await runQuerySync(query, tudengay, req, res)
 
@@ -1660,22 +1445,17 @@ async function TinhHoadonSudung(fromtodate, req, res, fn) {
       mauhd_luu = mauhd
     }
     for (var key = 0; key < dataz.length; key++) {
-      if (!dataz[key]['sohd_end'])
-        dataz[key]['sohd_end'] = dataz[key]['sohd_begin']
-      dataz[key]['tongdung'] =
-        dataz[key]['sohd_end'] - dataz[key]['sohd_begin'] + 1
+      if (!dataz[key]['sohd_end']) dataz[key]['sohd_end'] = dataz[key]['sohd_begin']
+      dataz[key]['tongdung'] = dataz[key]['sohd_end'] - dataz[key]['sohd_begin'] + 1
       if (dataz[key]['soluong_sd'] > dataz[key]['tongdung']) {
         dataz[key]['soluong_sd'] = dataz[key]['tongdung']
       } // Trên là xử lý trường hợp trùng hóa đơn
-      dataz[key]['soluong_huy'] =
-        dataz[key]['tongdung'] - dataz[key]['soluong_sd']
+      dataz[key]['soluong_huy'] = dataz[key]['tongdung'] - dataz[key]['soluong_sd']
     }
     // rows.forEach(element =>
     // );
   } else {
-    console.log(
-      'DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2),
-    )
+    console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2))
   }
 
   //console.table(dataz)
@@ -1813,10 +1593,7 @@ function Tinhtongnhom(dtable) {
         zkytruoc = 0,
         strcachtinh = dtable[key].cachtinh.replace(' ', '')
       for (var k = 0; k < dtable.length; k++) {
-        if (
-          strcachtinh.includes(dtable[k].maso) &
-          (dtable[k].maso != dtable[key].maso)
-        ) {
+        if (strcachtinh.includes(dtable[k].maso) & (dtable[k].maso != dtable[key].maso)) {
           if (strcachtinh.includes('-' + dtable[k].maso)) {
             zkynay -= dtable[k].kynay
             zkytruoc -= dtable[k].kytruoc
@@ -1921,12 +1698,7 @@ exports.sonhatkyhh = async function (req, res) {
   var str_hanghoa = "'151','152','153','155','156','157','158','002','003'"
   var file1 = 'public/download/TM-BCKT-TEMPLATE.xlsx'
 
-  let datann = await runQuerySync(
-    'call Create_Ctuvattu2(?,?,?,?)',
-    [pd_fromdate, pd_todate, '', ''],
-    req,
-    res,
-  )
+  let datann = await runQuerySync('call Create_Ctuvattu2(?,?,?,?)', [pd_fromdate, pd_todate, '', ''], req, res)
   // function (datann) {
   const wb1 = new Excel.Workbook()
   wb1.xlsx.readFile(file1).then(async function () {
@@ -1973,12 +1745,7 @@ exports.sonhatkyhh = async function (req, res) {
 
     //========= Sổ Chi tiết ==============
     if (req.query.patern) {
-      let cdps = await runQuerySync(
-        `CALL TinhCanDoiHangHoa2(?,?,?)`,
-        [pd_fromdate, pd_todate, ''],
-        req,
-        res,
-      )
+      let cdps = await runQuerySync(`CALL TinhCanDoiHangHoa2(?,?,?)`, [pd_fromdate, pd_todate, ''], req, res)
       // function (cdps) {
       var nlen = req.query.patern.length
       var mahang_patern = req.query.patern
@@ -1995,11 +1762,7 @@ exports.sonhatkyhh = async function (req, res) {
             cdps[k].luongck +
             cdps[k].tienck !=
           0
-        if (
-          cosodu &&
-          (cdps[k].mahang.substr(0, nlen) == mahang_patern ||
-            mahang_patern.includes('*'))
-        ) {
+        if (cosodu && (cdps[k].mahang.substr(0, nlen) == mahang_patern || mahang_patern.includes('*'))) {
           let ws1 = wb.addWorksheet() // Chi tiết 1
           ws1.model = ws_ct.model
           ws1.name = 'mh_' + cdps[k].mahang
@@ -2007,8 +1770,7 @@ exports.sonhatkyhh = async function (req, res) {
           var sott = 7 // Dòng dữ liệu đầu tiên
           var luongck = cdps[k].luongdk
           var tienck = cdps[k].tiendk
-          ws1.getCell('D2').value =
-            'Tên hàng : ' + cdps[k].tenhang + ' ( ' + cdps[k].mahang + ' )'
+          ws1.getCell('D2').value = 'Tên hàng : ' + cdps[k].tenhang + ' ( ' + cdps[k].mahang + ' )'
           ws1.getCell('K1').value = '??'
           ws1.getCell('K2').value = cdps[k].donvi
           ws1.getCell('D3').value = getfromtodate(pd_fromdate, pd_todate)
@@ -2019,9 +1781,7 @@ exports.sonhatkyhh = async function (req, res) {
               ws1.getCell('K1').value = kq.tengoi // Mặc kệ khi gán nhiều lần
               ws1.duplicateRow(sott, 1, true)
               ws1.getCell('B' + sott).value = kq.soct
-              ws1.getCell('C' + sott).value = moment(kq.ngay).format(
-                'DD/MM/YYYY',
-              )
+              ws1.getCell('C' + sott).value = moment(kq.ngay).format('DD/MM/YYYY')
               ws1.getCell('D' + sott).value = kq.diengiai
               if (str_hanghoa.includes(kq.tkno.substr(0, 3))) {
                 // Là Nhập
@@ -2037,8 +1797,7 @@ exports.sonhatkyhh = async function (req, res) {
                 luongck = luongck - kq.soluong
                 tienck = tienck - kq.sotien
               }
-              ws1.getCell('F' + sott).value =
-                kq.soluong != 0 ? kq.sotien / kq.soluong : 0
+              ws1.getCell('F' + sott).value = kq.soluong != 0 ? kq.sotien / kq.soluong : 0
               ws1.getCell('K' + sott).value = luongck
               ws1.getCell('L' + sott).value = tienck
               sott++
@@ -2072,14 +1831,8 @@ exports.sonhatkyhh = async function (req, res) {
         }
       }
 
-      res.set(
-        'Content-Disposition',
-        'attachment; filename=' + req.query.filename,
-      )
-      res.set(
-        'Content-Type',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      )
+      res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
+      res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
       //return wb.xlsx.writeFile(res).then(function () {
       // For Test  =============  res = "public/download/TEMPLATE.xlsx";
       return wb.xlsx.write(res).then(function () {
@@ -2125,10 +1878,7 @@ exports.sonhatky = async function (req, res) {
       ws.model = ws_snk.model
       req.query.patern = req.query.patern.replace('+', '')
       var sott = 5 // Dòng dữ liệu đầu tiên
-      ws.getCell('D2').value = getfromtodate(
-        req.query.fromtodate.pd_fromdate,
-        req.query.fromtodate.pd_todate,
-      )
+      ws.getCell('D2').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
       datann[0].forEach((kq, index) => {
         ws.duplicateRow(sott, 1, true)
         ws.getCell('B' + sott).value = kq.soct
@@ -2160,15 +1910,8 @@ exports.sonhatky = async function (req, res) {
       //console.log(req.query.patern,cdps)
       for (var k = 0; k < cdps.length; k++) {
         if (
-          (cdps[k].nodk +
-            cdps[k].codk +
-            cdps[k].psno +
-            cdps[k].psco +
-            cdps[k].nock +
-            cdps[k].cock !=
-            0) &
-          (cdps[k].sotk.substr(0, nlen) == sotk_patern ||
-            sotk_patern.includes('*'))
+          (cdps[k].nodk + cdps[k].codk + cdps[k].psno + cdps[k].psco + cdps[k].nock + cdps[k].cock != 0) &
+          (cdps[k].sotk.substr(0, nlen) == sotk_patern || sotk_patern.includes('*'))
         ) {
           let ws1 = wb.addWorksheet() // Chi tiết 1
           ws1.model = ws_ct.model
@@ -2179,25 +1922,18 @@ exports.sonhatky = async function (req, res) {
             if (kq.tkno == cdps[k].sotk || kq.tkco == cdps[k].sotk) {
               ws1.duplicateRow(sott, 1, true)
               ws1.getCell('B' + sott).value = kq.soct
-              ws1.getCell('C' + sott).value = moment(kq.ngay).format(
-                'DD/MM/YYYY',
-              )
+              ws1.getCell('C' + sott).value = moment(kq.ngay).format('DD/MM/YYYY')
               ws1.getCell('D' + sott).value = kq.diengiai
               ws1.getCell('E' + sott).value = kq.tkno
               ws1.getCell('F' + sott).value = kq.tkco
               ws1.getCell('G' + sott).value = kq.sotien
-              if (kq.tkno == cdps[k].sotk)
-                ws1.getCell('H' + sott).value = kq.sotien
-              if (kq.tkco == cdps[k].sotk)
-                ws1.getCell('I' + sott).value = kq.sotien
+              if (kq.tkno == cdps[k].sotk) ws1.getCell('H' + sott).value = kq.sotien
+              if (kq.tkco == cdps[k].sotk) ws1.getCell('I' + sott).value = kq.sotien
               sott++
             }
           }) //datann[0].forEach
           ws1.getCell('D2').value = '[ ' + cdps[k].tentk + ' ]'
-          ws1.getCell('D3').value = getfromtodate(
-            req.query.fromtodate.pd_fromdate,
-            req.query.fromtodate.pd_todate,
-          )
+          ws1.getCell('D3').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
           ws1.getCell('E1').value = cdps[k].sotk
           ws1.getCell('H1').value = cdps[k].nodk
           ws1.getCell('I1').value = cdps[k].codk
@@ -2214,14 +1950,8 @@ exports.sonhatky = async function (req, res) {
           }
         }
       }
-      res.set(
-        'Content-Disposition',
-        'attachment; filename=' + req.query.filename,
-      )
-      res.set(
-        'Content-Type',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      )
+      res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
+      res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
       return wb.xlsx.write(res).then(function () {
         if (wb.worksheets.length == 0) console.log('Data is Empty !!')
         else console.log('successFully !!')
@@ -2246,8 +1976,7 @@ exports.candoipsXLSX = async function (req, res) {
   var cfilter = 'kq.sotk'
   switch (true) {
     case req.query.patern.includes('1'):
-      cfilter =
-        'kq.nodk +kq.codk !==0 || kq.nock +kq.cock !== 0 || kq.psno +kq.psco !==0'
+      cfilter = 'kq.nodk +kq.codk !==0 || kq.nock +kq.cock !== 0 || kq.psno +kq.psco !==0'
       break
     case req.query.patern.includes('2'):
       cfilter = 'kq.nodk +kq.codk !== 0 || kq.nock +kq.cock !== 0'
@@ -2266,9 +1995,7 @@ exports.candoipsXLSX = async function (req, res) {
       break
   }
   //console.log(cfilter)
-  var template =
-    'public/download/' +
-    (req.query.company.dnlon ? 'TM-BCTC-TT200.xlsx' : 'TM-BCTC-TT133.xlsx')
+  var template = 'public/download/' + (req.query.company.dnlon ? 'TM-BCTC-TT200.xlsx' : 'TM-BCTC-TT133.xlsx')
   let cdps = await runQuerySync(
     `CALL TinhCanDoiTaiKhoan2(?,?,?)`,
     [req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate, ''],
@@ -2283,10 +2010,7 @@ exports.candoipsXLSX = async function (req, res) {
     let ws = wb.addWorksheet()
     ws.model = ws_tpl.model
     var sott = 7 // Dòng dữ liệu đầu tiên
-    ws.getCell('A3').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('A3').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
     cdps[0].forEach((kq, index) => {
       if (eval(cfilter)) {
         ws.duplicateRow(sott, 1, true)
@@ -2298,28 +2022,21 @@ exports.candoipsXLSX = async function (req, res) {
         ws.getCell('F' + sott).value = kq.psco
         ws.getCell('G' + sott).value = kq.nock
         ws.getCell('H' + sott).value = kq.cock
-        ;[
-          'A' + sott,
-          'B' + sott,
-          'C' + sott,
-          'D' + sott,
-          'E' + sott,
-          'F' + sott,
-          'G' + sott,
-          'H' + sott,
-        ].map((key) => {
-          // ws.getCell(key ).fill = {
-          //     type: 'pattern',
-          //     pattern:'solid',
-          //     fgColor:{argb:'ebedef'}
-          // };
-          ws.getCell(key).border = {
-            top: { style: 'hair' },
-            left: { style: 'thin' },
-            bottom: { style: 'hair' },
-            right: { style: 'thin' },
-          }
-        })
+        ;['A' + sott, 'B' + sott, 'C' + sott, 'D' + sott, 'E' + sott, 'F' + sott, 'G' + sott, 'H' + sott].map(
+          (key) => {
+            // ws.getCell(key ).fill = {
+            //     type: 'pattern',
+            //     pattern:'solid',
+            //     fgColor:{argb:'ebedef'}
+            // };
+            ws.getCell(key).border = {
+              top: { style: 'hair' },
+              left: { style: 'thin' },
+              bottom: { style: 'hair' },
+              right: { style: 'thin' },
+            }
+          },
+        )
         sott++
       }
     }) // cdps[0].forEach
@@ -2347,10 +2064,7 @@ exports.candoipsXLSX = async function (req, res) {
     ws.mergeCells('A3:F3')
 
     res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
-    res.set(
-      'Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
+    res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     return wb.xlsx.write(res).then(function () {
       if (wb.worksheets.length == 0) console.log('Data is Empty !!')
       else console.log('successFully !!')
@@ -2407,10 +2121,7 @@ exports.candoihhXLSX = async function (req, res) {
     ws.model = ws_tpl.model
     var sott = 5,
       begin = sott // Dòng dữ liệu đầu tiên
-    ws.getCell('E2').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('E2').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
     if (cdps) {
       cdps[0].forEach((kq, index) => {
         if (eval(cfilter)) {
@@ -2490,10 +2201,7 @@ exports.candoihhXLSX = async function (req, res) {
     ws.mergeCells('E2:J2')
 
     res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
-    res.set(
-      'Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
+    res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     return wb.xlsx.write(res).then(function () {
       if (wb.worksheets.length == 0) console.log('Data is Empty !!')
       else console.log('successFully Created: ' + req.query.filename)
@@ -2515,13 +2223,7 @@ async function dulieuHoaDon(req, res, ctitle) {
   var query = `CALL getHoadon(?,?,?,?,?)`
   //SET @p0='2020-01-01'; SET @p1='2020-03-31'; SET @p2='10'; SET @p3='thuesuat'; SET @p4=''; CALL `getHoadon`(@p0, @p1, @p2, @p3, @p4);
 
-  var params = [
-    req.query.fromtodate.pd_fromdate,
-    req.query.fromtodate.pd_todate,
-    req.query.patern,
-    sort,
-    '',
-  ]
+  var params = [req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate, req.query.patern, sort, '']
   var template = 'public/download/TM-BCKT-TEMPLATE.xlsx'
   let cdps = await runQuerySync(query, params, req, res) //function (cdps) {
   const wb_tpl = new Excel.Workbook()
@@ -2549,10 +2251,7 @@ async function dulieuHoaDon(req, res, ctitle) {
       bottom: { style: 'thin' },
     }
     ws.getCell('E7').value = ctitle
-    ws.getCell('F10').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('F10').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
     ws.getCell('E12').value = req.query.company.company
     ws.getCell('E13').value = req.query.company.masothue
     ws.mergeCells('E3:G3')
@@ -2610,15 +2309,12 @@ async function dulieuHoaDon(req, res, ctitle) {
         ws.duplicateRow(sott + rowPlus, 1, true)
         ws.getCell('B' + (sott + rowPlus)).value = index + 1
         ws.getCell('C' + (sott + rowPlus)).value = kq.sohd
-        ws.getCell('D' + (sott + rowPlus)).value = moment(kq.ngay).format(
-          'DD-MM-YYYY',
-        )
+        ws.getCell('D' + (sott + rowPlus)).value = moment(kq.ngay).format('DD-MM-YYYY')
         ws.getCell('E' + (sott + rowPlus)).value = kq.company
         ws.getCell('F' + (sott + rowPlus)).value = kq.maso
         ws.getCell('G' + (sott + rowPlus)).value = kq.sotien
         ws.getCell('H' + (sott + rowPlus)).value = kq.thuegtgt
-        ws.getCell('I' + (sott + rowPlus)).value =
-          kq.soct + ' - ' + moment(kq.ngayct).format('DD/MM')
+        ws.getCell('I' + (sott + rowPlus)).value = kq.soct + ' - ' + moment(kq.ngayct).format('DD/MM')
         //ws.getCell('I'+(sott + rowPlus)).value = kq.soct+" - "+ kq.thuesuat;
         zgiaban = zgiaban + kq.sotien
         zthue = zthue + kq.thuegtgt
@@ -2631,8 +2327,7 @@ async function dulieuHoaDon(req, res, ctitle) {
           ws.mergeCells('J19:K19')
           //let ws2 = wb.addWorksheet('LS không hợp lệ'); ws2.model = ws_tpl.model;
         }
-        ws.getCell('J' + (22 + lerror)).value =
-          ' * ' + kq.soct + ' - ' + moment(kq.ngayct).format('DD/MM')
+        ws.getCell('J' + (22 + lerror)).value = ' * ' + kq.soct + ' - ' + moment(kq.ngayct).format('DD/MM')
         ws.getCell('K' + (22 + lerror)).value = kq.thuesuat
         ws.getCell('K' + (22 + lerror)).alignment = {
           vertical: 'center',
@@ -2681,10 +2376,7 @@ async function dulieuHoaDon(req, res, ctitle) {
     ws.getCell('F' + (sott + 13)).value = zthue
 
     res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
-    res.set(
-      'Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
+    res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     return wb.xlsx.write(res).then(function () {
       if (wb.worksheets.length == 0) console.log('Data is Empty !!')
       else console.log('successFully Created: ' + req.query.filename)
@@ -2719,13 +2411,7 @@ exports.thuegtgtXLSX = async function (req, res) {
   ctitle = 'BẢNG KÊ ' + ctitle
   sort = req.query.patern.includes('2') ? 'sohd' : 'ngay'
   var query = `CALL getHoadon(?,?,?,?,?)`
-  var params = [
-    req.query.fromtodate.pd_fromdate,
-    req.query.fromtodate.pd_todate,
-    req.query.patern,
-    sort,
-    '',
-  ]
+  var params = [req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate, req.query.patern, sort, '']
   var template = 'public/download/TM-BCKT-TEMPLATE.xlsx'
   let cdps = await runQuerySync(query, params, req, res) // function (cdps) {
   const wb_tpl = new Excel.Workbook()
@@ -2737,10 +2423,7 @@ exports.thuegtgtXLSX = async function (req, res) {
     var sott = 5,
       begin = sott // Dòng dữ liệu đầu tiên
     ws.getCell('E1').value = ctitle
-    ws.getCell('E2').value = getfromtodate(
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-    )
+    ws.getCell('E2').value = getfromtodate(req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate)
     cdps[0].forEach((kq, index) => {
       if (true) {
         ws.duplicateRow(sott, 1, true)
@@ -2801,10 +2484,7 @@ exports.thuegtgtXLSX = async function (req, res) {
     ws.mergeCells('E2:L2')
 
     res.set('Content-Disposition', 'attachment; filename=' + req.query.filename)
-    res.set(
-      'Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
+    res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     return wb.xlsx.write(res).then(function () {
       if (wb.worksheets.length == 0) console.log('Data is Empty !!')
       else console.log('successFully Created: ' + req.query.filename)
@@ -2839,19 +2519,9 @@ async function callBackupTable(req, res, cReturn) {
   //runQuerySync(`SELECT * FROM ${table}`,'', req, res,function(result){
   let allRows = await runQuerySync('CALL getRowsAllTables()', '', req, res) // function (allRows) {
   //runQuerySync(`SHOW COLUMNS FROM ${table}`,'', req, res,function(fields){
-  let fields = await runQuerySync(
-    'CALL getFieldsAllTables(?)',
-    connect.database,
-    req,
-    res,
-  )
+  let fields = await runQuerySync('CALL getFieldsAllTables(?)', connect.database, req, res)
   // function (fields) {
-  let createtab = await runQuerySync(
-    'CALL getShowCreateAllTables()',
-    '',
-    req,
-    res,
-  )
+  let createtab = await runQuerySync('CALL getShowCreateAllTables()', '', req, res)
   // function (createtab) {
   //console.log(index,table,createtab.length)
   var result = new Promise((resolve, reject) => {
@@ -2889,10 +2559,7 @@ async function callBackupTable(req, res, cReturn) {
               //console.log(row ,typeof row )
               if (typeof row != 'undefined') {
                 if (typeof row == 'string') row = row.addSlashes()
-                if (
-                  (typeof row == 'object') &
-                  moment(row, 'YYYY-MM-DD', true).isValid()
-                )
+                if ((typeof row == 'object') & moment(row, 'YYYY-MM-DD', true).isValid())
                   row = moment(row).format('YYYY-MM-DD')
                 if (typeof row == 'string') row = row.replace('\n', '\\n')
                 cReturn += '"' + row + '"'
@@ -2944,10 +2611,7 @@ async function callBackupTable(req, res, cReturn) {
         }) // Phải có compression: 'DEFLATE'
         .pipe(res)
         .on('finish', function () {
-          console.log(
-            'SuccessFully !! - getObject: ' + listtables.length,
-            ',filename: ' + filename,
-          )
+          console.log('SuccessFully !! - getObject: ' + listtables.length, ',filename: ' + filename)
         })
     } else {
       zip
@@ -2958,11 +2622,7 @@ async function callBackupTable(req, res, cReturn) {
         }) // Phải có compression: 'DEFLATE'
         .pipe(fs.createWriteStream('public/download/test.zip'))
         .on('finish', function () {
-          console.log(
-            1,
-            'SuccessFully !! - getObject: ' + listtables.length,
-            ',filename: ' + filename,
-          )
+          console.log(1, 'SuccessFully !! - getObject: ' + listtables.length, ',filename: ' + filename)
         })
     }
   }) // var result
@@ -3005,12 +2665,7 @@ exports.backupData = async function (req, res) {
   for (var ro = 0; ro < procs.length - 1; ro++) {
     //console.log(ro+1, procs.length-1 ,procs[ro][0].Procedure  );
     if (typeof procs[ro][0].Procedure != 'undefined') {
-      cReturn +=
-        PHP_EOL +
-        'DROP PROCEDURE IF EXISTS `' +
-        procs[ro][0].Procedure +
-        '`$$' +
-        PHP_EOL
+      cReturn += PHP_EOL + 'DROP PROCEDURE IF EXISTS `' + procs[ro][0].Procedure + '`$$' + PHP_EOL
       cReturn += PHP_EOL + procs[ro][0][`${key}`] + '$$' + PHP_EOL
     }
   }
@@ -3025,12 +2680,7 @@ exports.backupData = async function (req, res) {
   for (var ro = 0; ro < procs.length - 1; ro++) {
     //console.log(ro+1, procs.length-1 ,procs[ro][0].Procedure  );
     if (typeof procs[ro][0].Function != 'undefined') {
-      cReturn +=
-        PHP_EOL +
-        'DROP FUNCTION IF EXISTS `' +
-        procs[ro][0].Function +
-        '`$$' +
-        PHP_EOL
+      cReturn += PHP_EOL + 'DROP FUNCTION IF EXISTS `' + procs[ro][0].Function + '`$$' + PHP_EOL
       cReturn += PHP_EOL + procs[ro][0][`${key}`] + '$$' + PHP_EOL
     }
   }
@@ -3056,9 +2706,7 @@ exports.restoreData = async function (req, res) {
   let total_bytes = 0
   importer.onProgress((progress) => {
     total_bytes = progress.total_bytes
-    var percent =
-      Math.floor((progress.bytes_processed / progress.total_bytes) * 10000) /
-      100
+    var percent = Math.floor((progress.bytes_processed / progress.total_bytes) * 10000) / 100
     console.log(`${percent}% Completed`)
   })
   let params = JSON.parse(req.params.filedropbox)
@@ -3066,10 +2714,7 @@ exports.restoreData = async function (req, res) {
   var tokenDropbox = process.env.DROPBOX_TOKEN
   // Nếu nhập đúng định dạng sẽ lấy file nhập : TABLE_*.zip (Lấy dữ liệu từ server hoặc công ty khác)
   // Ngược lại Có cho nhập toàn bộ hay không ? ( hiện tại cũng chỉ có TABLE)
-  var filename_s =
-    params.file.length > 4
-      ? params.file
-      : 'Table_' + connect.database + '_' + connect.user + '.zip'
+  var filename_s = params.file.length > 4 ? params.file : 'Table_' + connect.database + '_' + connect.user + '.zip'
   var filename_sql = filename_s.substr(0, filename_s.indexOf('.')) + '.sql'
   var filesql_tmp = './data/connect/template.zip'
   var options = {
@@ -3098,12 +2743,7 @@ exports.restoreData = async function (req, res) {
         if (fs.existsSync(tmpfile)) {
           filesql_tmp = tmpfile
           sql = ''
-          console.log(
-            1,
-            'Token: ',
-            tokenDropbox,
-            'Download từ dropbox và phục hồi Dữ liệu file: ' + tmpfile,
-          )
+          console.log(1, 'Token: ', tokenDropbox, 'Download từ dropbox và phục hồi Dữ liệu file: ' + tmpfile)
         } else console.log(1, 'Download from dropbox : ' + res2, '==> phục hồi Dữ liệu trực tiếp file: ' + filename_s)
 
         importer
@@ -3112,10 +2752,7 @@ exports.restoreData = async function (req, res) {
             var files_imported = importer.getImported()
             let mess = `${files_imported.length} SQL file(s): ${total_bytes} bytes imported.`
             console.log(mess)
-            res
-              .status(200)
-              .json({ success: true, message: mess, filename: filename_s })
-              .end()
+            res.status(200).json({ success: true, message: mess, filename: filename_s }).end()
           })
           .catch((err) => {
             console.error(err)
@@ -3212,9 +2849,7 @@ function upToDropbox(buffer, filename, req) {
           'Content-Type': 'application/octet-stream',
           Authorization: 'Bearer ' + tokenDropbox,
           'Dropbox-API-Arg':
-            '{"path": "/' +
-            zipfilename +
-            '","mode": "overwrite","autorename": true,"mute": false}',
+            '{"path": "/' + zipfilename + '","mode": "overwrite","autorename": true,"mute": false}',
         },
         body: buffer,
       }
@@ -3266,8 +2901,7 @@ exports.dmketoanXLSX = async function (req, res) {
         ws.getCell('B' + sott).value = index + 1
         for (var key = 0; key < fields.length; key++) {
           //console.log(String.fromCharCode(key+ 66)+sott )
-          ws.getCell(String.fromCharCode(key + 67) + sott).value =
-            kq[fields[key]]
+          ws.getCell(String.fromCharCode(key + 67) + sott).value = kq[fields[key]]
           ws.getCell(String.fromCharCode(key + 67) + sott).border = {
             top: { style: 'hair' },
             left: { style: 'thin' },
@@ -3289,10 +2923,7 @@ exports.dmketoanXLSX = async function (req, res) {
       ws.mergeCells('D1:F1')
       ws.mergeCells('D2:F2')
       res.set('Content-Disposition', 'attachment; filename=' + filename)
-      res.set(
-        'Content-Type',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      )
+      res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
       return wb.xlsx.write(res).then(function () {
         if (wb.worksheets.length == 0) console.log('Data is Empty !!')
         else console.log('successFully Created : ' + filename)
@@ -3388,10 +3019,7 @@ function number_to_words(number) {
     default:
       // $baseUnit = pow( 1000, floor( log( $number, 1000 ) ) );
       // $numBaseUnits = (int)($number / $baseUnit);
-      var baseUnit = Math.pow(
-        1000,
-        Math.floor(Math.log(number) / Math.log(1000)),
-      )
+      var baseUnit = Math.pow(1000, Math.floor(Math.log(number) / Math.log(1000)))
       var numBaseUnits = parseInt(number / baseUnit)
       var remainder = number % baseUnit
       string = number_to_words(numBaseUnits) + ' ' + dictionary[baseUnit]
@@ -3418,8 +3046,7 @@ function vn_dong(number) {
   number = typeof number == 'number' ? number + '' : number
   var nlen = number.length,
     string = ''
-  if (number.indexOf('.') > 0)
-    nlen = number.substr(0, number.indexOf('.')).length // Trừ Số lẻ
+  if (number.indexOf('.') > 0) nlen = number.substr(0, number.indexOf('.')).length // Trừ Số lẻ
   if (nlen > 18) {
     return '***'
   }
@@ -3448,11 +3075,7 @@ exports.getCtuktoans = async function (req, res) {
   //console.log(req.query.ctid, req.query.ctid == true)
   let ctkt = await runQuerySync(
     `CALL Create_Ctuketoan2(?,?,?)`,
-    [
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-      req.query.ctid,
-    ],
+    [req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate, req.query.ctid],
     req,
     res,
   )
@@ -3479,11 +3102,7 @@ exports.getCtuvattus = async function (req, res) {
   //console.log(req.query.ctid, req.query.ctid == true)
   let ctkt = await runQuerySync(
     `CALL Create_Ctuvattu2(?,?,?)`,
-    [
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-      req.query.ctid,
-    ],
+    [req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate, req.query.ctid],
     req,
     res,
   )
@@ -3535,15 +3154,8 @@ async function tatoansodutkSync(req, res) {
     if (dmtk[k].sotk.substr(0, 4) == '4212') dmtk421 += dmtk[k].sotk + ','
   }
   if (!tk154 || !tk911 || !tk421)
-    return console.log(
-      'Danh mục không có tài khoản 154 ,4212 hoặc 911. Chương trình kết thúc !!',
-    )
-  await runQuerySync(
-    `CALL TinhCanDoiTaiKhoan2(?,?,?)`,
-    [pd_fromdate, pd_todate, ''],
-    req,
-    res,
-  )
+    return console.log('Danh mục không có tài khoản 154 ,4212 hoặc 911. Chương trình kết thúc !!')
+  await runQuerySync(`CALL TinhCanDoiTaiKhoan2(?,?,?)`, [pd_fromdate, pd_todate, ''], req, res)
   query =
     "select sotk, SUM(nock) as nock, SUM(cock) as cock from `dmsodutk` where LEFT(SOTK,1) >= '5' and `nam` = " +
     namnay +
@@ -3668,14 +3280,7 @@ async function tatoansodutkSync(req, res) {
         }
       }
       index++
-      console.log(
-        index,
-        dmsodutk.length,
-        kq.sotk,
-        kq.nock,
-        kq.cock,
-        congtien911,
-      )
+      console.log(index, dmsodutk.length, kq.sotk, kq.nock, kq.cock, congtien911)
       if (index === dmsodutk.length) resolve(congtien911)
     }) // dmsodutk.forEach
   }) // result = new Promise
@@ -3733,14 +3338,8 @@ async function tatoansodutkSync(req, res) {
       console.log(dmsodutk.length + 1)
     }
 
-    var querySotien =
-      "(SELECT SUM(sotien) as sotien FROM chitiet WHERE ctid = '" + ctID + "')"
-    query =
-      'UPDATE ctuktoan SET sotien = ' +
-      querySotien +
-      " WHERE ctid = '" +
-      ctID +
-      "'"
+    var querySotien = "(SELECT SUM(sotien) as sotien FROM chitiet WHERE ctid = '" + ctID + "')"
+    query = 'UPDATE ctuktoan SET sotien = ' + querySotien + " WHERE ctid = '" + ctID + "'"
     await runQuerySync(query, [], req, res)
     console.log('Kết chuyển thành công :' + congtien911)
     return res.status(200).json({
@@ -3758,13 +3357,7 @@ exports.getInhoadon = async function (req, res) {
   testRunEnv(req, res)
   let ctkt = await runQuerySync(
     `CALL getHoadon(?,?,?,?,?)`,
-    [
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-      '20',
-      'sohd',
-      req.query.ctid,
-    ],
+    [req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate, '20', 'sohd', req.query.ctid],
     req,
     res,
   )
@@ -3779,11 +3372,7 @@ exports.getInhoadon = async function (req, res) {
   }
   let ctvt = await runQuerySync(
     `CALL Create_MathangBan(?,?,?)`,
-    [
-      req.query.fromtodate.pd_fromdate,
-      req.query.fromtodate.pd_todate,
-      req.query.ctid,
-    ],
+    [req.query.fromtodate.pd_fromdate, req.query.fromtodate.pd_todate, req.query.ctid],
     req,
     res,
   )
@@ -3853,12 +3442,7 @@ exports.test = async function (req, res) {
 }
 //==================================================
 exports.sendmail = async function (req, res) {
-  console.log(
-    process.env.MAIL_USERNAME,
-    process.env.MAIL_PASSWORD,
-    req.body.mailto,
-    req.body.html,
-  )
+  console.log(process.env.MAIL_USERNAME, process.env.MAIL_PASSWORD, req.body.mailto, req.body.html)
 
   var nodemailer = require('nodemailer')
   var transporter = nodemailer.createTransport({
@@ -3899,8 +3483,7 @@ exports.uynhiemchi = async function (req, res) {
       const wb = new Excel.Workbook()
       let ws = wb.addWorksheet()
       ws.model = ws_tpl.model
-      ws.getCell('C3').value =
-        'Ngày (Date): ' + moment(unc.ngay).format('DD-MM-YYYY')
+      ws.getCell('C3').value = 'Ngày (Date): ' + moment(unc.ngay).format('DD-MM-YYYY')
       ws.getCell('C5').value = unc.sotk
       ws.getCell('C6').value = unc.tentk
       ws.getCell('C7').value = unc.address
@@ -3934,10 +3517,7 @@ exports.uynhiemchi = async function (req, res) {
       }
 
       res.set('Content-Disposition', 'attachment; filename=' + unc.filename) // Phải có para filename
-      res.set(
-        'Content-Type',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      )
+      res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
       return wb.xlsx.write(res).then(function () {
         if (wb.worksheets.length == 0) console.log('Data is Empty !!')
         else console.log('successFully !!')
@@ -3999,12 +3579,7 @@ async function transactionUuid(req, res) {
       Cookie: `access_token=${token.access_token}`,
     },
   }
-  config.url =
-    config.url +
-    'supplierTaxCode=' +
-    req.body.supplierTaxCode +
-    '&transactionUuid=' +
-    req.body.Uuid
+  config.url = config.url + 'supplierTaxCode=' + req.body.supplierTaxCode + '&transactionUuid=' + req.body.Uuid
 
   // console.log(0000, config)
   const listInvoice = await axios(config)
@@ -4050,9 +3625,7 @@ async function getListInvoice(req, res) {
 
   if (JSON.parse(config.data.getListOncly)) {
     // Phải có JSON.parse
-    return res
-      .status(200)
-      .json({ message: 'Electronic invoices', data: listInvoice.invoices })
+    return res.status(200).json({ message: 'Electronic invoices', data: listInvoice.invoices })
   }
 
   //console.log(222, listInvoice.invoices.length)
@@ -4098,10 +3671,7 @@ async function getListInvoice(req, res) {
 
   let numberRow = countUpdate + cancel
   let mess = listInvoice
-    ? 'Tổng hóa đơn phát hành trong kỳ.. ' +
-      numberRow +
-      ' ,Update số Hóa đơn.. ' +
-      countUpdate
+    ? 'Tổng hóa đơn phát hành trong kỳ.. ' + numberRow + ' ,Update số Hóa đơn.. ' + countUpdate
     : 'Không tìm thấy hóa đơn phát hành trong kỳ...'
   return res.status(200).json({ message: mess, data: listInvoice.invoices })
 }
@@ -4198,22 +3768,13 @@ async function createInvoiceDraft(lPreview, req, res) {
   let uploaded = 0
   let fromDate = moment(req.body.fromDate, 'DD/MM/YYYY').format('YYYY-MM-DD')
   let toDate = moment(req.body.toDate, 'DD/MM/YYYY').format('YYYY-MM-DD')
-  let query =
-    "CALL getHoadon('" +
-    fromDate +
-    "','" +
-    toDate +
-    "','20','ngay','" +
-    req.body.ctid +
-    "')"
+  let query = "CALL getHoadon('" + fromDate + "','" + toDate + "','20','ngay','" + req.body.ctid + "')"
 
   let cdps = await runQuerySync(query, [], req, res) // async function (cdps) {
   //console.log(888, query, cdps.length, cdps)
 
   if (!cdps || cdps.length == 0) {
-    return res
-      .status(200)
-      .json({ message: 'Không có phát sinh Hóa đơn trong kỳ...' })
+    return res.status(200).json({ message: 'Không có phát sinh Hóa đơn trong kỳ...' })
   }
   const multiInvoice = cdps.length > 1
   cdps = cdps[0]
@@ -4233,9 +3794,7 @@ async function createInvoiceDraft(lPreview, req, res) {
           (cdps.length - uploaded) +
           ' / ' +
           cdps.length +
-          (uploaded > 0
-            ? ' ( Chỉ tính hóa đơn chưa có số dạng: CxxTVN-??? )'
-            : '')
+          (uploaded > 0 ? ' ( Chỉ tính hóa đơn chưa có số dạng: CxxTVN-??? )' : '')
         console.log(mess)
         return res.status(200).json({ message: mess })
       } else continue
@@ -4248,19 +3807,12 @@ async function createInvoiceDraft(lPreview, req, res) {
     config.data.buyerInfo.buyerTaxCode = cdps[key].maso
     config.data.buyerInfo.buyerAddressLine = cdps[key].address
 
-    await loadInvoiceDetaild(
-      config.data,
-      cdps[key],
-      fromDate,
-      toDate,
-      multiInvoice,
-    )
+    await loadInvoiceDetaild(config.data, cdps[key], fromDate, toDate, multiInvoice)
     //console.log(key, config.data)
     const createInvoice = await axios(config)
       .then(async (data) => {
         if (!lPreview) {
-          query =
-            'UPDATE hoadon SET sohd = "' + signUp + '" WHERE id=' + cdps[key].id
+          query = 'UPDATE hoadon SET sohd = "' + signUp + '" WHERE id=' + cdps[key].id
           await runQuerySync(query, [], req, res)
         }
         return data.data
@@ -4273,10 +3825,7 @@ async function createInvoiceDraft(lPreview, req, res) {
         })
       })
 
-    if (!createInvoice)
-      return res
-        .status(200)
-        .json({ message: 'Không có phát sinh Hóa đơn trong kỳ...' })
+    if (!createInvoice) return res.status(200).json({ message: 'Không có phát sinh Hóa đơn trong kỳ...' })
     if (lPreview) {
       key = cdps.length - 1 // CHỈ XEM 1 HÓA ĐƠN
       let buff = new Buffer(createInvoice.fileToBytes, 'base64')
@@ -4295,8 +3844,7 @@ async function createInvoiceDraft(lPreview, req, res) {
           .on('finish', function () {
             console.log(
               'filename: ' + filename,
-              'transactionUuid: ' +
-                config.data.generalInvoiceInfo.transactionUuid,
+              'transactionUuid: ' + config.data.generalInvoiceInfo.transactionUuid,
             )
           })
 
@@ -4314,9 +3862,7 @@ async function createInvoiceDraft(lPreview, req, res) {
           (cdps.length - uploaded) +
           ' / ' +
           cdps.length +
-          (uploaded > 0
-            ? ' ( Chỉ tính hóa đơn chưa có số dạng: CxxTVN-??? )'
-            : '')
+          (uploaded > 0 ? ' ( Chỉ tính hóa đơn chưa có số dạng: CxxTVN-??? )' : '')
         console.log(mess)
         return res.status(200).json({ message: mess })
       }
@@ -4335,25 +3881,16 @@ async function loadInvoiceDetaild(config, cdps, fromDate, multiInvoice) {
   config.itemInfo[0].itemTotalAmountWithoutTax = cdps.sotien
   config.itemInfo[0].itemTotalAmountWithTax = cdps.sotien + cdps.thuegtgt
   config.itemInfo[0].itemTotalAmountAfterDiscount = 0
-  config.itemInfo[0].taxPercentage =
-    cdps.thuesuat.trim() == '%' ? -2 : parseInt('0' + cdps.thuesuat)
+  config.itemInfo[0].taxPercentage = cdps.thuesuat.trim() == '%' ? -2 : parseInt('0' + cdps.thuesuat)
   config.itemInfo[0].taxAmount = cdps.thuegtgt
   // Chỉ 1 thuế suất chung cho các dòng ( Nếu có )
-  config.taxBreakdowns[0].taxPercentage =
-    cdps.thuesuat.trim() == '%' ? -2 : parseInt('0' + cdps.thuesuat)
+  config.taxBreakdowns[0].taxPercentage = cdps.thuesuat.trim() == '%' ? -2 : parseInt('0' + cdps.thuesuat)
   config.taxBreakdowns[0].taxableAmount = cdps.sotien + cdps.thuegtgt
   config.taxBreakdowns[0].taxAmount = cdps.thuegtgt
 
   if (multiInvoice) return // Nhiều hóa đơn thì không xem xét vật tư
 
-  let query =
-    "CALL Create_CtuvattuHoadon('" +
-    fromDate +
-    "','" +
-    toDate +
-    "','" +
-    cdps.ctid +
-    "')"
+  let query = "CALL Create_CtuvattuHoadon('" + fromDate + "','" + toDate + "','" + cdps.ctid + "')"
 
   let result = await runQuerySync(query, [], '', '')
   if (result && result.length > 0 && result[0].length > 0) {
@@ -4369,8 +3906,7 @@ async function loadInvoiceDetaild(config, cdps, fromDate, multiInvoice) {
       config.itemInfo[key2].unitPrice = parseInt(ctvt.sotien / ctvt.soluong)
       config.itemInfo[key2].quantity = ctvt.soluong
       config.itemInfo[key2].itemTotalAmountWithoutTax = ctvt.sotien
-      config.itemInfo[key2].itemTotalAmountWithTax =
-        ctvt.sotien + (ctvt.sotien * taxPercentage) / 100
+      config.itemInfo[key2].itemTotalAmountWithTax = ctvt.sotien + (ctvt.sotien * taxPercentage) / 100
       config.itemInfo[key2].itemTotalAmountAfterDiscount = 0
       config.itemInfo[key2].taxPercentage = taxPercentage
       config.itemInfo[key2].taxAmount = (ctvt.sotien * taxPercentage) / 100

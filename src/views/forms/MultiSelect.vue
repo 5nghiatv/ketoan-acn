@@ -28,39 +28,21 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>CoreUI React Multi Select</strong> <small>with Text</small>
-        </CCardHeader>
+        <CCardHeader> <strong>CoreUI React Multi Select</strong> <small>with Text</small> </CCardHeader>
         <CCardBody>
           <DocsExample href="forms/multi-select">
             <CRow>
               <CCol :md="3">
-                <CMultiSelect
-                  :options="options"
-                  options-style="text"
-                  :multiple="false"
-                />
+                <CMultiSelect :options="options" options-style="text" :multiple="false" />
               </CCol>
               <CCol :md="3">
-                <CMultiSelect
-                  :options="options"
-                  options-style="text"
-                  selection-type="text"
-                />
+                <CMultiSelect :options="options" options-style="text" selection-type="text" />
               </CCol>
               <CCol :md="3">
-                <CMultiSelect
-                  :options="options"
-                  options-style="text"
-                  selection-type="tags"
-                />
+                <CMultiSelect :options="options" options-style="text" selection-type="tags" />
               </CCol>
               <CCol :md="3">
-                <CMultiSelect
-                  :options="options"
-                  options-style="text"
-                  selection-type="counter"
-                />
+                <CMultiSelect :options="options" options-style="text" selection-type="counter" />
               </CCol>
             </CRow>
           </DocsExample>

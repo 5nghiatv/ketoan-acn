@@ -1,5 +1,5 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
 
 var ShippingDetailSchema = new Schema({
   address1: String,
@@ -11,7 +11,6 @@ var ShippingDetailSchema = new Schema({
   userId: String,
   totalPrice: String,
   paycash: { type: Boolean, default: false },
-  
-});
+})
 
-module.exports = mongoose.model("ShippingDetail", ShippingDetailSchema);
+module.exports = mongoose.model('ShippingDetail', ShippingDetailSchema)

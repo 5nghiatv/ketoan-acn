@@ -1,9 +1,7 @@
 <template>
   <CFooter :fixed="false" v-if="!this.$store.state.isPrinting">
     <div>
-      <a href="https://sites.google.com/site/nghiatv02/" target="_blank"
-        >XuânMai.Corpt</a
-      >
+      <a href="https://sites.google.com/site/nghiatv02/" target="_blank">XuânMai.Corpt</a>
       <span class="ml-1">&copy; {{ new Date().getFullYear() }} </span>
     </div>
     <div class="ml-auto">

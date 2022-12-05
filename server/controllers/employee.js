@@ -27,21 +27,17 @@ exports.createEmployee = function (req, res) {
 exports.getAllEmployee = function (req, res) {
   Employee.find((err, docs) => {
     if (!err) {
-      return res
-        .status(200)
-        .json({
-          success: true,
-          message: 'A list of all Employee',
-          employees: docs,
-        })
+      return res.status(200).json({
+        success: true,
+        message: 'A list of all Employee',
+        employees: docs,
+      })
     } else
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: 'Server error. Please try again.',
-          error: err.message,
-        })
+      res.status(500).json({
+        success: false,
+        message: 'Server error. Please try again.',
+        error: err.message,
+      })
   })
 
   // Employee.find()

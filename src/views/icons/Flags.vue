@@ -28,8 +28,7 @@ import { flagSet } from '@coreui/icons'
 export default {
   name: 'CoreUIIcons',
   setup() {
-    const toKebabCase = (str) =>
-      str.replace(/([a-z])([A-Z0-9])/g, '$1-$2').toLowerCase()
+    const toKebabCase = (str) => str.replace(/([a-z])([A-Z0-9])/g, '$1-$2').toLowerCase()
     const icons = flagSet
 
     return {

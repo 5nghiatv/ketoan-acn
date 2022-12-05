@@ -12,10 +12,7 @@
           <DocsExample href="">
             <CRow>
               <CCol :xs="3">
-                <CWidgetStatsB
-                  class="mb-3"
-                  :progress="{ color: 'success', value: 75 }"
-                >
+                <CWidgetStatsB class="mb-3" :progress="{ color: 'success', value: 75 }">
                   <template #text>Widget helper text</template>
                   <template #title>Widget title</template>
                   <template #value>89.9%</template>
@@ -53,12 +50,7 @@
           <DocsExample href="">
             <CRow>
               <CCol :xs="3">
-                <CWidgetStatsB
-                  class="mb-3"
-                  color="success-gradient"
-                  inverse
-                  :progress="{ value: 75 }"
-                >
+                <CWidgetStatsB class="mb-3" color="success-gradient" inverse :progress="{ value: 75 }">
                   <template #text>Widget helper text</template>
                   <template #title>Widget title</template>
                   <template #value>89.9%</template>
@@ -115,10 +107,7 @@
                           backgroundColor: getStyle('--cui-danger'),
                           borderColor: 'transparent',
                           borderWidth: 1,
-                          data: [
-                            41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67,
-                            45, 47,
-                          ],
+                          data: [41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67, 45, 47],
                         },
                       ],
                     }"
@@ -139,10 +128,7 @@
                           backgroundColor: getStyle('--cui-primary'),
                           borderColor: 'transparent',
                           borderWidth: 1,
-                          data: [
-                            41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67,
-                            45, 47,
-                          ],
+                          data: [41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67, 45, 47],
                         },
                       ],
                     }"
@@ -163,10 +149,7 @@
                           backgroundColor: getStyle('--cui-warning'),
                           borderColor: 'transparent',
                           borderWidth: 1,
-                          data: [
-                            41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67,
-                            45, 47,
-                          ],
+                          data: [41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67, 45, 47],
                         },
                       ],
                     }"
@@ -187,10 +170,7 @@
                           backgroundColor: 'transparent',
                           borderColor: getStyle('--cui-success'),
                           borderWidth: 2,
-                          data: [
-                            41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67,
-                            45, 47,
-                          ],
+                          data: [41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67, 45, 47],
                         },
                       ],
                     }"
@@ -211,10 +191,7 @@
                           backgroundColor: 'transparent',
                           borderColor: getStyle('--cui-warning'),
                           borderWidth: 2,
-                          data: [
-                            41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67,
-                            45, 47,
-                          ],
+                          data: [41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67, 45, 47],
                         },
                       ],
                     }"
@@ -235,10 +212,7 @@
                           backgroundColor: 'transparent',
                           borderColor: getStyle('--cui-info'),
                           borderWidth: 2,
-                          data: [
-                            41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67,
-                            45, 47,
-                          ],
+                          data: [41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67, 45, 47],
                         },
                       ],
                     }"
@@ -251,44 +225,28 @@
           <DocsExample href="">
             <CRow>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="primary-gradient"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="primary-gradient" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-settings" size="xl" />
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="info-gradient"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="info-gradient" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-user" size="xl" />
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="warning-gradient"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="warning-gradient" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-moon" size="xl" />
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="danger-gradient"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="danger-gradient" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-bell" size="xl" />
                   </template>
@@ -299,11 +257,7 @@
           <DocsExample href="">
             <CRow>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="primary-gradient"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="primary-gradient" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-settings" size="xl" />
                   </template>
@@ -315,21 +269,13 @@
                       target="_blank"
                     >
                       View more
-                      <CIcon
-                        icon="cil-arrow-right"
-                        class="ms-auto"
-                        width="16"
-                      />
+                      <CIcon icon="cil-arrow-right" class="ms-auto" width="16" />
                     </CLink>
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="info-gradient"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="info-gradient" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-user" size="xl" />
                   </template>
@@ -341,21 +287,13 @@
                       target="_blank"
                     >
                       View more
-                      <CIcon
-                        icon="cil-arrow-right"
-                        class="ms-auto"
-                        width="16"
-                      />
+                      <CIcon icon="cil-arrow-right" class="ms-auto" width="16" />
                     </CLink>
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="warning-gradient"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="warning-gradient" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-moon" size="xl" />
                   </template>
@@ -367,21 +305,13 @@
                       target="_blank"
                     >
                       View more
-                      <CIcon
-                        icon="cil-arrow-right"
-                        class="ms-auto"
-                        width="16"
-                      />
+                      <CIcon icon="cil-arrow-right" class="ms-auto" width="16" />
                     </CLink>
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="danger-gradient"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="danger-gradient" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-bell" size="xl" />
                   </template>
@@ -393,11 +323,7 @@
                       target="_blank"
                     >
                       View more
-                      <CIcon
-                        icon="cil-arrow-right"
-                        class="ms-auto"
-                        width="16"
-                      />
+                      <CIcon icon="cil-arrow-right" class="ms-auto" width="16" />
                     </CLink>
                   </template>
                 </CWidgetStatsF>
@@ -407,48 +333,28 @@
           <DocsExample href="">
             <CRow>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="primary-gradient"
-                  :padding="false"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="primary-gradient" :padding="false" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-settings" size="xl" />
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="info-gradient"
-                  :padding="false"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="info-gradient" :padding="false" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-user" size="xl" />
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="warning-gradient"
-                  :padding="false"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="warning-gradient" :padding="false" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-moon" size="xl" />
                   </template>
                 </CWidgetStatsF>
               </CCol>
               <CCol :xs="3">
-                <CWidgetStatsF
-                  color="danger-gradient"
-                  :padding="false"
-                  title="Title"
-                  value="$1.999,50"
-                >
+                <CWidgetStatsF color="danger-gradient" :padding="false" title="Title" value="$1.999,50">
                   <template #icon>
                     <CIcon icon="cil-bell" size="xl" />
                   </template>
@@ -461,15 +367,8 @@
           </DocsExample>
           <DocsExample href="">
             <CCardGroup>
-              <CWidgetStatsC
-                class="mb-3"
-                :progress="{ color: 'info', value: 75 }"
-                title="Visitors"
-                value="87.500"
-              >
-                <template #icon
-                  ><CIcon icon="cil-people" height="36"
-                /></template>
+              <CWidgetStatsC class="mb-3" :progress="{ color: 'info', value: 75 }" title="Visitors" value="87.500">
+                <template #icon><CIcon icon="cil-people" height="36" /></template>
               </CWidgetStatsC>
               <CWidgetStatsC
                 class="mb-3"
@@ -477,9 +376,7 @@
                 title="New Clients"
                 value="385"
               >
-                <template #icon
-                  ><CIcon icon="cil-user-follow" height="36"
-                /></template>
+                <template #icon><CIcon icon="cil-user-follow" height="36" /></template>
               </CWidgetStatsC>
               <CWidgetStatsC
                 class="mb-3"
@@ -487,9 +384,7 @@
                 title="Products sold"
                 value="1238"
               >
-                <template #icon
-                  ><CIcon icon="cil-basket" height="36"
-                /></template>
+                <template #icon><CIcon icon="cil-basket" height="36" /></template>
               </CWidgetStatsC>
               <CWidgetStatsC
                 class="mb-3"
@@ -497,9 +392,7 @@
                 title="Returning Visitors"
                 value="28%"
               >
-                <template #icon
-                  ><CIcon icon="cil-chart-pie" height="36"
-                /></template>
+                <template #icon><CIcon icon="cil-chart-pie" height="36" /></template>
               </CWidgetStatsC>
               <CWidgetStatsC
                 class="mb-3"
@@ -507,9 +400,7 @@
                 title="Avg. Time"
                 value="5:34:11"
               >
-                <template #icon
-                  ><CIcon icon="cil-speedometer" height="36"
-                /></template>
+                <template #icon><CIcon icon="cil-speedometer" height="36" /></template>
               </CWidgetStatsC>
             </CCardGroup>
           </DocsExample>
@@ -522,9 +413,7 @@
                   title="Visitors"
                   value="87.500"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-people" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-people" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -534,9 +423,7 @@
                   title="New Clients"
                   value="385"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-user-follow" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-user-follow" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -546,9 +433,7 @@
                   title="Products sold"
                   value="1238"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-basket" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-basket" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -558,9 +443,7 @@
                   title="Returning Visitors"
                   value="28%"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-chart-pie" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-chart-pie" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -570,21 +453,12 @@
                   title="Avg. Time"
                   value="5:34:11"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-speedometer" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-speedometer" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
-                <CWidgetStatsC
-                  class="mb-3"
-                  :progress="{ color: 'info', value: 75 }"
-                  title="Comments"
-                  value="972"
-                >
-                  <template #icon
-                    ><CIcon icon="cil-speech" height="36"
-                  /></template>
+                <CWidgetStatsC class="mb-3" :progress="{ color: 'info', value: 75 }" title="Comments" value="972">
+                  <template #icon><CIcon icon="cil-speech" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
             </CRow>
@@ -600,9 +474,7 @@
                   title="Visitors"
                   value="87.500"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-people" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-people" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -614,9 +486,7 @@
                   title="New Clients"
                   value="385"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-user-follow" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-user-follow" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -628,9 +498,7 @@
                   title="Products sold"
                   value="1238"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-basket" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-basket" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -642,9 +510,7 @@
                   title="Returning Visitors"
                   value="28%"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-chart-pie" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-chart-pie" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -656,9 +522,7 @@
                   title="Avg. Time"
                   value="5:34:11"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-speedometer" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-speedometer" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
               <CCol :xs="2">
@@ -670,9 +534,7 @@
                   title="Comments"
                   value="972"
                 >
-                  <template #icon
-                    ><CIcon icon="cil-speech" height="36"
-                  /></template>
+                  <template #icon><CIcon icon="cil-speech" height="36" /></template>
                 </CWidgetStatsC>
               </CCol>
             </CRow>
@@ -697,23 +559,7 @@ export default {
   },
   setup() {
     const widgetStatsE = {
-      labels: [
-        'M',
-        'T',
-        'W',
-        'T',
-        'F',
-        'S',
-        'S',
-        'M',
-        'T',
-        'W',
-        'T',
-        'F',
-        'S',
-        'S',
-        'M',
-      ],
+      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M'],
       optionsBar: {
         maintainAspectRatio: false,
         plugins: {

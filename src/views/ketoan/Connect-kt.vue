@@ -10,11 +10,7 @@
                 <CCol col="6">
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Company</CInputGroupText>
-                    <CFormInput
-                      :is-valid="testValidator('company')"
-                      v-model="todo.company"
-                      ref="focus_todo"
-                    />
+                    <CFormInput :is-valid="testValidator('company')" v-model="todo.company" ref="focus_todo" />
                   </CInputGroup>
                 </CCol>
                 <CCol col="6">
@@ -28,19 +24,13 @@
                 <CCol col="4">
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Tax Code.</CInputGroupText>
-                    <CFormInput
-                      :is-valid="testValidator('taxcode')"
-                      v-model="todo.taxcode"
-                    />
+                    <CFormInput :is-valid="testValidator('taxcode')" v-model="todo.taxcode" />
                   </CInputGroup>
                 </CCol>
                 <CCol col="4">
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Host</CInputGroupText>
-                    <CFormInput
-                      :is-valid="testValidator('host')"
-                      v-model="todo.host"
-                    />
+                    <CFormInput :is-valid="testValidator('host')" v-model="todo.host" />
                   </CInputGroup>
                 </CCol>
                 <CCol col="4">
@@ -55,39 +45,25 @@
                 <CCol col="4">
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Database</CInputGroupText>
-                    <CFormInput
-                      :is-valid="testValidator('dataname')"
-                      v-model="todo.dataname"
-                    />
+                    <CFormInput :is-valid="testValidator('dataname')" v-model="todo.dataname" />
                   </CInputGroup>
                 </CCol>
                 <CCol col="4">
                   <CInputGroup class="mb-3">
                     <CInputGroupText>User</CInputGroupText>
-                    <CFormInput
-                      :is-valid="testValidator('username')"
-                      v-model="todo.username"
-                    />
+                    <CFormInput :is-valid="testValidator('username')" v-model="todo.username" />
                   </CInputGroup>
                 </CCol>
                 <CCol col="4">
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Pasw</CInputGroupText>
-                    <CFormInput
-                      :is-valid="testValidator('password')"
-                      v-model="todo.password"
-                    />
+                    <CFormInput :is-valid="testValidator('password')" v-model="todo.password" />
                   </CInputGroup>
                 </CCol>
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
@@ -98,18 +74,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
 
@@ -324,16 +291,11 @@ export default {
     submitForm() {},
     testValidator(field) {
       if (field == 'host') return (this.Validator.host = this.todo.host != '')
-      if (field == 'username')
-        return (this.Validator.username = this.todo.username != '')
-      if (field == 'password')
-        return (this.Validator.password = this.todo.password != '')
-      if (field == 'dataname')
-        return (this.Validator.dataname = this.todo.dataname != '')
-      if (field == 'company')
-        return (this.Validator.company = this.todo.company != '')
-      if (field == 'taxcode')
-        return (this.Validator.taxcode = this.todo.taxcode != '')
+      if (field == 'username') return (this.Validator.username = this.todo.username != '')
+      if (field == 'password') return (this.Validator.password = this.todo.password != '')
+      if (field == 'dataname') return (this.Validator.dataname = this.todo.dataname != '')
+      if (field == 'company') return (this.Validator.company = this.todo.company != '')
+      if (field == 'taxcode') return (this.Validator.taxcode = this.todo.taxcode != '')
       let passe =
         this.Validator.host &&
         this.Validator.username &&
@@ -572,9 +534,7 @@ export default {
   },
   watch: {
     updaterec() {
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
     },
   },
   computed: {

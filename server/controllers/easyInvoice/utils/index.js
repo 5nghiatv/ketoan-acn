@@ -6,11 +6,9 @@ var crypto = require('crypto')
 //Generate random 10-characters string
 function makeId() {
   var text = ''
-  var possible =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-  for (var i = 0; i < 10; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  for (var i = 0; i < 10; i++) text += possible.charAt(Math.floor(Math.random() * possible.length))
 
   return text
 }
@@ -27,17 +25,7 @@ function createAuthenHeader(methodName) {
 
   var username = config.common.username
   var password = config.common.password
-  return (
-    signature +
-    ':' +
-    nonce +
-    ':' +
-    epochInSecond +
-    ':' +
-    username +
-    ':' +
-    password
-  )
+  return signature + ':' + nonce + ':' + epochInSecond + ':' + username + ':' + password
 }
 
 module.exports = {

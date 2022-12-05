@@ -6,47 +6,26 @@
         <div class="company-info">
           <h4>Trần Văn Nghĩa</h4>
           <ul>
-            <li>
-              <i class="fa fa-road"></i> 118/63 Bạch Đằng, P.24, Q.BT- HCM
-            </li>
+            <li><i class="fa fa-road"></i> 118/63 Bạch Đằng, P.24, Q.BT- HCM</li>
             <li><i class="fa fa-phone"></i> (084) 0903917963</li>
             <li><i class="fa fa-envelope"></i> Nghiatv@gmail.com</li>
           </ul>
         </div>
         <div class="contact">
           <h4>Gửi Email</h4>
-          <div class="alertmess">
-            Tin nhắn của bạn đã được gửi đến chúng tôi...
-          </div>
+          <div class="alertmess">Tin nhắn của bạn đã được gửi đến chúng tôi...</div>
           <form action="javascript:void(0);" id="contactForm">
             <p>
               <label>Họ & tên</label>
-              <input
-                v-model="todo.name"
-                type="text"
-                name="name"
-                id="focus_todo"
-                required
-              />
+              <input v-model="todo.name" type="text" name="name" id="focus_todo" required />
             </p>
             <p>
               <label>Công ty</label>
-              <input
-                v-model="todo.company"
-                type="text"
-                name="company"
-                id="company"
-              />
+              <input v-model="todo.company" type="text" name="company" id="company" />
             </p>
             <p>
               <label>Email</label>
-              <input
-                v-model="todo.email"
-                type="email"
-                name="email"
-                id="email"
-                required
-              />
+              <input v-model="todo.email" type="email" name="email" id="email" required />
               <!-- <input for="email" type="email" placeholder="Please enter your email here" required v-model="todo.email" @blur="validateEmail" > -->
             </p>
             <p>
@@ -60,65 +39,31 @@
 
             <p>
               <label>Chọn file</label>
-              <input
-                class="files"
-                type="file"
-                ref="files"
-                id="files"
-                multiple
-              />
+              <input class="files" type="file" ref="files" id="files" multiple />
             </p>
             <p>
-              <button
-                @click="uploadVuejs()"
-                type="button"
-                id="send"
-                style="margin-top: 33px !important"
-              >
+              <button @click="uploadVuejs()" type="button" id="send" style="margin-top: 33px !important">
                 Upload
               </button>
             </p>
             <p class="progress">
-              <progress
-                value="100"
-                max="100"
-                id="progress"
-                style="width: -webkit-fill-available"
-              ></progress>
+              <progress value="100" max="100" id="progress" style="width: -webkit-fill-available"></progress>
             </p>
             <p class="progress1">
               <!-- Lúc đầu là filename ,sau upload là url -->
-              <input
-                type="text"
-                v-model="todo.fileupload"
-                name="fileupload"
-                id="progress1"
-              />
+              <input type="text" v-model="todo.fileupload" name="fileupload" id="progress1" />
             </p>
             <p class="full">
               <label>Nội dung tin</label>
-              <textarea
-                v-model="todo.message"
-                name="message"
-                rows="2"
-                id="message"
-              ></textarea>
+              <textarea v-model="todo.message" name="message" rows="2" id="message"></textarea>
             </p>
             <p class="full" v-if="!edit">
-              <button
-                :disabled="!isValid"
-                @click="createTodo()"
-                href="javascript:void(0);"
-              >
+              <button :disabled="!isValid" @click="createTodo()" href="javascript:void(0);">
                 THỰC HIỆN GỬI TIN
               </button>
             </p>
             <p class="full" v-if="loggedUser && loggedUser.isAdmin && edit">
-              <button
-                :disabled="!isValid"
-                @click="updateTodo()"
-                href="javascript:void(0);"
-              >
+              <button :disabled="!isValid" @click="updateTodo()" href="javascript:void(0);">
                 THỰC HIỆN LƯU TIN
               </button>
               <!-- :disabled="!isValid" -->
@@ -295,8 +240,7 @@ export default {
           upload.on(
             'state_changed',
             function progress(snapshot) {
-              var percentage =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
               document.getElementById('progress').value = percentage
             },
 
@@ -369,9 +313,7 @@ export default {
     },
     deleteTodo(index, row) {
       //console.log(222,index, row);
-      if (
-        !confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')
-      ) {
+      if (!confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')) {
         return
       }
       this.restore() // Nếu đang sửa thì phục hồi Vì có thể sửa dòng khác dòng xóa
@@ -414,10 +356,7 @@ export default {
     },
     createTodo() {
       // =====1--for  realtime-Database
-      this.todo.date = new Date()
-        .toISOString()
-        .replace(/T/, ' ')
-        .replace(/\..+/, '')
+      this.todo.date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
       var newMessageRef = messagesRef.push()
       newMessageRef.set(this.todo)
       // ====2--for  Cloud-Firestore

@@ -13,9 +13,7 @@ exports.getAllDmtenkho = async function (req, res) {
       dmtenkhos: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -30,9 +28,7 @@ exports.getSingleDmtenkho = async function (req, res) {
       dmtenkho: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -57,9 +53,7 @@ exports.createDmtenkho = async function (req, res) {
       dmtenkho: req.body,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
@@ -82,29 +76,20 @@ exports.updateDmtenkho = async function (req, res) {
       dmtenkho: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }
 
 // delete a Dmtenkho
 exports.deleteDmtenkho = async function (req, res) {
   try {
-    let rows = await runQuerySync(
-      'DELETE FROM dmtenkho WHERE id = ?',
-      [req.params.id],
-      req,
-      res,
-    )
+    let rows = await runQuerySync('DELETE FROM dmtenkho WHERE id = ?', [req.params.id], req, res)
     res.status(204).json({
       success: true,
       message: 'Dmtenkho Deleted successfully',
       dmtenkho: rows,
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Server error. Please try again.', error: error })
+    return res.status(500).json({ message: 'Server error. Please try again.', error: error })
   }
 }

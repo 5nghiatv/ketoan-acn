@@ -3,11 +3,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card" id="printableArea">
-          <div
-            v-for="(phieuin, index) in phieuthuchi"
-            :key="index"
-            class="card-block"
-          >
+          <div v-for="(phieuin, index) in phieuthuchi" :key="index" class="card-block">
             <div v-if="index < 1" class="row btn-section">
               <div class="col-lg-12 col-md-12 col-12">
                 <hr />
@@ -20,9 +16,7 @@
                     class="btn btn-responsive button-alignment btn-outline-primary"
                     data-toggle="button"
                   >
-                    <span @click="goTrangtruoc()">
-                      <i class="fa fa-reply-all"></i> Trang trước
-                    </span>
+                    <span @click="goTrangtruoc()"> <i class="fa fa-reply-all"></i> Trang trước </span>
                   </button>
                   {{ '\u00a0' }}
                   <button
@@ -30,9 +24,7 @@
                     class="btn btn-responsive button-alignment btn-outline-primary"
                     data-toggle="button"
                   >
-                    <span @click="printDiv()">
-                      <i class="fa fa-print"></i> In Phiếu
-                    </span>
+                    <span @click="printDiv()"> <i class="fa fa-print"></i> In Phiếu </span>
                   </button>
                 </span>
                 <CRow class="col-12" style="float: left">
@@ -64,16 +56,10 @@
                   </CCol>
                 </CRow>
                 <div>
-                  <label id="sign" style="font-style: italic; font-size: 0.8em"
-                    >In họ tên người ký</label
-                  >
+                  <label id="sign" style="font-style: italic; font-size: 0.8em">In họ tên người ký</label>
                   {{ '\u00a0' }}
-                  <input
-                    v-model="nguoikyten.sign"
-                    type="checkbox"
-                    name="sign"
-                    checked
-                  />{{ '\u00a0' }}{{ '\u00a0' }}
+                  <input v-model="nguoikyten.sign" type="checkbox" name="sign" checked />{{ '\u00a0'
+                  }}{{ '\u00a0' }}
                   <input
                     v-model="nguoikyten.themdong"
                     title="Tinh chỉnh dòng in"
@@ -101,9 +87,7 @@
               <div class="col-4 invoice_address" id="tenphieu">
                 <address>
                   <h3>
-                    <strong style="color: GoldenRod">
-                      {{ phieuin.tenphieu }}</strong
-                    >
+                    <strong style="color: GoldenRod"> {{ phieuin.tenphieu }}</strong>
                   </h3>
                   <h6 style="font-style: italic">
                     {{ Ngaythang(phieuin.ngay) }}
@@ -120,8 +104,7 @@
             <div class="row">
               <div class="col-9">
                 <div class="row col-12 col-lg-12 invoice_address">
-                  <a>Số chứng từ:</a> {{ '\u00a0'
-                  }}<strong> {{ phieuin.soct }} </strong><br />
+                  <a>Số chứng từ:</a> {{ '\u00a0' }}<strong> {{ phieuin.soct }} </strong><br />
                 </div>
                 <div class="row col-12 col-lg-12 invoice_address">
                   <a>Diễn giải:</a> {{ '\u00a0' }}
@@ -130,19 +113,14 @@
               </div>
               <div class="col-3">
                 <div class="col-12 col-lg-12 invoice_address">
-                  <a>Nợ:</a>{{ '\u00a0' }} <strong> {{ phieuin.tkno }} </strong
-                  ><br />
-                  <a>Có:</a> {{ '\u00a0' }} <strong> {{ phieuin.tkco }} </strong
-                  ><br />
+                  <a>Nợ:</a>{{ '\u00a0' }} <strong> {{ phieuin.tkno }} </strong><br />
+                  <a>Có:</a> {{ '\u00a0' }} <strong> {{ phieuin.tkco }} </strong><br />
                 </div>
               </div>
             </div>
             <br />
             <div class="row">
-              <table
-                class="table table-bordered data-table"
-                style="margin-left: 30px"
-              >
+              <table class="table table-bordered data-table" style="margin-left: 30px">
                 <col width="50" />
                 <col width="250" />
                 <col width="100" />
@@ -159,11 +137,7 @@
                 </thead>
                 <tbody v-if="checkifline5('ctid_' + phieuin.ctid)">
                   <!-- Tuyệt - Thêm cho đủ 5 dòng  -->
-                  <tr
-                    class="gradeX"
-                    v-for="(chitiet, ind) in tkchitiet['ctid_' + phieuin.ctid]"
-                    :key="ind"
-                  >
+                  <tr class="gradeX" v-for="(chitiet, ind) in tkchitiet['ctid_' + phieuin.ctid]" :key="ind">
                     <td v-if="chitiet.diengiai" class="text-center">
                       {{ ind + 1 }}
                     </td>
@@ -172,9 +146,7 @@
                     <td>{{ chitiet.tkno }}</td>
                     <td>{{ chitiet.tkco }}</td>
                     <td v-if="!chitiet.sotien == 0" class="text-right">
-                      <strong>
-                        {{ number_format(chitiet.sotien, 0, ',', '.') }}</strong
-                      >
+                      <strong> {{ number_format(chitiet.sotien, 0, ',', '.') }}</strong>
                     </td>
                     <td v-if="!!chitiet.sotien == 0" class="text-right">
                       {{ '\u00a0' }}
@@ -196,26 +168,17 @@
             </div>
             <!-- Table -->
             <div class="row">
-              <div
-                style="margin-left: 18px"
-                class="row col-12 col-lg-12 invoice_address"
-              >
+              <div style="margin-left: 18px" class="row col-12 col-lg-12 invoice_address">
                 Tổng số tiền {{ '\u00A0' }}
-                <a style="font-style: italic; font-size: 0.8em"
-                  >(Viết bằng chữ) :</a
-                >
+                <a style="font-style: italic; font-size: 0.8em">(Viết bằng chữ) :</a>
                 <a style="font-style: italic; font-size: 0.98em; color: orchid"
                   >{{ '\u00a0' }} ( {{ phieuin.sotienvn }} )
                 </a>
               </div>
             </div>
             <div class="row">
-              <div
-                style="margin-left: 18px"
-                class="row col-12 col-lg-12 invoice_address"
-              >
-                Số chứng từ gốc kèm theo:
-                ......................................................
+              <div style="margin-left: 18px" class="row col-12 col-lg-12 invoice_address">
+                Số chứng từ gốc kèm theo: ......................................................
               </div>
             </div>
             <div class="row" style="margin-left: 20px">
@@ -230,11 +193,7 @@
               </div>
             </div>
             <div v-if="nguoikyten.themdong"><br /><br /><br /><br /></div>
-            <div
-              class="row"
-              v-if="nguoikyten.themdong && nguoikyten.sign"
-              style="margin-left: 20px"
-            >
+            <div class="row" v-if="nguoikyten.themdong && nguoikyten.sign" style="margin-left: 20px">
               <div class="col-4 invoice_address text-center">
                 {{ nguoikyten.giamdoc }}
               </div>

@@ -59,9 +59,7 @@ exports.findOneUserSql = async function (req, res) {
 
 // Create users
 exports.createUserSql = async function (req, res) {
-  req.body.password = req.body.password
-    ? await bcrypt.hash(req.body.password, 10)
-    : ''
+  req.body.password = req.body.password ? await bcrypt.hash(req.body.password, 10) : ''
   let query =
     'INSERT INTO users (`id`, `email`, `username`, `password`, `datalist`, `address`, `position`,`gender`, `image`, `mobile`, `dob`) ' +
     'VALUES (null,"' +

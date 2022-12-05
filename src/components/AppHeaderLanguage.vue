@@ -2,11 +2,7 @@
   <CDropdown variant="nav-item">
     <CDropdownToggle placement="bottom-end" :caret="false">
       <!-- <CIcon class="my-1 mx-2" icon="cil-bell" size="lg" /> -->
-      <img
-        :src="`/flag_${$i18n.locale}.svg`"
-        alt="flag"
-        style="height: 23px; width: 23px"
-      />
+      <img :src="`/flag_${$i18n.locale}.svg`" alt="flag" style="height: 23px; width: 23px" />
       <!-- <CBadge
         class="position-absolute top-0 end-0"
         color="danger-gradient"

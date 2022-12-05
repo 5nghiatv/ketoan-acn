@@ -106,9 +106,7 @@ export const myDocument = {
       }
     },
     DELETE_DOCUMENT(state, payload) {
-      state.documentData = state.documentData.filter(
-        (document) => document.ctid !== payload,
-      )
+      state.documentData = state.documentData.filter((document) => document.ctid !== payload)
     },
     TOGGLE_MODAL_NEW(state, modalTextNew) {
       if (modalTextNew) state.modalTextNew = modalTextNew
@@ -293,10 +291,7 @@ export const myDocument = {
     },
 
     async GET_DOCUMENTS_CHITIET({ commit, state }) {
-      await ApiService.get(
-        '/chitiets/' + state.currentDocumentArray[0].ctid,
-        {},
-      )
+      await ApiService.get('/chitiets/' + state.currentDocumentArray[0].ctid, {})
         .then((data) => {
           let chitiets = data.data.chitiets
           chitiets.forEach((item) => {
@@ -313,10 +308,7 @@ export const myDocument = {
           console.log(err)
         })
     },
-    async UPDATE_CHITIET(
-      { dispatch, commit },
-      { chitietItem, ctid, updateSotien },
-    ) {
+    async UPDATE_CHITIET({ dispatch, commit }, { chitietItem, ctid, updateSotien }) {
       var query = "DELETE FROM chitiet WHERE ctid = '" + ctid + "';"
       // =====================  Nhớ có dấu ; ở cuối
       /* eslint-disable */
@@ -337,13 +329,7 @@ export const myDocument = {
           reqbody.sotien +
           '","","",0,"" );'
       })
-      query =
-        query +
-        'UPDATE ctuktoan SET sotien = "' +
-        updateSotien +
-        '" WHERE ctid = "' +
-        ctid +
-        '" ;'
+      query = query + 'UPDATE ctuktoan SET sotien = "' + updateSotien + '" WHERE ctid = "' + ctid + '" ;'
       var ret = await dispatch('runMysql', query)
       if (ret) {
         await dispatch('GET_DOCUMENTS', true)
@@ -354,17 +340,12 @@ export const myDocument = {
     },
 
     async GET_DOCUMENTS_VATTU({ commit, state }) {
-      await ApiService.get(
-        '/ctuvattus/' + state.currentDocumentArray[0].ctid,
-        {},
-      )
+      await ApiService.get('/ctuvattus/' + state.currentDocumentArray[0].ctid, {})
         .then((data) => {
           let chitiets = data.data.ctuvattus
           if (chitiets.length === 0) return null
           chitiets.forEach((item) => {
-            var tenhang = state.danhmucTenhang.filter(
-              (document) => document.mahang == item.mahang,
-            )
+            var tenhang = state.danhmucTenhang.filter((document) => document.mahang == item.mahang)
             item.tenhang = tenhang[0].tenhang
             item.donvi = tenhang[0].donvi
             item.sotien = numberFormat(item.sotien, 0, ',', '.')
@@ -386,11 +367,7 @@ export const myDocument = {
       // =====================  Nhớ có dấu ; ở cuối
       await chitietItem.forEach((reqbody) => {
         reqbody.sotien = reqbody.sotien.split('.').join('').split(',').join('.')
-        reqbody.soluong = reqbody.soluong
-          .split('.')
-          .join('')
-          .split(',')
-          .join('.')
+        reqbody.soluong = reqbody.soluong.split('.').join('').split(',').join('.')
         query =
           query +
           'INSERT INTO ctuvattu (`id`, `ctid`, `mahang`, `makho`, `soluong`, `sotien`, `dongia`,`vtkhac`,`ngoaite`,`doituong`,`giaban`,`thue`,`soluong2`,`doituong2`) ' +
@@ -438,14 +415,10 @@ export const myDocument = {
       var query = "DELETE FROM hoadon WHERE ctid = '" + ctid + "';"
       // =====================  Nhớ có dấu ; ở cuối
       await chitietItem.forEach((reqbody) => {
-        reqbody.giaban = reqbody.giaban + "."
-        reqbody.thuegtgt = reqbody.thuegtgt + "."
+        reqbody.giaban = reqbody.giaban + '.'
+        reqbody.thuegtgt = reqbody.thuegtgt + '.'
         reqbody.giaban = reqbody.giaban.split('.').join('').split(',').join('.')
-        reqbody.thuegtgt = reqbody.thuegtgt
-          .split('.')
-          .join('')
-          .split(',')
-          .join('.')
+        reqbody.thuegtgt = reqbody.thuegtgt.split('.').join('').split(',').join('.')
         query =
           query +
           'INSERT INTO hoadon (`id`,`ctid`,`sohd`,`ngay`,`diengiai`,`masothue`,`thuesuat`,`giaban`,`thuegtgt`,`mausohd`,`mamauhd`,`sohdong`,`ngayhdong`,' +
@@ -596,52 +569,32 @@ export const myDocument = {
         case 1:
           query = "DELETE FROM customer WHERE id = '" + danhmuc.id + "';"
           ret = await dispatch('runMysql', query)
-          var index = await state.danhmucCustomer.findIndex(
-            (x) => x.id === danhmuc.id,
-          )
+          var index = await state.danhmucCustomer.findIndex((x) => x.id === danhmuc.id)
           state.danhmucCustomer.splice(index, 1)
           break
         case 2:
           query = "DELETE FROM tenhang WHERE id = '" + danhmuc.id + "';"
           ret = await dispatch('runMysql', query)
-          var index = await state.danhmucTenhang.findIndex(
-            (x) => x.id === danhmuc.id,
-          )
+          var index = await state.danhmucTenhang.findIndex((x) => x.id === danhmuc.id)
           state.danhmucTenhang.splice(index, 1)
           break
         case 3:
           query = "DELETE FROM dmtenkho WHERE id = '" + danhmuc.id + "';"
           ret = await dispatch('runMysql', query)
-          var index = await state.danhmucKhohang.findIndex(
-            (x) => x.id === danhmuc.id,
-          )
+          var index = await state.danhmucKhohang.findIndex((x) => x.id === danhmuc.id)
           state.danhmucKhohang.splice(index, 1)
           break
         default:
           query = "DELETE FROM dmtkhoan WHERE id = '" + danhmuc.id + "';"
           ret = await dispatch('runMysql', query)
-          var index = await state.danhmucTaikhoan.findIndex(
-            (x) => x.id === danhmuc.id,
-          )
+          var index = await state.danhmucTaikhoan.findIndex((x) => x.id === danhmuc.id)
           state.danhmucTaikhoan.splice(index, 1)
           break
       }
       return ret
     },
-    async GANTIENHANG_HOADON(
-      { dispatch, commit },
-      { ctid, tongtien, tienthue, tkthue },
-    ) {
-      var query =
-        "CALL GanTienHangHoadon('" +
-        ctid +
-        "'," +
-        tongtien +
-        ',' +
-        tienthue +
-        ",'" +
-        tkthue +
-        "')"
+    async GANTIENHANG_HOADON({ dispatch, commit }, { ctid, tongtien, tienthue, tkthue }) {
+      var query = "CALL GanTienHangHoadon('" + ctid + "'," + tongtien + ',' + tienthue + ",'" + tkthue + "')"
       //console.log(query)
       var ret = await dispatch('runMysql', query)
       await dispatch('GET_DOCUMENTS_HOADON')

@@ -204,16 +204,11 @@ router.get('/sonhatkyhh', sonhatkyhh)
 router.get('/baocaotc', (req, res) => {
   //res.send(req.body)
 
-  if (req.query.filename.toUpperCase().includes('KK-HOADON-BC26'))
-    return BaocaoHoadon(req, res)
-  if (req.query.filename.toUpperCase().includes('KK_01_GTGT'))
-    return BaocaoThuegtgt(req, res)
-  if (req.query.filename.toUpperCase().includes('KK-03-TNDN'))
-    return BaocaoTndn(req, res)
-  if (req.query.filename.toUpperCase().includes('KK-BC-TAICHINH.XML'))
-    return BaocaoBctcXML(req, res)
-  if (req.query.filename.toUpperCase().includes('TM-BC-TAICHINH.XLSX'))
-    return BaocaoBctcXLSX(req, res)
+  if (req.query.filename.toUpperCase().includes('KK-HOADON-BC26')) return BaocaoHoadon(req, res)
+  if (req.query.filename.toUpperCase().includes('KK_01_GTGT')) return BaocaoThuegtgt(req, res)
+  if (req.query.filename.toUpperCase().includes('KK-03-TNDN')) return BaocaoTndn(req, res)
+  if (req.query.filename.toUpperCase().includes('KK-BC-TAICHINH.XML')) return BaocaoBctcXML(req, res)
+  if (req.query.filename.toUpperCase().includes('TM-BC-TAICHINH.XLSX')) return BaocaoBctcXLSX(req, res)
 
   res.status(200).json({
     success: true,
@@ -234,24 +229,20 @@ router.get('/download/:filename', (req, res) => {
 })
 router.get('/setcolor/:filename', (req, res) => {
   // res.send(req.params.filename);
-  fs.readFile(
-    'src/assets/scss/' + req.params.filename,
-    'utf-8',
-    (err, content) => {
-      if (err) {
-        throw err
-      }
-      fs.writeFileSync('src/assets/scss/_variables.scss', content)
-      console.log(111, 'Ok, SetColor : ' + req.params.filename)
-      res
-        .status(200)
-        .json({
-          message: 'setColor successFully...',
-          filename: req.params.filename,
-        })
-        .end()
-    },
-  )
+  fs.readFile('src/assets/scss/' + req.params.filename, 'utf-8', (err, content) => {
+    if (err) {
+      throw err
+    }
+    fs.writeFileSync('src/assets/scss/_variables.scss', content)
+    console.log(111, 'Ok, SetColor : ' + req.params.filename)
+    res
+      .status(200)
+      .json({
+        message: 'setColor successFully...',
+        filename: req.params.filename,
+      })
+      .end()
+  })
 })
 // router.get('/test/:filedropbox',(req, res) => {
 //   console.log(req.params)
@@ -283,15 +274,9 @@ router.get('/testdb', async (req, res) => {
     logged: connect_Option.username && connect_Option.password ? true : false,
     mongodb: __mongodb,
     connect_Option: connect_Option,
-    getUsers: kq
-      ? kq
-      : 'Run Sql ERROR : Check info connect Database & getUser... ',
-    connect_upload: kq1
-      ? kq1
-      : 'Run Sql ERROR : Check info connect Database & getUser_upload... ',
-    getProcedures: kq2
-      ? kq2
-      : 'Run Sql ERROR : Check info connect Database & Procedure... ',
+    getUsers: kq ? kq : 'Run Sql ERROR : Check info connect Database & getUser... ',
+    connect_upload: kq1 ? kq1 : 'Run Sql ERROR : Check info connect Database & getUser_upload... ',
+    getProcedures: kq2 ? kq2 : 'Run Sql ERROR : Check info connect Database & Procedure... ',
   })
 })
 
@@ -449,10 +434,7 @@ router.post('/register', async (req, res) => {
   let pasw = await bcrypt.hash(req.body.password, 10)
   if (__mongodb) {
     user = await User.findOne({ email: req.body.email })
-    if (user)
-      return res
-        .status(400)
-        .json({ success: false, message: 'User already registered !!' })
+    if (user) return res.status(400).json({ success: false, message: 'User already registered !!' })
     user = new User({
       name: req.body.name,
       password: pasw,
@@ -490,9 +472,7 @@ router.post('/register', async (req, res) => {
     user._id = kq.insertId
   }
   //console.log(user);
-  token = __mongodb
-    ? await user.generateAuthToken()
-    : generateAuthTokenSql(user)
+  token = __mongodb ? await user.generateAuthToken() : generateAuthTokenSql(user)
 
   res.header('x-auth-token', token).send({
     _id: user._id,
@@ -527,10 +507,7 @@ router.post('/login', async (req, res) => {
       user = ''
     }
   }
-  if (!user)
-    return res
-      .status(404)
-      .json({ success: false, message: 'This user is not registered ...' })
+  if (!user) return res.status(404).json({ success: false, message: 'This user is not registered ...' })
 
   const bool = bcrypt.compareSync(req.body.password, user.password)
   if (!bool)
@@ -539,9 +516,7 @@ router.post('/login', async (req, res) => {
       message: 'Access denied, Incorrect username or password ...',
     })
   //throw new Error('Access denied, Incorrect username or password ...');
-  const getToken = __mongodb
-    ? await user.generateAuthToken()
-    : generateAuthTokenSql(user)
+  const getToken = __mongodb ? await user.generateAuthToken() : generateAuthTokenSql(user)
   //console.log(user.verify(getToken.token).user)
   // API return affter login successfully
   const response = {
@@ -569,9 +544,7 @@ router.post('/refreshtoken', async (req, res) => {
   const decode = jwt.verify(RefreshToken, process.env.PRIVATE_KEY)
   const user = await User.findOne({ email: decode.user.email })
   //console.log(444, user)
-  const getToken = __mongodb
-    ? await user.generateAuthToken()
-    : generateAuthTokenSql(user)
+  const getToken = __mongodb ? await user.generateAuthToken() : generateAuthTokenSql(user)
   //console.log(user.verify(getToken.token).user)
   // API return affter login successfully
   console.log('Đã refreshToken sau : ' + getToken.expiresIn)
@@ -586,16 +559,12 @@ router.post('/refreshtoken', async (req, res) => {
 
 function generateAuthTokenSql(user) {
   const expire = `${process.env.TOKENLIFE}`
-  const token = jwt.sign(
-    { _id: user.id, isAdmin: user.admin, user: user },
-    process.env.PRIVATE_KEY,
-    { expiresIn: expire },
-  )
-  const refreshtoken = jwt.sign(
-    { _id: user.id, isAdmin: user.admin, user: user },
-    process.env.PRIVATE_KEY,
-    { expiresIn: `${process.env.REFRESHTOKENLIFE}` },
-  )
+  const token = jwt.sign({ _id: user.id, isAdmin: user.admin, user: user }, process.env.PRIVATE_KEY, {
+    expiresIn: expire,
+  })
+  const refreshtoken = jwt.sign({ _id: user.id, isAdmin: user.admin, user: user }, process.env.PRIVATE_KEY, {
+    expiresIn: `${process.env.REFRESHTOKENLIFE}`,
+  })
 
   //get the private key from the config file -> environment variable
   //console.log(jwt.verify(token, process.env.PRIVATE_KEY) )

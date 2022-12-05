@@ -2,9 +2,7 @@
   <CRow>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>CoreUI Smart Table</strong> <small>Vue Table Component</small>
-        </CCardHeader>
+        <CCardHeader> <strong>CoreUI Smart Table</strong> <small>Vue Table Component</small> </CCardHeader>
         <CCardBody>
           <DocsExample href="components/smart-table/">
             <SmartTableBasixExample />
@@ -12,9 +10,7 @@
         </CCardBody>
       </CCard>
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>CoreUI Smart Table</strong> <small>Vue Table Component</small>
-        </CCardHeader>
+        <CCardHeader> <strong>CoreUI Smart Table</strong> <small>Vue Table Component</small> </CCardHeader>
         <CCardBody>
           <DocsExample href="components/smart-table/">
             <SmartTableSelectableExample />

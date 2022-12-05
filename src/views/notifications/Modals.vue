@@ -11,19 +11,12 @@
         <CCardBody>
           <p class="text-medium-emphasis small">
             Below is a static modal example (meaning its
-            <code>position</code> and <code>display</code> have been
-            overridden). Included are the modal header, modal body (required for
-            <code>padding</code>), and modal footer (optional). We ask that you
-            include modal headers with dismiss actions whenever possible, or
-            provide another explicit dismiss action.
+            <code>position</code> and <code>display</code> have been overridden). Included are the modal header,
+            modal body (required for <code>padding</code>), and modal footer (optional). We ask that you include
+            modal headers with dismiss actions whenever possible, or provide another explicit dismiss action.
           </p>
           <DocsExample href="components/modal.html#modal-components">
-            <CModal
-              class="show d-block position-static"
-              :backdrop="false"
-              :keyboard="false"
-              visible
-            >
+            <CModal class="show d-block position-static" :backdrop="false" :keyboard="false" visible>
               <CModalHeader dismiss>
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
@@ -39,13 +32,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Modal</strong> <small>Live demo</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Modal</strong> <small>Live demo</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Toggle a working modal demo by clicking the button below. It will
-            slide down and fade in from the top of the page.
+            Toggle a working modal demo by clicking the button below. It will slide down and fade in from the top
+            of the page.
           </p>
           <DocsExample href="components/modal.html#live-demo">
             <CButton
@@ -75,9 +66,7 @@
               >
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
-              <CModalBody
-                >Woohoo, you're reading this text in a modal!</CModalBody
-              >
+              <CModalBody>Woohoo, you're reading this text in a modal!</CModalBody>
               <CModalFooter>
                 <CButton
                   color="secondary"
@@ -98,15 +87,12 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Modal</strong> <small>Static backdrop</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Modal</strong> <small>Static backdrop</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            If you set <code>backdrop</code> property to <code>static</code>,
-            your modal will behave as though the backdrop is static, meaning it
-            will not close when clicking outside it. Click the button below to
-            try it.
+            If you set <code>backdrop</code> property to <code>static</code>, your modal will behave as though the
+            backdrop is static, meaning it will not close when clicking outside it. Click the button below to try
+            it.
           </p>
           <DocsExample href="components/modal.html#static-backdrop">
             <CButton
@@ -137,9 +123,7 @@
               >
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
-              <CModalBody
-                >Woohoo, you're reading this text in a modal!</CModalBody
-              >
+              <CModalBody>Woohoo, you're reading this text in a modal!</CModalBody>
               <CModalFooter>
                 <CButton
                   color="secondary"
@@ -160,14 +144,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Modal</strong> <small>Scrolling long content</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Modal</strong> <small>Scrolling long content</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            When modals become too long for the user's viewport or device, they
-            scroll independent of the page itself. Try the demo below to see
-            what we mean.
+            When modals become too long for the user's viewport or device, they scroll independent of the page
+            itself. Try the demo below to see what we mean.
           </p>
           <DocsExample href="components/modal.html#scrolling-long-content">
             <CButton
@@ -199,107 +180,82 @@
               </CModalHeader>
               <CModalBody>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
               </CModalBody>
             </CModal>
           </DocsExample>
           <p class="text-medium-emphasis small">
-            You can also create a scrollable modal that allows scroll the modal
-            body by adding
+            You can also create a scrollable modal that allows scroll the modal body by adding
             <code>scrollable</code> prop.
           </p>
           <DocsExample href="components/modal.html#scrolling-long-content">
@@ -333,100 +289,76 @@
               </CModalHeader>
               <CModalBody>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
                 <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                  egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                 </p>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur et. Vivamus sagittis lacus vel augue laoreet
-                  rutrum faucibus dolor auctor.
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                  augue laoreet rutrum faucibus dolor auctor.
                 </p>
                 <p>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.
-                  Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                  fringilla.
+                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                  nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
                 </p>
               </CModalBody>
             </CModal>
@@ -436,13 +368,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Modal</strong> <small>Vertically centered</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Modal</strong> <small>Vertically centered</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Add <code>alignment=&#34;center&#34;</code> to
-            <code>&lt;CModal&gt;</code> to vertically center the modal.
+            Add <code>alignment=&#34;center&#34;</code> to <code>&lt;CModal&gt;</code> to vertically center the
+            modal.
           </p>
           <DocsExample href="components/modal.html#vertically-centered">
             <CButton
@@ -474,9 +404,8 @@
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Cras mattis consectetur purus sit amet fermentum. Cras justo
-                odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                risus, porta ac consectetur ac, vestibulum at eros.
+                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+                eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
               </CModalBody>
               <CModalFooter>
                 <CButton
@@ -525,9 +454,8 @@
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Cras mattis consectetur purus sit amet fermentum. Cras justo
-                odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                risus, porta ac consectetur ac, vestibulum at eros.
+                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+                eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
               </CModalBody>
               <CModalFooter>
                 <CButton
@@ -549,15 +477,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Modal</strong> <small>Tooltips and popovers</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Modal</strong> <small>Tooltips and popovers</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            <code>&lt;CTooltips&gt;</code> and
-            <code>&lt;CPopovers&gt;</code> can be placed within modals as
-            needed. When modals are closed, any tooltips and popovers within are
-            also automatically dismissed.
+            <code>&lt;CTooltips&gt;</code> and <code>&lt;CPopovers&gt;</code> can be placed within modals as
+            needed. When modals are closed, any tooltips and popovers within are also automatically dismissed.
           </p>
           <DocsExample href="components/modal.html#tooltips-and-popovers">
             <CButton
@@ -604,8 +528,7 @@
                 <h5>Tooltips in a modal</h5>
                 <p>
                   <CLink v-c-tooltip="'Tooltip'">This link</CLink> and
-                  <CLink v-c-tooltip="'Tooltip'">that link</CLink> have tooltips
-                  on hover.
+                  <CLink v-c-tooltip="'Tooltip'">that link</CLink> have tooltips on hover.
                 </p>
               </CModalBody>
               <CModalFooter>
@@ -628,15 +551,12 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Modal</strong> <small>Optional sizes</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Modal</strong> <small>Optional sizes</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Modals have three optional sizes, available via modifier classes to
-            be placed on a
-            <code>&lt;CModal&gt;</code>. These sizes kick in at certain
-            breakpoints to avoid horizontal scrollbars on narrower viewports.
+            Modals have three optional sizes, available via modifier classes to be placed on a
+            <code>&lt;CModal&gt;</code>. These sizes kick in at certain breakpoints to avoid horizontal scrollbars
+            on narrower viewports.
           </p>
           <table class="table">
             <thead>
@@ -780,13 +700,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Modal</strong> <small>Fullscreen Modal</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Modal</strong> <small>Fullscreen Modal</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Another override is the option to pop up a modal that covers the
-            user viewport, available via property <code>fullscrean</code>.
+            Another override is the option to pop up a modal that covers the user viewport, available via property
+            <code>fullscrean</code>.
           </p>
           <table class="table">
             <thead>

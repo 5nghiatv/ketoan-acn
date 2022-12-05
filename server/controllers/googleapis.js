@@ -63,10 +63,7 @@ const deleteFile = async function (fileId) {
     const deleteFile = await drive.files.delete({
       fileId: fileId,
     })
-    console.log(
-      'Deleted File id : ' + fileId,
-      'status Code: ' + deleteFile.status,
-    )
+    console.log('Deleted File id : ' + fileId, 'status Code: ' + deleteFile.status)
   } catch (error) {
     console.error(error)
   }

@@ -12,11 +12,7 @@
     "
   >
     <CSidebarBrand class="d-md-down-none" to="/">
-      <img
-        src="logo_black.png"
-        class="c-avatar-img"
-        style="width 80%; height: 60%; border-radius: 50em;"
-      />
+      <img src="logo_black.png" class="c-avatar-img" style="width 80%; height: 60%; border-radius: 50em;" />
 
       <!-- <CIcon
         custom-class-name="sidebar-brand-full"
@@ -30,10 +26,7 @@
       /> -->
     </CSidebarBrand>
     <AppSidebarNav />
-    <CSidebarToggler
-      class="d-none d-lg-flex"
-      @click="$store.commit('toggleUnfoldable')"
-    />
+    <CSidebarToggler class="d-none d-lg-flex" @click="$store.commit('toggleUnfoldable')" />
   </CSidebar>
 </template>
 

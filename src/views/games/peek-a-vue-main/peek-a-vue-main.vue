@@ -19,8 +19,7 @@ export default {
   },
   setup() {
     const { cardList } = createDeck(halloweenDeck)
-    const { newPlayer, startGame, restartGame, matchesFound, status } =
-      createGame(cardList)
+    const { newPlayer, startGame, restartGame, matchesFound, status } = createGame(cardList)
     const userSelection = ref([])
     const userCanFlipCard = ref(true)
 

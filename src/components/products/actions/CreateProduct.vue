@@ -1,11 +1,6 @@
 <template>
   <div class="createProduct">
-    <modal
-      :header="'Create Product'"
-      :isShow="showModal"
-      v-if="showModal"
-      @close="showModal = false"
-    >
+    <modal :header="'Create Product'" :isShow="showModal" v-if="showModal" @close="showModal = false">
       <product-form :product="product" v-on:submit-form="productAction" />
     </modal>
   </div>
@@ -40,13 +35,9 @@ export default {
           productName: product.productName,
           productDescription: product.productDescription,
           productCategory:
-            product.productCategory === 'Create New'
-              ? product.productCategoryDummy
-              : product.productCategory,
+            product.productCategory === 'Create New' ? product.productCategoryDummy : product.productCategory,
           productSeller:
-            product.productSeller === 'Create New'
-              ? product.productSellerDummy
-              : product.productSeller,
+            product.productSeller === 'Create New' ? product.productSellerDummy : product.productSeller,
           productPrice: product.productPrice,
           productImage: product.productImage,
           productRating: product.productRating,
@@ -59,10 +50,7 @@ export default {
           // alert(`Created product : ${product.productName}` )
         })
         .catch(() => {
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
   },

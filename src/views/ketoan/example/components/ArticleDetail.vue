@@ -1,17 +1,14 @@
 <template>
   <div class="createPost-container">
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
-
-      <sticky :z-index="10" :class-name="'sub-navbar '+postForm.status">
+      <sticky :z-index="10" :class-name="'sub-navbar ' + postForm.status">
         <CommentDropdown v-model="postForm.comment_disabled" />
         <PlatformDropdown v-model="postForm.platforms" />
         <SourceUrlDropdown v-model="postForm.source_uri" />
-        <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
+        <el-button v-loading="loading" style="margin-left: 10px" type="success" @click="submitForm">
           Publish
         </el-button>
-        <el-button v-loading="loading" type="warning" @click="draftForm">
-          Draft
-        </el-button>
+        <el-button v-loading="loading" type="warning" @click="draftForm"> Draft </el-button>
       </sticky>
 
       <div class="createPost-main-container">
@@ -19,25 +16,40 @@
           <Warning />
 
           <el-col :span="24">
-            <el-form-item style="margin-bottom: 40px;" prop="title">
-              <MDinput v-model="postForm.title" :maxlength="100" name="name" required>
-                Title
-              </MDinput>
+            <el-form-item style="margin-bottom: 40px" prop="title">
+              <MDinput v-model="postForm.title" :maxlength="100" name="name" required> Title </MDinput>
             </el-form-item>
 
             <div class="postInfo-container">
               <el-row>
                 <el-col :span="8">
                   <el-form-item label-width="60px" label="Author:" class="postInfo-container-item">
-                    <el-select v-model="postForm.author" :remote-method="getRemoteUserList" filterable default-first-option remote placeholder="Search user">
-                      <el-option v-for="(item,index) in userListOptions" :key="item+index" :label="item" :value="item" />
+                    <el-select
+                      v-model="postForm.author"
+                      :remote-method="getRemoteUserList"
+                      filterable
+                      default-first-option
+                      remote
+                      placeholder="Search user"
+                    >
+                      <el-option
+                        v-for="(item, index) in userListOptions"
+                        :key="item + index"
+                        :label="item"
+                        :value="item"
+                      />
                     </el-select>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="10">
                   <el-form-item label-width="120px" label="Publish Time:" class="postInfo-container-item">
-                    <el-date-picker v-model="displayTime" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time" />
+                    <el-date-picker
+                      v-model="displayTime"
+                      type="datetime"
+                      format="yyyy-MM-dd HH:mm:ss"
+                      placeholder="Select date and time"
+                    />
                   </el-form-item>
                 </el-col>
 
@@ -49,7 +61,7 @@
                       :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
                       :low-threshold="1"
                       :high-threshold="3"
-                      style="display:inline-block"
+                      style="display: inline-block"
                     />
                   </el-form-item>
                 </el-col>
@@ -58,16 +70,23 @@
           </el-col>
         </el-row>
 
-        <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Summary:">
-          <el-input v-model="postForm.content_short" :rows="1" type="textarea" class="article-textarea" autosize placeholder="Please enter the content" />
+        <el-form-item style="margin-bottom: 40px" label-width="70px" label="Summary:">
+          <el-input
+            v-model="postForm.content_short"
+            :rows="1"
+            type="textarea"
+            class="article-textarea"
+            autosize
+            placeholder="Please enter the content"
+          />
           <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>
         </el-form-item>
 
-        <el-form-item prop="content" style="margin-bottom: 30px;">
+        <el-form-item prop="content" style="margin-bottom: 30px">
           <Tinymce ref="editor" v-model="postForm.content" :height="400" />
         </el-form-item>
 
-        <el-form-item prop="image_uri" style="margin-bottom: 30px;">
+        <el-form-item prop="image_uri" style="margin-bottom: 30px">
           <Upload v-model="postForm.image_uri" />
         </el-form-item>
       </div>
@@ -97,7 +116,7 @@ const defaultForm = {
   id: undefined,
   platforms: ['a-platform'],
   comment_disabled: false,
-  importance: 0
+  importance: 0,
 }
 
 export default {
@@ -106,15 +125,15 @@ export default {
   props: {
     isEdit: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     const validateRequire = (rule, value, callback) => {
       if (value === '') {
         this.$message({
           message: rule.field + '为必传项',
-          type: 'error'
+          type: 'error',
         })
         callback(new Error(rule.field + '为必传项'))
       } else {
@@ -128,7 +147,7 @@ export default {
         } else {
           this.$message({
             message: '外链url填写不正确',
-            type: 'error'
+            type: 'error',
           })
           callback(new Error('外链url填写不正确'))
         }
@@ -144,9 +163,9 @@ export default {
         image_uri: [{ validator: validateRequire }],
         title: [{ validator: validateRequire }],
         content: [{ validator: validateRequire }],
-        source_uri: [{ validator: validateSourceUri, trigger: 'blur' }]
+        source_uri: [{ validator: validateSourceUri, trigger: 'blur' }],
       },
-      tempRoute: {}
+      tempRoute: {},
     }
   },
   computed: {
@@ -159,12 +178,12 @@ export default {
       // back end return => "2013-06-25 06:59:25"
       // front end need timestamp => 1372114765000
       get() {
-        return (+new Date(this.postForm.display_time))
+        return +new Date(this.postForm.display_time)
       },
       set(val) {
         this.postForm.display_time = new Date(val)
-      }
-    }
+      },
+    },
   },
   created() {
     if (this.isEdit) {
@@ -179,21 +198,23 @@ export default {
   },
   methods: {
     fetchData(id) {
-      fetchArticle(id).then(response => {
-        this.postForm = response.data
+      fetchArticle(id)
+        .then((response) => {
+          this.postForm = response.data
 
-        // just for test
-        this.postForm.title += `   Article Id:${this.postForm.id}`
-        this.postForm.content_short += `   Article Id:${this.postForm.id}`
+          // just for test
+          this.postForm.title += `   Article Id:${this.postForm.id}`
+          this.postForm.content_short += `   Article Id:${this.postForm.id}`
 
-        // set tagsview title
-        this.setTagsViewTitle()
+          // set tagsview title
+          this.setTagsViewTitle()
 
-        // set page title
-        this.setPageTitle()
-      }).catch(err => {
-        console.log(err)
-      })
+          // set page title
+          this.setPageTitle()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     setTagsViewTitle() {
       const title = 'Edit Article'
@@ -206,14 +227,14 @@ export default {
     },
     submitForm() {
       console.log(this.postForm)
-      this.$refs.postForm.validate(valid => {
+      this.$refs.postForm.validate((valid) => {
         if (valid) {
           this.loading = true
           this.$notify({
             title: '成功',
             message: '发布文章成功',
             type: 'success',
-            duration: 2000
+            duration: 2000,
           })
           this.postForm.status = 'published'
           this.loading = false
@@ -227,7 +248,7 @@ export default {
       if (this.postForm.content.length === 0 || this.postForm.title.length === 0) {
         this.$message({
           message: '请填写必要的标题和内容',
-          type: 'warning'
+          type: 'warning',
         })
         return
       }
@@ -235,22 +256,22 @@ export default {
         message: '保存成功',
         type: 'success',
         showClose: true,
-        duration: 1000
+        duration: 1000,
       })
       this.postForm.status = 'draft'
     },
     getRemoteUserList(query) {
-      searchUser(query).then(response => {
+      searchUser(query).then((response) => {
         if (!response.data.items) return
-        this.userListOptions = response.data.items.map(v => v.name)
+        this.userListOptions = response.data.items.map((v) => v.name)
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/mixin.scss";
+@import '~@/styles/mixin.scss';
 
 .createPost-container {
   position: relative;

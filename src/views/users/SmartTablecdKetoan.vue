@@ -28,21 +28,13 @@
     </template>
     <template #show_details="{ item, index }">
       <td class="py-2">
-        <a
-          @click="toggleDetails(item, index)"
-          class="fa fa-pencil-square-o text-info mr-1"
-          id="1"
-        ></a>
+        <a @click="toggleDetails(item, index)" class="fa fa-pencil-square-o text-info mr-1" id="1"></a>
         <!-- <a
           @click="toggleDetails(item, index)"
           class="fa fa-eye text-secondary mr-1"
           id="3"
         ></a> -->
-        <a
-          @click="toggleDetails(item, index)"
-          class="fa fa-trash-o text-warning mr-1"
-          id="2"
-        ></a>
+        <a @click="toggleDetails(item, index)" class="fa fa-trash-o text-warning mr-1" id="2"></a>
 
         <!-- <CBadge
           @click="toggleDetails(item, index)"
@@ -66,25 +58,9 @@
           <h4>
             {{ item.username }}
           </h4>
-          <p class="text-muted">
-            Tên tài sản: {{ item.tentsc + ' # ' + item.tentsn }}
-          </p>
-          <CButton
-            @click="toggleDetails(item, index)"
-            size="sm"
-            color="info"
-            class=""
-          >
-            User Settings
-          </CButton>
-          <CButton
-            @click="toggleDetails(item, index)"
-            size="sm"
-            color="danger"
-            class="ml-1"
-          >
-            Delete
-          </CButton>
+          <p class="text-muted">Tên tài sản: {{ item.tentsc + ' # ' + item.tentsn }}</p>
+          <CButton @click="toggleDetails(item, index)" size="sm" color="info" class=""> User Settings </CButton>
+          <CButton @click="toggleDetails(item, index)" size="sm" color="danger" class="ml-1"> Delete </CButton>
         </CCardBody>
       </CCollapse>
     </template>

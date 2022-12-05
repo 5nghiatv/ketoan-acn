@@ -13,16 +13,8 @@
     "
   >
     <CSidebarBrand>
-      <CIcon
-        custom-class-name="sidebar-brand-full"
-        :icon="logoNegative"
-        :height="35"
-      />
-      <CIcon
-        custom-class-name="sidebar-brand-narrow"
-        :icon="sygnet"
-        :height="35"
-      />
+      <CIcon custom-class-name="sidebar-brand-full" :icon="logoNegative" :height="35" />
+      <CIcon custom-class-name="sidebar-brand-narrow" :icon="sygnet" :height="35" />
     </CSidebarBrand>
     <CSidebarNav>
       <router-link v-slot="{ href, navigate, isActive }" to="./compose" custom>
@@ -61,22 +53,14 @@
         <CBadge class="ms-auto" color="warning">25</CBadge>
       </CNavItem>
       <router-link v-slot="{ href, navigate, isActive }" to="/dashboard" custom>
-        <CNavItem
-          :active="isActive"
-          class="mt-auto"
-          :href="href"
-          @click="navigate"
-        >
+        <CNavItem :active="isActive" class="mt-auto" :href="href" @click="navigate">
           <CIcon custom-class-name="nav-icon" icon="cil-speedometer" />
           Dashboard
           <CBadge class="ms-auto" color="info">NEW</CBadge>
         </CNavItem>
       </router-link>
     </CSidebarNav>
-    <CSidebarToggler
-      class="d-none d-lg-flex"
-      @click="$store.commit('toggleUnfoldable')"
-    />
+    <CSidebarToggler class="d-none d-lg-flex" @click="$store.commit('toggleUnfoldable')" />
   </CSidebar>
 </template>
 

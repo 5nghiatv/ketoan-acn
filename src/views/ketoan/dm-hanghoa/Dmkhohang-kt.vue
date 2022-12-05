@@ -66,12 +66,7 @@
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
@@ -82,18 +77,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
               </div>
@@ -134,27 +120,15 @@
         Mang số dư</a
       >
       <a style="float: right">&nbsp;</a>
-      <a
-        class="btn btn-outline-info btn-sm"
-        style="float: right"
-        @click="tinhcandoi('tinhcandoihang')"
-      >
+      <a class="btn btn-outline-info btn-sm" style="float: right" @click="tinhcandoi('tinhcandoihang')">
         Tính cân đối</a
       >
     </h2>
     <CRow>
       <CCol md="3" style="float: right">
         <CInputGroup class="mb-3">
-          <CFormInput
-            size="sm"
-            id="pd_fromdate"
-            :placeholder="infoketoan.fromtodate.tungay"
-          />
-          <CFormInput
-            size="sm"
-            id="pd_todate"
-            :placeholder="infoketoan.fromtodate.denngay"
-          />
+          <CFormInput size="sm" id="pd_fromdate" :placeholder="infoketoan.fromtodate.tungay" />
+          <CFormInput size="sm" id="pd_todate" :placeholder="infoketoan.fromtodate.denngay" />
         </CInputGroup>
       </CCol>
       <CCol style="float: right">
@@ -440,10 +414,8 @@ export default {
       if (!this.todo.tiendn) this.todo.tiendn = '0'
       if (!this.todo.ngoaite) this.todo.ngoaite = '0'
 
-      if (field == 'mahang')
-        return (this.Validator.mahang = this.todo.mahang != '')
-      if (field == 'makho')
-        return (this.Validator.makho = this.todo.makho != '')
+      if (field == 'mahang') return (this.Validator.mahang = this.todo.mahang != '')
+      if (field == 'makho') return (this.Validator.makho = this.todo.makho != '')
       let passe = this.Validator.mahang && this.Validator.makho
       if (!passe) {
         this.$toastr.warning('', 'Vui lòng nhập đầy đủ thông tin.')
@@ -550,9 +522,7 @@ export default {
         })
     },
     deleteTodo(index, row) {
-      if (
-        !confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')
-      ) {
+      if (!confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')) {
         return
       }
       if (!alert('Vui lòng liên hệ 0903917963...!! ')) return
@@ -664,9 +634,7 @@ export default {
   },
   watch: {
     updaterec() {
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
     },
   },
   computed: {

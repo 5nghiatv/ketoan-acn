@@ -47,23 +47,13 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Có đầu năm...</span>
                     </div>
-                    <input
-                      v-mask-decimal.br="0"
-                      v-model="todo.codn"
-                      type="text"
-                      class="form-control is-valid"
-                    />
+                    <input v-mask-decimal.br="0" v-model="todo.codn" type="text" class="form-control is-valid" />
                   </div>
                 </CCol>
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
@@ -74,18 +64,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
 
@@ -293,8 +274,7 @@ export default {
       if (!this.todo.codn) this.todo.codn = '0'
 
       if (field == 'sotk') return (this.Validator.sotk = this.todo.sotk != '')
-      if (field == 'tentk')
-        return (this.Validator.tentk = this.todo.tentk != '')
+      if (field == 'tentk') return (this.Validator.tentk = this.todo.tentk != '')
       let passe = this.Validator.sotk && this.Validator.tentk
       if (!passe) {
         this.$toastr.warning('', 'Vui lòng nhập đầy đủ thông tin.')
@@ -508,9 +488,7 @@ export default {
   },
   watch: {
     updaterec() {
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
     },
   },
   computed: {

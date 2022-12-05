@@ -58,11 +58,7 @@
             class="btn btn-outline-info btn-sm"
             @click="setExpandAll()"
           >
-            <i
-              class="fa fa-expand"
-              aria-hidden="true"
-              style="font-size: 20px"
-            ></i></button
+            <i class="fa fa-expand" aria-hidden="true" style="font-size: 20px"></i></button
           >&nbsp;&nbsp;
         </div>
       </template>
@@ -165,11 +161,7 @@ export default {
               this.shippings.push({
                 id: items._id,
                 addProduct:
-                  items.shippingDate
-                    .substr(0, 10)
-                    .split('-')
-                    .reverse()
-                    .join('-') +
+                  items.shippingDate.substr(0, 10).split('-').reverse().join('-') +
                   ' ~ ' +
                   items.address1 +
                   (items.paycash ? ' (TM)' : ' (VISA)'),
@@ -187,9 +179,7 @@ export default {
                   price: item.productPrice,
                   amount: this.number_format(item.amount, 0, '.', ','),
                   total: this.number_format(
-                    parseFloat(
-                      item.productPrice.replace(',', '') * item.amount,
-                    ),
+                    parseFloat(item.productPrice.replace(',', '') * item.amount),
                     0,
                     '.',
                     ',',
@@ -206,10 +196,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
 

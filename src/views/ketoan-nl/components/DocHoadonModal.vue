@@ -16,12 +16,7 @@
             pending: setColorNumber('pending'),
           }"
           disabled
-          style="
-            font: caption;
-            font-weight: 600;
-            margin-top: 40px;
-            margin-bottom: 40px;
-          "
+          style="font: caption; font-weight: 600; margin-top: 40px; margin-bottom: 40px"
         >
           NHẬP LIỆU HÓA ĐƠN
         </button>
@@ -32,13 +27,7 @@
         <div class="location-details flex">
           <div class="input flex flex-column">
             <label for="billerCity">Số chứng từ</label>
-            <input
-              required
-              type="text"
-              id="billerCity"
-              v-model="soct"
-              disabled
-            />
+            <input required type="text" id="billerCity" v-model="soct" disabled />
           </div>
           <div class="input flex flex-column">
             <label for="billerZipCode">Ngày tháng</label>
@@ -53,36 +42,18 @@
           </div>
           <div class="input flex flex-column">
             <label for="clientCity1">TK Nợ</label>
-            <input
-              required
-              type="text"
-              id="clientCity1"
-              v-model="tkno"
-              disabled
-            />
+            <input required type="text" id="clientCity1" v-model="tkno" disabled />
           </div>
           <div class="input flex flex-column">
             <label for="clientZipCode">TK Có</label>
-            <input
-              required
-              type="text"
-              id="clientZipCode"
-              v-model="tkco"
-              disabled
-            />
+            <input required type="text" id="clientZipCode" v-model="tkco" disabled />
           </div>
         </div>
 
         <div class="location-details flex">
           <div class="input flex flex-column">
             <label for="clientCity2">Diển giãi</label>
-            <input
-              required
-              type="text"
-              id="clientCity2"
-              v-model="diengiai"
-              disabled
-            />
+            <input required type="text" id="clientCity2" v-model="diengiai" disabled />
           </div>
           <div class="input flex flex-column">
             <label for="clientCountry">Số tiền</label>
@@ -127,11 +98,7 @@
               <th class="item15">Thuế gtgt</th>
               <!-- <th class="total">Thành tiền</th> -->
             </tr>
-            <tr
-              class="table-items flex"
-              v-for="(item, index) in chitietItem"
-              :key="index"
-            >
+            <tr class="table-items flex" v-for="(item, index) in chitietItem" :key="index">
               <td class="item25">
                 <input
                   required
@@ -168,9 +135,7 @@
                     }"
                     :options="danhmucCustomer"
                   >
-                    <template v-slot:option="{ option }">
-                      {{ option.value }} {{ option.company }}
-                    </template>
+                    <template v-slot:option="{ option }"> {{ option.value }} {{ option.company }} </template>
                   </Multiselect>
                 </div>
               </td>
@@ -195,25 +160,12 @@
                 />
               </td>
               <td class="item15">
-                <input
-                  v-mask-decimal.br="0"
-                  required
-                  type="text"
-                  v-model="item.thuegtgt"
-                />
+                <input v-mask-decimal.br="0" required type="text" v-model="item.thuegtgt" />
               </td>
               <!-- <td class="total flex"><input type="text" value="item.giaban+ item.thuegtgt" disabled/></td> -->
               <div class="table-items flex">
-                <a
-                  @click="deleteItem(item.id)"
-                  class="fa fa-trash-o text-warning mr-1"
-                  id="2"
-                ></a>
-                <a
-                  @click="copyItem(item.id)"
-                  class="fa fa-plus text-info mr-1"
-                  id="1"
-                ></a>
+                <a @click="deleteItem(item.id)" class="fa fa-trash-o text-warning mr-1" id="2"></a>
+                <a @click="copyItem(item.id)" class="fa fa-plus text-info mr-1" id="1"></a>
               </div>
 
               <!-- <div class="table-items flex">
@@ -243,9 +195,7 @@
       <!-- Save/Exit -->
       <div class="save flex">
         <div class="left">
-          <button type="button" @click="closeInvoice" class="red">
-            Cancel
-          </button>
+          <button type="button" @click="closeInvoice" class="red">Cancel</button>
         </div>
         <div class="right flex">
           <div class="checkbox-inline">
@@ -260,13 +210,7 @@
 
           <!-- <button v-if="!editInvoice" type="submit" @click="saveDraft" class="dark-purple">Save Draft</button> -->
           <!-- <button v-if="!editInvoice" type="submit" @click="publishInvoice" class="purple">Create Invoices</button> -->
-          <button
-            v-if="editInvoice && !editAddInvoice"
-            type="sumbit"
-            class="purple"
-          >
-            Update Invoices
-          </button>
+          <button v-if="editInvoice && !editAddInvoice" type="sumbit" class="purple">Update Invoices</button>
           <!-- <button v-if="editInvoice && editAddInvoice" @click="saveDraft" type="sumbit" class="dark-purple">Add Draft</button> -->
           <!-- <button v-if="editInvoice && editAddInvoice" @click="publishInvoice" type="sumbit" class="purple">Add Document</button> -->
         </div>
@@ -346,8 +290,7 @@ export default {
       var tkthue = currentDoc.tkco.substr(0, 3) == '511' ? '3331' : '1331'
       await this.chitietItem.forEach((element) => {
         tongtien += element.giaban.split('.').join('').split(',').join('.') * 1
-        tienthue +=
-          element.thuegtgt.split('.').join('').split(',').join('.') * 1
+        tienthue += element.thuegtgt.split('.').join('').split(',').join('.') * 1
       })
 
       //console.log(1111,ctid,tongtien,tienthue,tkThue)
@@ -358,8 +301,7 @@ export default {
         tkthue: tkthue,
       })
       if (ret) this.$toastr.success('', 'Update chứng từ Hóa đơn thành công.')
-      if (!ret)
-        this.$toastr.warning('', 'Update chứng từ Hóa đơn KHÔNG thành công.')
+      if (!ret) this.$toastr.warning('', 'Update chứng từ Hóa đơn KHÔNG thành công.')
     },
 
     ...mapMutations('myDocument', [
@@ -377,14 +319,7 @@ export default {
     },
     tinhTienThue(index) {
       var thuesuat = this.chitietItem[index].thuesuat.split('%').join('')
-      var thuegtgt =
-        (this.chitietItem[index].giaban
-          .split('.')
-          .join('')
-          .split(',')
-          .join('.') *
-          thuesuat) /
-        100
+      var thuegtgt = (this.chitietItem[index].giaban.split('.').join('').split(',').join('.') * thuesuat) / 100
       this.chitietItem[index].thuegtgt = thuegtgt.toFixed().toString()
     },
     signalChange() {
@@ -392,15 +327,12 @@ export default {
       this.chitietItem.forEach((item) => {
         if (typeof item.giaban == 'number') itemTotal += item.giaban
         else if (typeof item.giaban === 'string')
-          itemTotal += parseInt(
-            item.giaban.split('.').join('').split(',').join('.'),
-          )
+          itemTotal += parseInt(item.giaban.split('.').join('').split(',').join('.'))
       })
       this.chenhlechChitiet =
         this.chitietItem.length <= 0
           ? 0
-          : itemTotal -
-            parseInt(this.sotien.split('.').join('').split(',').join('.'))
+          : itemTotal - parseInt(this.sotien.split('.').join('').split(',').join('.'))
       // console.log("change !!!: "+itemTotal);
     },
 
@@ -410,9 +342,7 @@ export default {
     },
     setColorNumber(opt) {
       // Dòng này quá nguy hiểm
-      var sotien = this.currentDocumentArray[0].sotien
-        ? this.currentDocumentArray[0].sotien
-        : 0
+      var sotien = this.currentDocumentArray[0].sotien ? this.currentDocumentArray[0].sotien : 0
       return setColorNumber(opt, sotien)
     },
 
@@ -435,9 +365,7 @@ export default {
       // Khi click ngoài cửa sổ hiện hành thì e.target = <div> ngoài cùng = this.$refs.invoiceWrap
       if (e.target === this.$refs.invoiceWrap) {
         //this.TOGGLE_MODAL();
-        this.TOGGLE_MODAL_NEW(
-          'Xác nhận tiếp tục Thực hiện hiệu chỉnh hóa đơn hoặc Kết thúc ?',
-        )
+        this.TOGGLE_MODAL_NEW('Xác nhận tiếp tục Thực hiện hiệu chỉnh hóa đơn hoặc Kết thúc ?')
       }
     },
 
@@ -488,8 +416,7 @@ export default {
     async updateInvoice() {
       var isValid = true
       var checkmaso = await this.chitietItem.filter((item) => !item.masothue)
-      if (checkmaso.length > 0)
-        return this.$toastr.warning('', 'Vui lòng nhập mã số thuế.')
+      if (checkmaso.length > 0) return this.$toastr.warning('', 'Vui lòng nhập mã số thuế.')
       await this.chitietItem.forEach((element) => {
         if (!moment(element.ngay, 'DD-MM-YYYY').isValid()) isValid = false
       })
@@ -505,8 +432,7 @@ export default {
       })
       if (ret) this.$toastr.success('', 'Update chứng từ Hóa đơn thành công.')
       if (ret) this.CallGanTienHangHoadon()
-      if (!ret)
-        this.$toastr.warning('', 'Update chứng từ Hóa đơn KHÔNG thành công.')
+      if (!ret) this.$toastr.warning('', 'Update chứng từ Hóa đơn KHÔNG thành công.')
       this.$emit('refreshDoc')
       this.closeInvoice() // sau this.$emit("refreshDoc");
     },
@@ -571,8 +497,7 @@ export default {
     width: 100%;
     background-color: #141625;
     color: #fff;
-    box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
     h1 {
       margin-bottom: 48px;

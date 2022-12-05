@@ -5,21 +5,17 @@ const Customer = require('../models/customer')
 exports.getAllCustomer = function (req, res) {
   Customer.find((err, docs) => {
     if (!err) {
-      return res
-        .status(200)
-        .json({
-          success: true,
-          message: 'A list of all Customer',
-          customers: docs,
-        })
+      return res.status(200).json({
+        success: true,
+        message: 'A list of all Customer',
+        customers: docs,
+      })
     } else
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: 'Server error. Please try again.',
-          error: err.message,
-        })
+      res.status(500).json({
+        success: false,
+        message: 'Server error. Please try again.',
+        error: err.message,
+      })
   })
 
   // Customer.find()
@@ -62,21 +58,17 @@ exports.createCustomer = function (req, res) {
   // console.log(cust);
   cust.save(function (err) {
     if (err) {
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: 'Server error. Please try again.',
-          error: err.message,
-        })
+      res.status(500).json({
+        success: false,
+        message: 'Server error. Please try again.',
+        error: err.message,
+      })
     } else {
-      res
-        .status(201)
-        .json({
-          success: true,
-          message: 'New customer created successfully',
-          customer: cust,
-        })
+      res.status(201).json({
+        success: true,
+        message: 'New customer created successfully',
+        customer: cust,
+      })
     }
   })
 }

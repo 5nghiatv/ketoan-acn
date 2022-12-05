@@ -11,8 +11,7 @@ exports.mongobackup = async function (req, res) {
   if (req.params.func == 'export') {
     exportMongoDb('ketoan', process.env.MONGODB_URL_KETOAN, res)
   } else {
-    if (req.params.func == 'importlocal')
-      importMongoDb('ketoan', process.env.MONGODB_URL_LOCAL, res)
+    if (req.params.func == 'importlocal') importMongoDb('ketoan', process.env.MONGODB_URL_LOCAL, res)
     else importMongoDb('ketoan', process.env.MONGODB_URL_KETOAN, res)
     // downFromDropbox('ketoan-mongodb.zip')
   }
@@ -44,29 +43,17 @@ function exportMongoDb(dbName, uri, res) {
 
   client.connect(function (err) {
     //assert.equal(null, err);
-    if (err)
-      return clientMongoClose(client, err, 'Lỗi hệ thống...Connect(1)', res)
+    if (err) return clientMongoClose(client, err, 'Lỗi hệ thống...Connect(1)', res)
     const db = client.db(dbName)
     db.listCollections().toArray(async function (err, collections) {
-      if (err)
-        return clientMongoClose(
-          client,
-          err,
-          'Lỗi hệ thống...get Collection(2)',
-          res,
-        )
+      if (err) return clientMongoClose(client, err, 'Lỗi hệ thống...get Collection(2)', res)
       let colls = []
       await collections.forEach((item) => {
         colls.push(item.name)
       })
 
       if (colls.length == 0)
-        return clientMongoClose(
-          client,
-          err,
-          'Database ' + dbName + ' không có dữ liệu...',
-          res,
-        )
+        return clientMongoClose(client, err, 'Database ' + dbName + ' không có dữ liệu...', res)
       var zip = new JSZip()
       let localfile = 'server/backup/' + dbName + '.zip'
       for (let index = 0; index < colls.length; index++) {
@@ -76,13 +63,7 @@ function exportMongoDb(dbName, uri, res) {
           .collection(coll)
           .find(query)
           .toArray(async function (err, docs) {
-            if (err)
-              return clientMongoClose(
-                client,
-                err,
-                'Lỗi hệ thống...Get Data(3)',
-                res,
-              )
+            if (err) return clientMongoClose(client, err, 'Lỗi hệ thống...Get Data(3)', res)
             await zip.file(coll + '.json', JSON.stringify(docs))
             console.log(index + 1, coll)
 
@@ -100,19 +81,8 @@ function exportMongoDb(dbName, uri, res) {
               upToDropbox(zip, dbName + '-mongodb.zip')
 
               if (index == colls.length - 1)
-                clientMongoClose(
-                  client,
-                  'success',
-                  'Thành công => tổng số collection export ' + colls.length,
-                  res,
-                )
-              else
-                clientMongoClose(
-                  client,
-                  err,
-                  'Tổng số collection export : ' + colls.length,
-                  res,
-                )
+                clientMongoClose(client, 'success', 'Thành công => tổng số collection export ' + colls.length, res)
+              else clientMongoClose(client, err, 'Tổng số collection export : ' + colls.length, res)
             }
           })
         await waitForFileExists(localfile)
@@ -131,39 +101,20 @@ async function importMongoDb(dbName, uri, res) {
   localfile = tmp.tmpNameSync() + '_' + dbName + '-mongodb.zip'
   await downFromDropbox(dbName + '-mongodb.zip', localfile)
   await waitForFileExists(localfile)
-  if (!fs.existsSync(localfile))
-    return clientMongoClose(
-      client,
-      true,
-      'Không tìm thấy file : ' + localfile,
-      res,
-    )
+  if (!fs.existsSync(localfile)) return clientMongoClose(client, true, 'Không tìm thấy file : ' + localfile, res)
   //=================================
 
   fs.readFile(localfile, function (err, data) {
-    if (err)
-      return clientMongoClose(client, err, 'Lỗi hệ thống...read file (1)', res)
+    if (err) return clientMongoClose(client, err, 'Lỗi hệ thống...read file (1)', res)
     var zip = new JSZip()
     zip.loadAsync(data).then(async function (fzip) {
       client.connect(async function (err) {
-        if (err)
-          return clientMongoClose(
-            client,
-            err,
-            'Lỗi hệ thống...Load data (2)',
-            res,
-          )
+        if (err) return clientMongoClose(client, err, 'Lỗi hệ thống...Load data (2)', res)
         let countFile = 0
         await fzip.forEach(function (relPath, file) {
           countFile++
         })
-        if (countFile == 0)
-          clientMongoClose(
-            client,
-            err,
-            'Không tìm thấy file json trong ZIP...',
-            res,
-          )
+        if (countFile == 0) clientMongoClose(client, err, 'Không tìm thấy file json trong ZIP...', res)
         fzip.forEach(async function (relPath, file) {
           zip
             .file(file.name)
@@ -179,52 +130,25 @@ async function importMongoDb(dbName, uri, res) {
               for (i in docs) {
                 // delete docs[i]._id
                 docs[i]._id = ObjectId(docs[i]._id)
-                if (docs[i].files_id !== undefined)
-                  docs[i].files_id = ObjectId(docs[i].files_id)
-                if (docs[i].registered !== undefined)
-                  docs[i].registered = new Date(docs[i].registered)
-                if (docs[i].birthdate !== undefined)
-                  docs[i].birthdate = new Date(docs[i].birthdate)
-                if (docs[i].uploadDate !== undefined)
-                  docs[i].uploadDate = new Date(docs[i].uploadDate)
-                if (docs[i].createdAt !== undefined)
-                  docs[i].createdAt = new Date(docs[i].createdAt)
-                if (docs[i].dofbirth !== undefined)
-                  docs[i].dofbirth = new Date(docs[i].dofbirth)
+                if (docs[i].files_id !== undefined) docs[i].files_id = ObjectId(docs[i].files_id)
+                if (docs[i].registered !== undefined) docs[i].registered = new Date(docs[i].registered)
+                if (docs[i].birthdate !== undefined) docs[i].birthdate = new Date(docs[i].birthdate)
+                if (docs[i].uploadDate !== undefined) docs[i].uploadDate = new Date(docs[i].uploadDate)
+                if (docs[i].createdAt !== undefined) docs[i].createdAt = new Date(docs[i].createdAt)
+                if (docs[i].dofbirth !== undefined) docs[i].dofbirth = new Date(docs[i].dofbirth)
               }
               // console.log(docs)
-              db.collection(collectName).insertMany(
-                docs,
-                function (err, result) {
-                  if (err)
-                    return clientMongoClose(
-                      client,
-                      err,
-                      'Lỗi hệ thống...Insert data (3)',
-                      res,
-                    )
-                  console.log(
-                    countFile,
-                    '==> Inserted ' + collectName,
-                    result.insertedCount,
-                    'Rows',
-                  )
-                  countFile--
-                  if (countFile == 0) {
-                    if (!fs.existsSync(localfile)) fs.unlinkSync(localfile)
-                    return clientMongoClose(
-                      client,
-                      'success',
-                      '= ==> Insert completed...',
-                      res,
-                    )
-                  }
-                },
-              )
+              db.collection(collectName).insertMany(docs, function (err, result) {
+                if (err) return clientMongoClose(client, err, 'Lỗi hệ thống...Insert data (3)', res)
+                console.log(countFile, '==> Inserted ' + collectName, result.insertedCount, 'Rows')
+                countFile--
+                if (countFile == 0) {
+                  if (!fs.existsSync(localfile)) fs.unlinkSync(localfile)
+                  return clientMongoClose(client, 'success', '= ==> Insert completed...', res)
+                }
+              })
             })
-          await waitFor(
-            Math.max(data.length / 5000 < 5000 ? 5000 : data.length / 5000),
-          )
+          await waitFor(Math.max(data.length / 5000 < 5000 ? 5000 : data.length / 5000))
         })
       })
     })
@@ -244,10 +168,7 @@ function upToDropbox(zip, filename) {
         headers: {
           'Content-Type': 'application/octet-stream',
           Authorization: 'Bearer ' + tokenDropbox,
-          'Dropbox-API-Arg':
-            '{"path": "/' +
-            filename +
-            '","mode": "overwrite","autorename": true,"mute": false}',
+          'Dropbox-API-Arg': '{"path": "/' + filename + '","mode": "overwrite","autorename": true,"mute": false}',
         },
         body: buffer,
       }

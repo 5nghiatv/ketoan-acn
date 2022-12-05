@@ -26,31 +26,21 @@
         class="btn btn-outline-info btn-sm"
         @click="downdInvoiceNumber()"
         title="Cập nhật số Hóa đơn"
-        ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update
-        InvoiceNo
+        ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update InvoiceNo
       </CButton>
       <CButton
         style="float: right; margin-right: 10px"
         class="btn btn-outline-info btn-sm"
         @click="downd_easyInvoice()"
         title="Bảng kê Hóa đơn Bán ra trong kỳ"
-        ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-        Easy-Invoice</CButton
+        ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Easy-Invoice</CButton
       >
     </h2>
     <CRow>
       <CCol md="3" style="float: right">
         <CInputGroup class="mb-3">
-          <CFormInput
-            size="sm"
-            id="pd_fromdate"
-            :placeholder="infoketoan.fromtodate.tungay"
-          />
-          <CFormInput
-            size="sm"
-            id="pd_todate"
-            :placeholder="infoketoan.fromtodate.denngay"
-          />
+          <CFormInput size="sm" id="pd_fromdate" :placeholder="infoketoan.fromtodate.tungay" />
+          <CFormInput size="sm" id="pd_todate" :placeholder="infoketoan.fromtodate.denngay" />
         </CInputGroup>
       </CCol>
       <CCol md="7"></CCol>
@@ -137,11 +127,9 @@
       </template>
       <template #table-row="props">
         <span v-if="props.column.field == 'invoiceNumber'">
-          <span
-            v-if="props.row.invoiceNumber.includes('-')"
-            style="color: rosybrown"
-            >{{ props.row.invoiceNumber }}</span
-          >
+          <span v-if="props.row.invoiceNumber.includes('-')" style="color: rosybrown">{{
+            props.row.invoiceNumber
+          }}</span>
           <span v-else>{{ props.row.invoiceNumber }}</span>
         </span>
         <span v-else>
@@ -297,14 +285,8 @@ export default {
           password: process.env.VUE_APP_VIETTEL_PASSWORD,
           patern: process.env.VUE_APP_VIETTEL_PATERN,
           Uuid: '',
-          fromDate: moment(
-            this.infoketoan.fromtodate.pd_fromdate,
-            'YYYY-MM-DD',
-          ).format('DD/MM/YYYY'),
-          toDate: moment(
-            this.infoketoan.fromtodate.pd_todate,
-            'YYYY-MM-DD',
-          ).format('DD/MM/YYYY'),
+          fromDate: moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+          toDate: moment(this.infoketoan.fromtodate.pd_todate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
           ctid: '',
           supplierTaxCode: process.env.VUE_APP_VIETTEL_USERNAME,
           procedure1: 'createInvoiceDraft',
@@ -322,21 +304,13 @@ export default {
           })
           this.invoices.sort((a, b) =>
             // a.createTime + a.invoiceNo > b.createTime + b.invoiceNo ? 1 : -1,
-            a.invoiceNo.replace(a.invoiceSeri, '') * 1 >
-            b.invoiceNo.replace(b.invoiceSeri, '') * 1
-              ? 1
-              : -1,
+            a.invoiceNo.replace(a.invoiceSeri, '') * 1 > b.invoiceNo.replace(b.invoiceSeri, '') * 1 ? 1 : -1,
           )
           // console.log(111, this.invoices)
 
           this.invoices.forEach((item) => {
             item.createTime = moment(item.createTime).format('DD-MM-YYYY')
-            item.totalBeforeTax = this.number_format(
-              item['totalBeforeTax'],
-              0,
-              ',',
-              '.',
-            )
+            item.totalBeforeTax = this.number_format(item['totalBeforeTax'], 0, ',', '.')
 
             if (this.invoicesLocal && this.invoicesLocal.length > 0) {
               let sohdLocal = this.invoicesLocal[0].filter((doc) => {
@@ -354,11 +328,7 @@ export default {
           this.upthanhcong = `${this.nupdate} / ${this.invoices.length}`
           //console.log(222, this.invoices)
           this.$store.commit('set', ['isLoading', false])
-          this.$toastr.warning(
-            '',
-            data.data.message || 'Download thành công...',
-            { timeOut: 5000 },
-          )
+          this.$toastr.warning('', data.data.message || 'Download thành công...', { timeOut: 5000 })
         })
         .catch((err) => {
           console.log(err)
@@ -392,14 +362,8 @@ export default {
           password: process.env.VUE_APP_VIETTEL_PASSWORD,
           patern: process.env.VUE_APP_VIETTEL_PATERN,
           Uuid: '',
-          fromDate: moment(
-            this.infoketoan.fromtodate.pd_fromdate,
-            'YYYY-MM-DD',
-          ).format('DD/MM/YYYY'),
-          toDate: moment(
-            this.infoketoan.fromtodate.pd_todate,
-            'YYYY-MM-DD',
-          ).format('DD/MM/YYYY'),
+          fromDate: moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+          toDate: moment(this.infoketoan.fromtodate.pd_todate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
           ctid: '',
           supplierTaxCode: process.env.VUE_APP_VIETTEL_USERNAME,
           procedure1: 'createInvoiceDraft',
@@ -416,11 +380,7 @@ export default {
           await this.readInvoice()
           await this.readTodos()
           this.$store.commit('set', ['isLoading', false])
-          this.$toastr.warning(
-            '',
-            data.data.message || 'Download thành công...',
-            { timeOut: 5000 },
-          )
+          this.$toastr.warning('', data.data.message || 'Download thành công...', { timeOut: 5000 })
         })
         .catch((err) => {
           console.log(err)
@@ -441,14 +401,8 @@ export default {
         filename: 'Easy-Invoice.xlsx', // Phải là filename
         // ==========================
 
-        FromDate: moment(
-          this.infoketoan.fromtodate.pd_fromdate,
-          'YYYY-MM-DD',
-        ).format('DD/MM/YYYY'),
-        ToDate: moment(
-          this.infoketoan.fromtodate.pd_todate,
-          'YYYY-MM-DD',
-        ).format('DD/MM/YYYY'),
+        FromDate: moment(this.infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+        ToDate: moment(this.infoketoan.fromtodate.pd_todate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
         Option: 1,
         download: opt,
       }

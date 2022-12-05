@@ -2,9 +2,7 @@
   <div class="cart-calculator">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
       <span class="text-muted">Your cart</span>
-      <span class="badge badge-primary badge-pill">{{
-        cartProducts.length
-      }}</span>
+      <span class="badge badge-primary badge-pill">{{ cartProducts.length }}</span>
     </h4>
     <ul class="list-group mb-3">
       <li
@@ -15,10 +13,7 @@
         <div>
           <h6 class="my-0">{{ product.productName }}</h6>
         </div>
-        <span
-          class="text-muted"
-          style="width: 120px; float: right; margin-left: 20px"
-        >
+        <span class="text-muted" style="width: 120px; float: right; margin-left: 20px">
           x
           <input
             @change="tanggiamluong(product)"
@@ -34,10 +29,7 @@
       <hr />
       <li class="list-group-item d-flex justify-content-between">
         <span>Tổng cộng :</span>
-        <strong
-          >đ
-          {{ this.number_format(totalValue.toFixed(2), 0, '.', ',') }}</strong
-        >
+        <strong>đ {{ this.number_format(totalValue.toFixed(2), 0, '.', ',') }}</strong>
       </li>
     </ul>
   </div>
@@ -63,9 +55,7 @@ export default {
     calulateTotalPrice() {
       this.totalValue = 0
       this.cartProducts.forEach((product) => {
-        this.totalValue += parseFloat(
-          product.productPrice.replace(',', '') * product.amount,
-        )
+        this.totalValue += parseFloat(product.productPrice.replace(',', '') * product.amount)
       })
     },
     number_format(number, decimals, dec_point, thousands_sep) {

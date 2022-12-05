@@ -1,11 +1,5 @@
 <template>
-  <CSidebar
-    color-scheme="light"
-    size="lg"
-    overlaid
-    placement="end"
-    :visible="asideVisible"
-  >
+  <CSidebar color-scheme="light" size="lg" overlaid placement="end" :visible="asideVisible">
     <CSidebarHeader class="bg-transparent p-0">
       <CNav variant="underline">
         <CNavItem>
@@ -39,40 +33,24 @@
           <CListGroupItem href="#" class="border-start-4 border-start-warning">
             <CAvatar :src="avatar1" size="lg" class="float-end" />
             <div>Meeting with <strong>Lucas</strong></div>
-            <small class="text-medium-emphasis me-3">
-              <CIcon icon="cil-calendar" /> 1 - 3pm
-            </small>
-            <small class="text-medium-emphasis">
-              <CIcon icon="cil-location-pin" /> Palo Alto, CA
-            </small>
+            <small class="text-medium-emphasis me-3"> <CIcon icon="cil-calendar" /> 1 - 3pm </small>
+            <small class="text-medium-emphasis"> <CIcon icon="cil-location-pin" /> Palo Alto, CA </small>
           </CListGroupItem>
           <CListGroupItem href="#" class="border-start-4 border-start-info">
             <CAvatar :src="avatar6" size="lg" class="float-end" />
             <div>Skype with <strong>Megan</strong></div>
-            <small class="text-medium-emphasis me-3">
-              <CIcon icon="cil-calendar" /> 4 - 5pm
-            </small>
-            <small class="text-medium-emphasis">
-              <CIcon icon="cib-skype" /> On-line
-            </small>
+            <small class="text-medium-emphasis me-3"> <CIcon icon="cil-calendar" /> 4 - 5pm </small>
+            <small class="text-medium-emphasis"> <CIcon icon="cib-skype" /> On-line </small>
           </CListGroupItem>
           <CListGroupItem
             class="border-start-4 border-start-secondary bg-light text-center fw-bold text-medium-emphasis text-uppercase small"
           >
             Tomorrow
           </CListGroupItem>
-          <CListGroupItem
-            accent="danger"
-            href="#"
-            class="border-start-4 border-start-danger"
-          >
+          <CListGroupItem accent="danger" href="#" class="border-start-4 border-start-danger">
             <div>New UI Project - <strong>deadline</strong></div>
-            <small class="text-medium-emphasis me-3">
-              <CIcon icon="cil-calendar" /> 10 - 11pm
-            </small>
-            <small class="text-medium-emphasis">
-              <CIcon icon="cil-home" /> creativeLabs HQ
-            </small>
+            <small class="text-medium-emphasis me-3"> <CIcon icon="cil-calendar" /> 10 - 11pm </small>
+            <small class="text-medium-emphasis"> <CIcon icon="cil-home" /> creativeLabs HQ </small>
             <div class="avatars-stack mt-2">
               <CAvatar :src="avatar2" size="sm" />
               <CAvatar :src="avatar3" size="sm" />
@@ -83,26 +61,15 @@
           </CListGroupItem>
           <CListGroupItem href="#" class="border-start-4 border-start-success">
             <div><strong>#10 Startups.Garden</strong> Meetup</div>
-            <small class="text-medium-emphasis me-3">
-              <CIcon icon="cil-calendar" /> 1 - 3pm
-            </small>
-            <small class="text-medium-emphasis">
-              <CIcon icon="cil-location-pin" /> Palo Alto, CA
-            </small>
+            <small class="text-medium-emphasis me-3"> <CIcon icon="cil-calendar" /> 1 - 3pm </small>
+            <small class="text-medium-emphasis"> <CIcon icon="cil-location-pin" /> Palo Alto, CA </small>
           </CListGroupItem>
-          <CListGroupItem
-            href="#"
-            class="border-start-4 border-start-primary border-bottom"
-          >
+          <CListGroupItem href="#" class="border-start-4 border-start-primary border-bottom">
             <div>
               <strong>Team meeting</strong>
             </div>
-            <small class="text-medium-emphasis me-3">
-              <CIcon icon="cil-calendar" /> 4 - 6pm
-            </small>
-            <small class="text-medium-emphasis">
-              <CIcon icon="cil-home" /> creativeLabs HQ
-            </small>
+            <small class="text-medium-emphasis me-3"> <CIcon icon="cil-calendar" /> 4 - 6pm </small>
+            <small class="text-medium-emphasis"> <CIcon icon="cil-home" /> creativeLabs HQ </small>
             <div class="/avatars-stack mt-2">
               <CAvatar :src="avatar2" size="sm" />
               <CAvatar :src="avatar3" size="sm" />
@@ -124,12 +91,9 @@
             <small class="text-medium-emphasis">Lukasz Holeczek</small>
             <small class="text-medium-emphasis float-end mt-1">1:52 PM</small>
           </div>
-          <div class="text-truncate fw-semibold">
-            Lorem ipsum dolor sit amet
-          </div>
+          <div class="text-truncate fw-semibold">Lorem ipsum dolor sit amet</div>
           <small class="text-medium-emphasis">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </small>
         </div>
         <hr />
@@ -141,12 +105,9 @@
             <small class="text-medium-emphasis">Lukasz Holeczek</small>
             <small class="text-medium-emphasis float-end mt-1">1:52 PM</small>
           </div>
-          <div class="text-truncate fw-semibold">
-            Lorem ipsum dolor sit amet
-          </div>
+          <div class="text-truncate fw-semibold">Lorem ipsum dolor sit amet</div>
           <small class="text-medium-emphasis">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </small>
         </div>
         <hr />
@@ -158,12 +119,9 @@
             <small class="text-medium-emphasis">Lukasz Holeczek</small>
             <small class="text-medium-emphasis float-end mt-1">1:52 PM</small>
           </div>
-          <div class="text-truncate fw-semibold">
-            Lorem ipsum dolor sit amet
-          </div>
+          <div class="text-truncate fw-semibold">Lorem ipsum dolor sit amet</div>
           <small class="text-medium-emphasis">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </small>
         </div>
         <hr />
@@ -175,12 +133,9 @@
             <small class="text-medium-emphasis">Lukasz Holeczek</small>
             <small class="text-medium-emphasis float-end mt-1">1:52 PM</small>
           </div>
-          <div class="text-truncate fw-semibold">
-            Lorem ipsum dolor sit amet
-          </div>
+          <div class="text-truncate fw-semibold">Lorem ipsum dolor sit amet</div>
           <small class="text-medium-emphasis">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </small>
         </div>
         <hr />
@@ -192,12 +147,9 @@
             <small class="text-medium-emphasis">Lukasz Holeczek</small>
             <small class="text-medium-emphasis float-end mt-1">1:52 PM</small>
           </div>
-          <div class="text-truncate fw-semibold">
-            Lorem ipsum dolor sit amet
-          </div>
+          <div class="text-truncate fw-semibold">Lorem ipsum dolor sit amet</div>
           <small class="text-medium-emphasis">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
           </small>
         </div>
       </CTabPane>
@@ -246,8 +198,7 @@
           </div>
           <div>
             <small class="text-medium-emphasis">
-              Sao lưu Database vào tài khoản DropBox 5nghiatv@gmail.com hay
-              5nghiatv.acn@gmail.com.
+              Sao lưu Database vào tài khoản DropBox 5nghiatv@gmail.com hay 5nghiatv.acn@gmail.com.
             </small>
           </div>
         </div>
@@ -264,8 +215,8 @@
           </div>
           <div>
             <small class="text-medium-emphasis">
-              Chế độ Kế toán dành cho Doanh nghiệp loại nào : Công ty ( Doanh
-              nghiệp lớn) hoặc ngược lại là doanh nghiệp nhỏ.
+              Chế độ Kế toán dành cho Doanh nghiệp loại nào : Công ty ( Doanh nghiệp lớn) hoặc ngược lại là doanh
+              nghiệp nhỏ.
             </small>
           </div>
         </div>
@@ -282,8 +233,7 @@
           </div>
           <div>
             <small class="text-medium-emphasis">
-              Nhập ngày và tháng trong phạm vi `Từ ngày Đến ngày` hoặc chỉ nhập
-              ngày trong tháng theo Từ ngày
+              Nhập ngày và tháng trong phạm vi `Từ ngày Đến ngày` hoặc chỉ nhập ngày trong tháng theo Từ ngày
             </small>
           </div>
         </div>
@@ -339,20 +289,9 @@ export default {
   setup() {
     const store = useStore()
     //console.log(store.state.fontsize)
-    const valueFontsize = ref(
-      store.state.fontsize == 'small'
-        ? 0
-        : store.state.fontsize == 'medium'
-        ? 5
-        : 10,
-    )
+    const valueFontsize = ref(store.state.fontsize == 'small' ? 0 : store.state.fontsize == 'medium' ? 5 : 10)
     const changeFontsize = () => {
-      store.state.fontsize =
-        valueFontsize.value == 0
-          ? 'small'
-          : valueFontsize.value == 5
-          ? 'medium'
-          : 'large'
+      store.state.fontsize = valueFontsize.value == 0 ? 'small' : valueFontsize.value == 5 ? 'medium' : 'large'
       store.commit('toggleFontsize', store.state.fontsize)
     }
     const activeKey = ref(1)

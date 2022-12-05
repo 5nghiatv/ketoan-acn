@@ -181,10 +181,7 @@ const ApiService = {
       method: 'GET',
       responseType: params.responseType ? params.responseType : 'blob', // important
     }).then((response) => {
-      if (
-        response.headers['content-type'] &&
-        !response.headers['content-type'].includes('application/json')
-      ) {
+      if (response.headers['content-type'] && !response.headers['content-type'].includes('application/json')) {
         // var filename =response.headers["content-disposition"] ;
         //filename = filename.substring(filename.search("filename=")+9);
 

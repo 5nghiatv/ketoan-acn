@@ -15,12 +15,7 @@
             pending: setColorNumber('pending'),
           }"
           disabled
-          style="
-            font: caption;
-            font-weight: 600;
-            margin-top: 40px;
-            margin-bottom: 40px;
-          "
+          style="font: caption; font-weight: 600; margin-top: 40px; margin-bottom: 40px"
         >
           NHẬP LIỆU KẾ TOÁN
         </button>
@@ -31,14 +26,7 @@
         <div class="location-details flex">
           <div class="input flex flex-column">
             <label for="billerCity">Số chứng từ</label>
-            <input
-              required
-              type="text"
-              id="billerCity"
-              v-model="soct"
-              minlength="4"
-              maxlength="8"
-            />
+            <input required type="text" id="billerCity" v-model="soct" minlength="4" maxlength="8" />
           </div>
           <div class="input flex flex-column">
             <label for="billerZipCode">Ngày tháng</label>
@@ -53,22 +41,12 @@
           </div>
           <div class="input flex flex-column">
             <label for="inputsotien">Số tiền</label>
-            <input
-              required
-              v-mask-decimal.br="0"
-              v-model="sotien"
-              type="text"
-            />
+            <input required v-mask-decimal.br="0" v-model="sotien" type="text" />
           </div>
         </div>
         <div class="input flex flex-column">
           <label for="billerStreetAddress">Diển giãi</label>
-          <input
-            required
-            type="text"
-            id="billerStreetAddress"
-            v-model="diengiai"
-          />
+          <input required type="text" id="billerStreetAddress" v-model="diengiai" />
         </div>
         <div class="location-details flex">
           <label class="typo__label">Tài khoản Nợ</label>
@@ -118,28 +96,12 @@
       <!-- Save/Exit -->
       <div class="save flex">
         <div class="left">
-          <button type="button" @click="closeInvoice" class="red">
-            Cancel
-          </button>
+          <button type="button" @click="closeInvoice" class="red">Cancel</button>
         </div>
         <div class="right flex">
-          <button v-if="!editInvoice" type="submit" class="purple">
-            Create Document
-          </button>
-          <button
-            v-if="editInvoice && !editAddInvoice"
-            type="sumbit"
-            class="purple"
-          >
-            Update Document
-          </button>
-          <button
-            v-if="editInvoice && editAddInvoice"
-            type="sumbit"
-            class="purple"
-          >
-            Add Document
-          </button>
+          <button v-if="!editInvoice" type="submit" class="purple">Create Document</button>
+          <button v-if="editInvoice && !editAddInvoice" type="sumbit" class="purple">Update Document</button>
+          <button v-if="editInvoice && editAddInvoice" type="sumbit" class="purple">Add Document</button>
         </div>
       </div>
     </form>
@@ -218,11 +180,7 @@ export default {
       'TOGGLE_MODAL_NEW',
     ]),
 
-    ...mapActions('myDocument', [
-      'CREATE_DOCUMENT',
-      'UPDATE_DOCUMENT',
-      'GET_DOCUMENTS',
-    ]),
+    ...mapActions('myDocument', ['CREATE_DOCUMENT', 'UPDATE_DOCUMENT', 'GET_DOCUMENTS']),
 
     getCurrentListNo(CurrentList) {
       this.tkno = CurrentList.taikhoan
@@ -236,8 +194,7 @@ export default {
     setColorNumber(opt) {
       // Dòng này quá nguy hiểm
       var sotien = 0
-      if (this.currentDocumentArray.length > 0)
-        sotien = this.currentDocumentArray[0].sotien
+      if (this.currentDocumentArray.length > 0) sotien = this.currentDocumentArray[0].sotien
       return setColorNumber(opt, sotien)
     },
 
@@ -253,29 +210,12 @@ export default {
         testngay < new Date(infoketoan.fromtodate.pd_fromdate) ||
         testngay > new Date(infoketoan.fromtodate.pd_todate)
       ) {
-        let tungay = moment(
-          infoketoan.fromtodate.pd_fromdate,
-          'YYYY-MM-DD',
-        ).format('DD-MM-YYYY')
-        let denngay = moment(
-          infoketoan.fromtodate.pd_todate,
-          'YYYY-MM-DD',
-        ).format('DD-MM-YYYY')
-        this.$toastr.warning(
-          'Ngày không nằm trong giới hạn ' +
-            'từ ngày: ' +
-            tungay +
-            ' - ' +
-            denngay,
-        )
+        let tungay = moment(infoketoan.fromtodate.pd_fromdate, 'YYYY-MM-DD').format('DD-MM-YYYY')
+        let denngay = moment(infoketoan.fromtodate.pd_todate, 'YYYY-MM-DD').format('DD-MM-YYYY')
+        this.$toastr.warning('Ngày không nằm trong giới hạn ' + 'từ ngày: ' + tungay + ' - ' + denngay)
         return false
       }
-      if (
-        !this.tkno ||
-        this.tkno.length <= 0 ||
-        !this.tkco ||
-        this.tkco.length <= 0
-      ) {
+      if (!this.tkno || this.tkno.length <= 0 || !this.tkco || this.tkco.length <= 0) {
         this.$toastr.warning('', 'Vui lòng nhập số tài khoản.')
         return false
       }
@@ -362,12 +302,8 @@ export default {
   watch: {
     paymentTerms() {
       const futureDate = new Date()
-      this.paymentDueDateUnix = futureDate.setDate(
-        futureDate.getDate() + parseInt(this.paymentTerms),
-      )
-      this.paymentDueDate = new Date(
-        this.paymentDueDateUnix,
-      ).toLocaleDateString('en-us', this.dateOptions)
+      this.paymentDueDateUnix = futureDate.setDate(futureDate.getDate() + parseInt(this.paymentTerms))
+      this.paymentDueDate = new Date(this.paymentDueDateUnix).toLocaleDateString('en-us', this.dateOptions)
     },
   },
 }
@@ -400,8 +336,7 @@ export default {
     width: 100%;
     background-color: #141625;
     color: #fff;
-    box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
     h1 {
       margin-bottom: 48px;

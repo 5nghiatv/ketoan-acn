@@ -25,13 +25,7 @@ export default {
   },
   beforeCreate: function () {
     var info = this.$jwtAcn.getKetoan()
-    console.log(
-      1,
-      'Change language: ',
-      this.$i18n.locale,
-      ' Replace = ',
-      info.locale,
-    )
+    console.log(1, 'Change language: ', this.$i18n.locale, ' Replace = ', info.locale)
     this.$i18n.locale = info.locale // Cho bên bên trái & hệ thống ( this.$i18n.locate)
     this.$store.state.locale = info.locale // Dành cho bên trên & phải (this.$store.state.locale)
   },
@@ -88,10 +82,7 @@ export default {
         : document.body.classList.remove('dark-theme')
 
       document.documentElement.setAttribute('data-theme', store.state.theme) // sets the data-theme attribute
-      document.documentElement.setAttribute(
-        'data-font-size',
-        store.state.fontsize,
-      )
+      document.documentElement.setAttribute('data-font-size', store.state.fontsize)
 
       /** Replace custom stylesheet */
       // if (document.querySelector('link[id="customStyle"]')) {
@@ -112,10 +103,7 @@ export default {
       : document.body.classList.remove('dark-theme')
 
     document.documentElement.setAttribute('data-theme', store.state.theme) // sets the data-theme attribute
-    document.documentElement.setAttribute(
-      'data-font-size',
-      store.state.fontsize,
-    ) // sets the data-theme attribute
+    document.documentElement.setAttribute('data-font-size', store.state.fontsize) // sets the data-theme attribute
   },
 }
 </script>

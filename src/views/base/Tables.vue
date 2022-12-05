@@ -5,9 +5,7 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Basic example</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Basic example</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
             Using the most basic table CoreUI, here&#39;s how
@@ -49,13 +47,10 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Variants</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Variants</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Use contextual classes to color tables, table rows or individual
-            cells.
+            Use contextual classes to color tables, table rows or individual cells.
           </p>
           <DocsExample href="components/table.html#variants">
             <CTable>
@@ -120,13 +115,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Striped rows</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Striped rows</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Use <code>striped</code> property to add zebra-striping to any table
-            row within the <code>&lt;CTableBody&gt;</code>.
+            Use <code>striped</code> property to add zebra-striping to any table row within the
+            <code>&lt;CTableBody&gt;</code>.
           </p>
           <DocsExample href="components/table.html#striped-rows">
             <CTable striped>
@@ -159,9 +152,7 @@
               </CTableBody>
             </CTable>
           </DocsExample>
-          <p class="text-medium-emphasis small">
-            These classes can also be added to table variants:
-          </p>
+          <p class="text-medium-emphasis small">These classes can also be added to table variants:</p>
           <DocsExample href="components/table.html#striped-rows">
             <CTable color="dark" striped>
               <CTableHead>
@@ -229,13 +220,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Hoverable rows</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Hoverable rows</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Use <code>hover</code> property to enable a hover state on table
-            rows within a <code>&lt;CTableBody&gt;</code>.
+            Use <code>hover</code> property to enable a hover state on table rows within a
+            <code>&lt;CTableBody&gt;</code>.
           </p>
           <DocsExample href="components/table.html#hoverable-rows">
             <CTable hover>
@@ -335,9 +324,7 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Active tables</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Active tables</small> </CCardHeader>
         <CCardBody>
           <DocsExample href="components/table.html#active-tables">
             <CTable>
@@ -364,9 +351,7 @@
                 </CTableRow>
                 <CTableRow>
                   <CTableHeaderCell scope="row">3</CTableHeaderCell>
-                  <CTableDataCell colspan="2" active>
-                    Larry the Bird
-                  </CTableDataCell>
+                  <CTableDataCell colspan="2" active> Larry the Bird </CTableDataCell>
                   <CTableDataCell>@twitter</CTableDataCell>
                 </CTableRow>
               </CTableBody>
@@ -397,9 +382,7 @@
                 </CTableRow>
                 <CTableRow>
                   <CTableHeaderCell scope="row">3</CTableHeaderCell>
-                  <CTableDataCell colspan="2" active>
-                    Larry the Bird
-                  </CTableDataCell>
+                  <CTableDataCell colspan="2" active> Larry the Bird </CTableDataCell>
                   <CTableDataCell>@twitter</CTableDataCell>
                 </CTableRow>
               </CTableBody>
@@ -410,13 +393,10 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Bordered tables</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Bordered tables</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Add <code>bordered</code> property for borders on all sides of the
-            table and cells.
+            Add <code>bordered</code> property for borders on all sides of the table and cells.
           </p>
           <DocsExample href="components/table.html#bordered-tables">
             <CTable bordered>
@@ -450,9 +430,7 @@
             </CTable>
           </DocsExample>
           <p class="text-medium-emphasis small">
-            <a href="https://coreui.io/docs/4.0/utilities/borders#border-color">
-              Border color utilities
-            </a>
+            <a href="https://coreui.io/docs/4.0/utilities/borders#border-color"> Border color utilities </a>
             can be added to change colors:
           </p>
           <DocsExample href="components/table.html#bordered-tables">
@@ -491,9 +469,7 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Tables without borders</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Tables without borders</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
             Add <code>borderless</code> property for a table without borders.
@@ -565,14 +541,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Small tables</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Small tables</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Add <code>small</code> property to make any
-            <code>&lt;CTable&gt;</code> more compact by cutting all cell
-            <code>padding</code> in half.
+            Add <code>small</code> property to make any <code>&lt;CTable&gt;</code> more compact by cutting all
+            cell <code>padding</code> in half.
           </p>
           <DocsExample href="components/table.html#small-tables">
             <CTable small>
@@ -610,90 +583,65 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Vertical alignment</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Vertical alignment</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Table cells of <code>&lt;CTableHead&gt;</code> are always vertical
-            aligned to the bottom. Table cells in
-            <code>&lt;CTableBody&gt;</code> inherit their alignment from
-            <code>&lt;CTable&gt;</code> and are aligned to the the top by
-            default. Use the align property to re-align where needed.
+            Table cells of <code>&lt;CTableHead&gt;</code> are always vertical aligned to the bottom. Table cells
+            in <code>&lt;CTableBody&gt;</code> inherit their alignment from <code>&lt;CTable&gt;</code> and are
+            aligned to the the top by default. Use the align property to re-align where needed.
           </p>
           <DocsExample href="components/table.html#vertical-alignment">
             <CTable align="middle" responsive>
               <CTableHead>
                 <CTableRow>
-                  <CTableHeaderCell scope="col" class="w-25">
-                    Heading 1
-                  </CTableHeaderCell>
-                  <CTableHeaderCell scope="col" class="w-25">
-                    Heading 2
-                  </CTableHeaderCell>
-                  <CTableHeaderCell scope="col" class="w-25">
-                    Heading 3
-                  </CTableHeaderCell>
-                  <CTableHeaderCell scope="col" class="w-25">
-                    Heading 4
-                  </CTableHeaderCell>
+                  <CTableHeaderCell scope="col" class="w-25"> Heading 1 </CTableHeaderCell>
+                  <CTableHeaderCell scope="col" class="w-25"> Heading 2 </CTableHeaderCell>
+                  <CTableHeaderCell scope="col" class="w-25"> Heading 3 </CTableHeaderCell>
+                  <CTableHeaderCell scope="col" class="w-25"> Heading 4 </CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
                 <CTableRow>
                   <CTableDataCell>
-                    This cell inherits <code>vertical-align: middle;</code> from
-                    the table
+                    This cell inherits <code>vertical-align: middle;</code> from the table
                   </CTableDataCell>
                   <CTableDataCell>
-                    This cell inherits <code>vertical-align: middle;</code> from
-                    the table
+                    This cell inherits <code>vertical-align: middle;</code> from the table
                   </CTableDataCell>
                   <CTableDataCell>
-                    This cell inherits <code>vertical-align: middle;</code> from
-                    the table
+                    This cell inherits <code>vertical-align: middle;</code> from the table
                   </CTableDataCell>
                   <CTableDataCell>
-                    This here is some placeholder text, intended to take up
-                    quite a bit of vertical space, to demonsCTableRowate how the
-                    vertical alignment works in the preceding cells.
+                    This here is some placeholder text, intended to take up quite a bit of vertical space, to
+                    demonsCTableRowate how the vertical alignment works in the preceding cells.
                   </CTableDataCell>
                 </CTableRow>
                 <CTableRow align="bottom">
                   <CTableDataCell>
-                    This cell inherits <code>vertical-align: bottom;</code> from
-                    the table row
+                    This cell inherits <code>vertical-align: bottom;</code> from the table row
                   </CTableDataCell>
                   <CTableDataCell>
-                    This cell inherits <code>vertical-align: bottom;</code> from
-                    the table row
+                    This cell inherits <code>vertical-align: bottom;</code> from the table row
                   </CTableDataCell>
                   <CTableDataCell>
-                    This cell inherits <code>vertical-align: bottom;</code> from
-                    the table row
+                    This cell inherits <code>vertical-align: bottom;</code> from the table row
                   </CTableDataCell>
                   <CTableDataCell>
-                    This here is some placeholder text, intended to take up
-                    quite a bit of vertical space, to demonsCTableRowate how the
-                    vertical alignment works in the preceding cells.
+                    This here is some placeholder text, intended to take up quite a bit of vertical space, to
+                    demonsCTableRowate how the vertical alignment works in the preceding cells.
                   </CTableDataCell>
                 </CTableRow>
                 <CTableRow>
                   <CTableDataCell>
-                    This cell inherits <code>vertical-align: middle;</code> from
-                    the table
+                    This cell inherits <code>vertical-align: middle;</code> from the table
                   </CTableDataCell>
                   <CTableDataCell>
-                    This cell inherits <code>vertical-align: middle;</code> from
-                    the table
+                    This cell inherits <code>vertical-align: middle;</code> from the table
                   </CTableDataCell>
-                  <CTableDataCell align="top"
-                    >This cell is aligned to the top.</CTableDataCell
-                  >
+                  <CTableDataCell align="top">This cell is aligned to the top.</CTableDataCell>
                   <CTableDataCell>
-                    This here is some placeholder text, intended to take up
-                    quite a bit of vertical space, to demonsCTableRowate how the
-                    vertical alignment works in the preceding cells.
+                    This here is some placeholder text, intended to take up quite a bit of vertical space, to
+                    demonsCTableRowate how the vertical alignment works in the preceding cells.
                   </CTableDataCell>
                 </CTableRow>
               </CTableBody>
@@ -704,13 +652,10 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Nesting</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Nesting</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            Border styles, active styles, and table variants are not inherited
-            by nested tables.
+            Border styles, active styles, and table variants are not inherited by nested tables.
           </p>
           <DocsExample href="components/table.html#nesting">
             <CTable striped>
@@ -734,15 +679,9 @@
                     <CTable>
                       <CTableHead>
                         <CTableRow>
-                          <CTableHeaderCell scope="col"
-                            >Header</CTableHeaderCell
-                          >
-                          <CTableHeaderCell scope="col"
-                            >Header</CTableHeaderCell
-                          >
-                          <CTableHeaderCell scope="col"
-                            >Header</CTableHeaderCell
-                          >
+                          <CTableHeaderCell scope="col">Header</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Header</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Header</CTableHeaderCell>
                         </CTableRow>
                       </CTableHead>
                       <CTableBody>
@@ -778,14 +717,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Table head</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Table head</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
             Similar to tables and dark tables, use the modifier prop
-            <code>color=&#34;light&#34;</code> or
-            <code>color=&#34;dark&#34;</code> to make
+            <code>color=&#34;light&#34;</code> or <code>color=&#34;dark&#34;</code> to make
             <code>&lt;CTableHead&gt;</code>s appear light or dark gray.
           </p>
           <DocsExample href="components/table.html#table-head">
@@ -856,9 +792,7 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Table foot</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Table foot</small> </CCardHeader>
         <CCardBody>
           <DocsExample href="components/table.html#table-foot">
             <CTable>
@@ -904,14 +838,11 @@
     </CCol>
     <CCol :xs="12">
       <CCard class="mb-4">
-        <CCardHeader>
-          <strong>Vue Table</strong> <small>Captions</small>
-        </CCardHeader>
+        <CCardHeader> <strong>Vue Table</strong> <small>Captions</small> </CCardHeader>
         <CCardBody>
           <p class="text-medium-emphasis small">
-            A <code>&lt;CTableCaption&gt;</code> functions like a heading for a
-            table. It helps users with screen readers to find a table and
-            understand what it&#39;s about and decide if they want to read it.
+            A <code>&lt;CTableCaption&gt;</code> functions like a heading for a table. It helps users with screen
+            readers to find a table and understand what it&#39;s about and decide if they want to read it.
           </p>
           <DocsExample href="components/table.html#captions">
             <CTable>
@@ -947,8 +878,8 @@
             </CTable>
           </DocsExample>
           <p class="text-medium-emphasis small">
-            You can also put the <code>&lt;CTableCaption&gt;</code> on the top
-            of the table with <code>caption=&#34;top&#34;</code>.
+            You can also put the <code>&lt;CTableCaption&gt;</code> on the top of the table with
+            <code>caption=&#34;top&#34;</code>.
           </p>
           <DocsExample href="components/table.html#captions">
             <CTable caption="top">

@@ -33,10 +33,7 @@
                 <CCol md="4">
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Thuyết minh</CInputGroupText>
-                    <CFormInput
-                      class="form-control is-valid"
-                      v-model="lctiente.tminh"
-                    />
+                    <CFormInput class="form-control is-valid" v-model="lctiente.tminh" />
                   </CInputGroup>
                 </CCol>
                 <CCol md="8">
@@ -52,12 +49,7 @@
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  id="addnew"
-                >
-                  Add New </CButton
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" id="addnew"> Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
                   class="btn btn-info btn-sm"
@@ -68,18 +60,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
 
@@ -118,16 +101,8 @@
     <CRow>
       <CCol md="3" style="float: right">
         <CInputGroup class="mb-3">
-          <CFormInput
-            size="sm"
-            id="pd_fromdate"
-            :placeholder="infoketoan.fromtodate.tungay"
-          />
-          <CFormInput
-            size="sm"
-            id="pd_todate"
-            :placeholder="infoketoan.fromtodate.denngay"
-          />
+          <CFormInput size="sm" id="pd_fromdate" :placeholder="infoketoan.fromtodate.tungay" />
+          <CFormInput size="sm" id="pd_todate" :placeholder="infoketoan.fromtodate.denngay" />
         </CInputGroup>
       </CCol>
     </CRow>
@@ -333,14 +308,10 @@ export default {
     },
 
     testValidator(field) {
-      if (field == 'maso')
-        return (this.Validator.maso = this.lctiente.maso != '')
-      if (field == 'chitieu')
-        return (this.Validator.chitieu = this.lctiente.chitieu != '')
-      if (field == 'cachtinh')
-        return (this.Validator.cachtinh = this.lctiente.cachtinh != '')
-      let passe =
-        this.Validator.maso && this.Validator.chitieu && this.Validator.cachtinh
+      if (field == 'maso') return (this.Validator.maso = this.lctiente.maso != '')
+      if (field == 'chitieu') return (this.Validator.chitieu = this.lctiente.chitieu != '')
+      if (field == 'cachtinh') return (this.Validator.cachtinh = this.lctiente.cachtinh != '')
+      let passe = this.Validator.maso && this.Validator.chitieu && this.Validator.cachtinh
       if (!passe) {
         this.$toastr.warning('', 'Vui lòng nhập đầy đủ thông tin.')
       }
@@ -385,9 +356,7 @@ export default {
     },
     setAddnew() {
       this.updaterec = !this.updaterec
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
       if (this.updaterec) {
         this.reset()
         window.scrollTo(0, 0)
@@ -438,9 +407,7 @@ export default {
         })
     },
     deleteTodo(index, row) {
-      if (
-        !confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')
-      ) {
+      if (!confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')) {
         return
       }
       if (!alert('Vui lòng liên hệ 0903917963...!! ')) return
@@ -530,10 +497,7 @@ export default {
           this.$store.commit('set', ['isLoading', false])
         })
         .catch((error) => {
-          this.$toastr.error(
-            '',
-            'ERROR Download file : ' + this.infoketoan.filename,
-          )
+          this.$toastr.error('', 'ERROR Download file : ' + this.infoketoan.filename)
           console.log(error)
           this.$store.commit('set', ['isLoading', false])
         })

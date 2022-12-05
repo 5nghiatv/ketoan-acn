@@ -41,10 +41,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
     getTest() {
@@ -57,10 +54,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          this.$toastr.error(
-            'Internal Error 500',
-            'The server encountered an unexpected condition.',
-          )
+          this.$toastr.error('Internal Error 500', 'The server encountered an unexpected condition.')
         })
     },
   },

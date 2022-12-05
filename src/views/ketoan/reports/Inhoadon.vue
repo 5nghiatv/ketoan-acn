@@ -3,11 +3,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card" id="printableArea">
-          <div
-            class="card-block"
-            v-for="(infohoadon, index) in infohoadons"
-            :key="index"
-          >
+          <div class="card-block" v-for="(infohoadon, index) in infohoadons" :key="index">
             <div v-if="index < 1" class="row btn-section">
               <div class="col-lg-12 col-md-12 col-12">
                 <span class="float-right">
@@ -16,9 +12,7 @@
                     class="btn btn-responsive button-alignment btn-outline-primary"
                     data-toggle="button"
                   >
-                    <span @click="goTrangtruoc()">
-                      <i class="fa fa-reply-all"></i> Trang trước
-                    </span>
+                    <span @click="goTrangtruoc()"> <i class="fa fa-reply-all"></i> Trang trước </span>
                   </button>
                   {{ '\u00a0' }}
                   <button
@@ -26,9 +20,7 @@
                     class="btn btn-responsive button-alignment btn-outline-primary"
                     data-toggle="button"
                   >
-                    <span @click="printDiv()">
-                      <i class="fa fa-print"></i> In Hóa đơn
-                    </span>
+                    <span @click="printDiv()"> <i class="fa fa-print"></i> In Hóa đơn </span>
                   </button>
                 </span>
               </div>
@@ -48,24 +40,16 @@
                   <strong> {{ '\u00a0' }} {{ tenphieu }}</strong>
                 </h3>
                 <h6 style="color: Chocolate">{{ numberpage }}</h6>
-                <h6
-                  class="text-center"
-                  style="font-style: italic; font-weight: bold"
-                >
+                <h6 class="text-center" style="font-style: italic; font-weight: bold">
                   {{ Ngaythang(infohoadon.ngay) }}
                 </h6>
               </div>
-              <div
-                class="col-3 invoice_address text-left"
-                style="padding-left: 80px"
-              >
+              <div class="col-3 invoice_address text-left" style="padding-left: 80px">
                 <h6>Mẫu số: {{ mausohd }}</h6>
                 <!-- <h6> Ký hiệu: <strong>{{infohoadon.kyhieuhd}}</strong></h6> -->
                 <h6>
                   Ký hiệu:
-                  <strong v-if="infohoadon.sohd">{{
-                    infohoadon.sohd.split('-')[0]
-                  }}</strong>
+                  <strong v-if="infohoadon.sohd">{{ infohoadon.sohd.split('-')[0] }}</strong>
                 </h6>
                 <h5>
                   Số :
@@ -95,12 +79,10 @@
                     <strong> {{ infoketoan.company.phone }} </strong>
                   </div>
                   <div class="row col-12 col-lg-12 invoice_address">
-                    <a>Số tài khoản :</a> {{ '\u00a0' }}
-                    <strong> {{ infoketoan.company.account }} </strong
+                    <a>Số tài khoản :</a> {{ '\u00a0' }} <strong> {{ infoketoan.company.account }} </strong
                     >{{ '\u00a0' }}{{ '\u00a0' }} <a>tại Ngân hàng:</a>
                     {{ '\u00a0' }}
-                    <strong> {{ infoketoan.company.bank }} </strong
-                    >{{ '\u00a0' }} - {{ '\u00a0' }}
+                    <strong> {{ infoketoan.company.bank }} </strong>{{ '\u00a0' }} - {{ '\u00a0' }}
                     <strong> {{ infoketoan.company.citibank }} </strong>
                   </div>
                 </div>
@@ -129,11 +111,9 @@
                   <div class="row col-12 col-lg-12 invoice_address">
                     <a>Hình thức TT :</a> {{ '\u00a0' }} {{ '\u00a0' }}
                     <strong> {{ httt }} {{ '\u00a0' }} {{ '\u00a0' }} </strong>
-                    <a>, Số TK :</a> {{ '\u00a0' }} {{ '\u00a0' }}
-                    <strong> {{ infohoadon.account }} </strong>{{ '\u00a0' }}
-                    {{ '\u00a0' }} <a>, Tại Ngân hàng:</a> {{ '\u00a0' }}
-                    {{ '\u00a0' }} <strong> {{ infohoadon.bank }} </strong
-                    >{{ '\u00a0' }} {{ '\u00a0' }} - {{ '\u00a0' }}
+                    <a>, Số TK :</a> {{ '\u00a0' }} {{ '\u00a0' }} <strong> {{ infohoadon.account }} </strong
+                    >{{ '\u00a0' }} {{ '\u00a0' }} <a>, Tại Ngân hàng:</a> {{ '\u00a0' }} {{ '\u00a0' }}
+                    <strong> {{ infohoadon.bank }} </strong>{{ '\u00a0' }} {{ '\u00a0' }} - {{ '\u00a0' }}
                     {{ '\u00a0' }} <strong> {{ infohoadon.citibank }} </strong>
                   </div>
                 </div>
@@ -159,13 +139,7 @@
                 </thead>
 
                 <tbody>
-                  <tr
-                    class="gradeX"
-                    v-for="(chitiet, index2) in tkchitiet[
-                      'id_' + infohoadon.ctid
-                    ]"
-                    :key="index2"
-                  >
+                  <tr class="gradeX" v-for="(chitiet, index2) in tkchitiet['id_' + infohoadon.ctid]" :key="index2">
                     <td v-if="chitiet.mahang" class="text-center">
                       {{ index2 + 1 }}
                     </td>
@@ -182,23 +156,14 @@
                     </td>
 
                     <td v-if="!chitiet.soluong == 0" class="text-right">
-                      {{
-                        number_format(
-                          chitiet.sotien / chitiet.soluong,
-                          2,
-                          ',',
-                          '.',
-                        )
-                      }}
+                      {{ number_format(chitiet.sotien / chitiet.soluong, 2, ',', '.') }}
                     </td>
                     <td v-if="!!chitiet.soluong == 0" class="text-right">
                       {{ '\u00a0' }}
                     </td>
 
                     <td v-if="!chitiet.sotien == 0" class="text-right">
-                      <strong>{{
-                        number_format(chitiet.sotien, 0, ',', '.')
-                      }}</strong>
+                      <strong>{{ number_format(chitiet.sotien, 0, ',', '.') }}</strong>
                     </td>
                     <td v-if="!!chitiet.sotien == 0" class="text-right">
                       {{ '\u00a0' }}
@@ -246,14 +211,7 @@
                     </td>
                     <td class="text-right">
                       <strong>
-                        {{
-                          number_format(
-                            infohoadon.sotien + infohoadon.thuegtgt,
-                            0,
-                            ',',
-                            '.',
-                          )
-                        }}
+                        {{ number_format(infohoadon.sotien + infohoadon.thuegtgt, 0, ',', '.') }}
                       </strong>
                     </td>
                   </tr>
@@ -287,9 +245,7 @@
               <div class="col-2 invoice_address text-center"></div>
               <div class="col-5 invoice_address text-center">
                 <strong>Người bán hàng</strong>
-                <h6 style="font-style: italic">
-                  (Ký, đóng dấu, ghi rõ họ tên)
-                </h6>
+                <h6 style="font-style: italic">(Ký, đóng dấu, ghi rõ họ tên)</h6>
               </div>
             </div>
             <br /><br /><br /><br /><br /><br />
@@ -379,8 +335,7 @@ export default {
             this.tkchitiet['id_' + item.ctid] = []
             //if(item.ctid=='01600239') console.log(10,item.ctid);
             mathang.forEach((ele) => {
-              if (ele.ctid == item.ctid)
-                this.tkchitiet['id_' + item.ctid].push(ele)
+              if (ele.ctid == item.ctid) this.tkchitiet['id_' + item.ctid].push(ele)
             })
             let len = this.tkchitiet['id_' + item.ctid].length
             if (len == 0) {

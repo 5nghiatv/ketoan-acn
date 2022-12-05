@@ -43,12 +43,7 @@
               </CRow>
 
               <div class="form-group form-actions">
-                <CButton
-                  class="btn btn-info btn-sm"
-                  @click="createTodo()"
-                  :disabled="!isValid"
-                  id="addnew"
-                >
+                <CButton class="btn btn-info btn-sm" @click="createTodo()" :disabled="!isValid" id="addnew">
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
@@ -59,18 +54,9 @@
                 >
                   Update </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-info btn-sm"
-                  @click="restore()"
-                  id="restore"
-                >
-                  >> Restore </CButton
+                <CButton class="btn btn-outline-info btn-sm" @click="restore()" id="restore"> >> Restore </CButton
                 >&nbsp;&nbsp;
-                <CButton
-                  class="btn btn-outline-warning btn-sm"
-                  @click="setAddnew()"
-                  id="close"
-                >
+                <CButton class="btn btn-outline-warning btn-sm" @click="setAddnew()" id="close">
                   >> Close
                 </CButton>
 
@@ -261,14 +247,10 @@ export default {
     },
 
     testValidator(field) {
-      if (field == 'makho')
-        return (this.Validator.makho = this.todo.makho != '')
-      if (field == 'tengoi')
-        return (this.Validator.tengoi = this.todo.tengoi != '')
-      if (field == 'diachi')
-        return (this.Validator.diachi = this.todo.diachi != '')
-      let passe =
-        this.Validator.makho && this.Validator.tengoi && this.Validator.diachi
+      if (field == 'makho') return (this.Validator.makho = this.todo.makho != '')
+      if (field == 'tengoi') return (this.Validator.tengoi = this.todo.tengoi != '')
+      if (field == 'diachi') return (this.Validator.diachi = this.todo.diachi != '')
+      let passe = this.Validator.makho && this.Validator.tengoi && this.Validator.diachi
       if (!passe) {
         this.$toastr.warning('', 'Vui lòng nhập đầy đủ thông tin.')
       }
@@ -362,9 +344,7 @@ export default {
     },
 
     deleteTodo(index, row) {
-      if (
-        !confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')
-      ) {
+      if (!confirm('Are you sure to delete this record : ' + (index + 1) + ' ? ')) {
         return
       }
       this.restore() // Nếu đang sửa thì phục hồi Vì có thể sửa dòng khác dòng xóa
@@ -469,9 +449,7 @@ export default {
   },
   watch: {
     updaterec() {
-      this.$refs.createNew.innerHTML = this.updaterec
-        ? '>> Close'
-        : '++ Create New'
+      this.$refs.createNew.innerHTML = this.updaterec ? '>> Close' : '++ Create New'
     },
   },
   computed: {
