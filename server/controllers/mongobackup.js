@@ -84,8 +84,9 @@ function exportMongoDb(dbName, uri, res) {
                 clientMongoClose(client, 'success', 'Thành công => tổng số collection export ' + colls.length, res)
               else clientMongoClose(client, err, 'Tổng số collection export : ' + colls.length, res)
             }
+            await waitFor(Math.max(docs.length / 5000 < 5000 ? 5000 : docs.length / 5000))
           })
-        await waitForFileExists(localfile)
+        // await waitForFileExists(localfile)
       }
     })
   })
