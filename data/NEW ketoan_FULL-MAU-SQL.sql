@@ -910,49 +910,38 @@ END$$
 --
 -- Các hàm
 --
-DROP FUNCTION IF EXISTS `example`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `example` () RETURNS VARCHAR(1000) CHARSET utf8  BEGIN
-  DECLARE _result varchar(1000) DEFAULT '';
-  DECLARE _counter INT DEFAULT 0;
-  DECLARE _value varchar(50);
+DROP FUNCTION IF EXISTS `Example`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `Example`() RETURNS varchar(1000) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+    DECLARE NextID INT DEFAULT 0;
+        UPDATE quanlykt set numid=numid+1 where UPPER(tentaptin)='CTUKTOAN'; 
+        SELECT numid INTO NextID FROM quanlykt where UPPER(tentaptin)='CTUKTOAN';
 
-  SET @myjson = '["gmail.com","mail.ru","arcor.de","gmx.de","t-online.de",
-                "web.de","googlemail.com","freenet.de","yahoo.de","gmx.net",
-                "me.com","bluewin.ch","hotmail.com","hotmail.de","live.de",
-                "icloud.com","hotmail.co.uk","yahoo.co.jp","yandex.ru"]';
+        IF NextID=0 THEN
+            SELECT MAX(ABS(ctid))+1 INTO NextID from ctuktoan;
+            INSERT INTO quanlykt (tentaptin,numid ) VALUES ('CTUKTOAN', NextID);
+    	END IF;
 
-  WHILE _counter < JSON_LENGTH(@myjson) DO
-    -- do whatever, e.g. add-up strings...
-    SET _result = CONCAT(_result, _counter, '-', JSON_VALUE(@myjson, CONCAT('$[',_counter,']')), '#');
-
-    SET _counter = _counter + 1;
-  END WHILE;
-
-  RETURN _result;
+	RETURN NextID;    
 END$$
 
 DROP FUNCTION IF EXISTS `GetNextCtid`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `GetNextCtid` () RETURNS INT(12) NO SQL BEGIN
-	-- LOCK TABLE quanlykt WRITE;
-    
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `GetNextCtid`() RETURNS int
+    DETERMINISTIC
+BEGIN
     DECLARE NextID INT DEFAULT 0;
-	UPDATE quanlykt set numid=numid+1 where UPPER(tentaptin)='CTUKTOAN'; 
-	SELECT numid INTO NextID FROM quanlykt where UPPER(tentaptin)='CTUKTOAN';
+        UPDATE quanlykt set numid=numid+1 where UPPER(tentaptin)='CTUKTOAN'; 
+        SELECT numid INTO NextID FROM quanlykt where UPPER(tentaptin)='CTUKTOAN';
 
- 	IF NextID=0 THEN
-     	SELECT MAX(ABS(ctid))+1 INTO NextID from ctuktoan;
-    	INSERT INTO quanlykt (tentaptin,numid ) VALUES ('CTUKTOAN', NextID);
-    END IF;
+        IF NextID=0 THEN
+            SELECT MAX(ABS(ctid))+1 INTO NextID from ctuktoan;
+            INSERT INTO quanlykt (tentaptin,numid ) VALUES ('CTUKTOAN', NextID);
+    	END IF;
 
-	RETURN NextID;
-
-	-- UNLOCK TABLES;
+	RETURN NextID;    
 END$$
-
-DROP FUNCTION IF EXISTS `hello`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `hello` (`name` CHAR(20)) RETURNS CHAR(50) CHARSET utf8  RETURN CONCAT('Hello, ',name,'!')$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 

@@ -1,6 +1,6 @@
 // const dependencies
 require('dotenv').config()
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const flash = require('connect-flash')
@@ -150,7 +150,7 @@ app.use('/', strip)
 app.use('/upl', require('./server/routes/uploads.js'))
 
 //----------------------------------------------------
-const HOST = "0.0.0.0" 
+const HOST = '0.0.0.0'
 // const HOST = "localhost";
 //Create a Server -------> process.env.PORT || 8080  // VÔ CÙNG QUAN TRỌNG --> HEROKU
 var server = app.listen(process.env.APP_PORT || 8081, HOST, function () {
@@ -247,6 +247,7 @@ global.runQuerySyncOld = async function (query, params, req, res) {
   mysqlConnection.connect((err) => {
     if (err) {
       console.log('Error: ' + err.message)
+      throw err
     }
   })
   try {
@@ -260,6 +261,7 @@ global.runQuerySyncOld = async function (query, params, req, res) {
     return response
   } catch (err) {
     console.log(500, err)
+    throw err
   }
 }
 
@@ -279,6 +281,7 @@ global.runQuerySql = async function (query, req, res) {
   connection.connect((err) => {
     if (err) {
       console.log('Error: ' + err.message)
+      throw err
     }
   })
   try {
@@ -290,8 +293,9 @@ global.runQuerySql = async function (query, req, res) {
       })
     })
     return response
-  } catch (error) {
-    console.log(500, error)
+  } catch (err) {
+    console.log(500, err)
+    throw err
   }
 }
 

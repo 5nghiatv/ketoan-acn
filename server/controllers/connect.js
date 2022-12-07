@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
 const Connect = require('../models/connect')
 const { User } = require('../models/User')
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const {
   createConnectSql,
   getAllConnectSql,
@@ -39,26 +38,28 @@ exports.getFilterConnect = function (req, res) {
               })
               retcon.connect(function (err) {
                 // The server is either down
-                retcon.query(
-                  'SELECT MIN(ngay) AS fromdate ,MAX(ngay) AS todate FROM ctuktoan',
-                  (err, rows, fields) => {
-                    retcon.destroy()
-                    ncount++
-                    if (!err) {
-                      var conn = allConnect[index]
-                      conn['fromdate'] = rows[0].fromdate
-                      conn['todate'] = rows[0].todate
-                      if (databases.includes(kq.database)) confilter.push(conn)
-                    }
-                    //console.log(ncount,array.length,kq.database);
-                    if (ncount === array.length) resolve(confilter)
-                  },
-                )
+                if (!err) {
+                  retcon.query(
+                    'SELECT MIN(ngay) AS fromdate ,MAX(ngay) AS todate FROM ctuktoan',
+                    (err, rows, fields) => {
+                      retcon.destroy()
+                      ncount++
+                      if (!err) {
+                        var conn = allConnect[index]
+                        conn['fromdate'] = rows[0].fromdate
+                        conn['todate'] = rows[0].todate
+                        if (databases.includes(kq.database)) confilter.push(conn)
+                      }
+                      // console.log(ncount, array.length, kq.database)
+                      if (ncount === array.length - 1) resolve(confilter)
+                    },
+                  )
+                }
               }) //  retcon.connect()
             }) // allConnect.forEach()
           }) // result = new Promise()
           result.then((ret) => {
-            //console.log(111,ret);
+            // console.log(111,ret)
             return res.status(200).json({
               success: true,
               message: 'A list of all Connect OK',

@@ -46,8 +46,7 @@ exports.vfpUpload = async function (req, res) {
     var mess =
       firstYear && result.length !== 16
         ? 'Chuẩn bị danh mục kế toán (del-ins) để upload không thành công. '
-        : 'Chuẩn bị Danh mục thành công (del), nhưng file dữ liệu không tồn tại : ' +
-          cfileCheck
+        : 'Chuẩn bị Danh mục thành công (del), nhưng file dữ liệu không tồn tại : ' + cfileCheck
     console.log(0, mess, 1, 'Database được Xóa rỗng.')
     return res.status(218).json({ message: mess })
   }
@@ -60,15 +59,12 @@ exports.vfpUpload = async function (req, res) {
 
     var dbf = await DBFFile.open(`${dir}/ctuktoan.dbf`)
     var records = await dbf.readRecords(1)
-    var namnay =
-      records.length > 0 ? moment(records[0].NGAY).format('YYYY-MM-DD') : ''
+    var namnay = records.length > 0 ? moment(records[0].NGAY).format('YYYY-MM-DD') : ''
     namnay = namnay.substring(0, 4)
     //===========================
     dbf = await DBFFile.open(`${dir}/quanlykt.dbf`)
     records = await dbf.readRecords()
-    command = firstYear
-      ? ''
-      : 'SET FOREIGN_KEY_CHECKS=0; TRUNCATE `quanlykt`;SET FOREIGN_KEY_CHECKS=1;'
+    command = firstYear ? '' : 'SET FOREIGN_KEY_CHECKS=0; TRUNCATE `quanlykt`;SET FOREIGN_KEY_CHECKS=1;'
     await records.forEach((record, index) => {
       command +=
         "INSERT INTO quanlykt (`numid`,`tentaptin`) VALUES ('" +
@@ -364,14 +360,11 @@ exports.vfpUpload = async function (req, res) {
       console.log('hoadon:', records.length, '===> Not 100%')
     }
     //===========================
-    command =
-      "UPDATE quanlykt SET numid = (select MAX(ctid) from ctuktoan) WHERE tentaptin ='CTUKTOAN' "
+    command = "UPDATE quanlykt SET numid = (select MAX(ctid) from ctuktoan) WHERE tentaptin ='CTUKTOAN' "
     await query(conn, command)
     conn.destroy()
     console.log('Vfp upload thành công...')
-    return res
-      .status(200)
-      .json({ success: true, message: 'Vfp upload thành công...' })
+    return res.status(200).json({ success: true, message: 'Vfp upload thành công...' })
   } catch (error) {
     conn.destroy()
     console.log(error)

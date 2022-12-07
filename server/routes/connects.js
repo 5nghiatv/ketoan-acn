@@ -92,7 +92,7 @@ router.post('/connect/:id', (req, res) => {
     //console.log('update id: '+ req.body._id ); // Phải submit mới có Body
     //res.json(req.body);
     if ('checkconnect' in req.body) {
-      const mysql = require('mysql')
+      const mysql = require('mysql2')
       const retcon = mysql.createConnection({
         host: req.body.host,
         user: req.body.username,

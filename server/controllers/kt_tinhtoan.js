@@ -1,4 +1,4 @@
-const mysql = require('mysql')
+const mysql = require('mysql2')
 //const express = require('express')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -3493,7 +3493,7 @@ exports.uynhiemchi = async function (req, res) {
       ws.getCell('C12').value = unc.address2
       ws.getCell('C13').value = unc.bank2
       ws.getCell('F5').value = unc.sotien * 1
-      //ws.getCell('F5').numFmt = '�#,##0;[Red]-�#,##0';
+      //ws.getCell('F5').numFmt = ' #,##0;[Red]- #,##0';
       ws.getCell('E7').value = vn_dong(unc.sotien) + ' ./.'
       ws.getCell('E10').value = unc.noidung
       ws.mergeCells('C2:H2')

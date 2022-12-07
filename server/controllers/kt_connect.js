@@ -1,4 +1,4 @@
-const mysql = require('mysql')
+const mysql = require('mysql2')
 // Get all Connects
 exports.getFilterConnectSql = async function (req, res) {
   const { email } = req.body // Lấy biến email trong body
