@@ -23,7 +23,7 @@ exports.readFile = function (path) {
   })
 }
 
-const mysql = require('mysql')
+const mysql = require('mysql2')
 exports.connection = function (params) {
   return new Promise((resolve, reject) => {
     const connection = mysql.createConnection(params)
