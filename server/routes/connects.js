@@ -111,18 +111,29 @@ router.post('/connect/:id', (req, res) => {
         })
       })
     } else {
-      // update old
-      req.body.active = req.body.active == 'on' ? true : false
-      if (req.body.active) {
-        ;(process.env.DB_HOST = req.body.host),
-          (process.env.DB_USERNAME = req.body.username),
-          (process.env.DB_PASSWORD = req.body.password),
-          (process.env.DB_DATABASE = req.body.database)
+      if ('createdatabase' in req.body) {
+        createDatabase(req, res)
+        // res.render('pages/addconnect', {
+        //   connect: req.body,
+        //   btndisabled: '',
+        //   // success_msg: mess,
+        //   error_msg: 'Welcome to docker-compose up -d',
+        // })
+        // Tạo New Database =======================
+      } else {
+        // update old
+        req.body.active = req.body.active == 'on' ? true : false
+        if (req.body.active) {
+          ;(process.env.DB_HOST = req.body.host),
+            (process.env.DB_USERNAME = req.body.username),
+            (process.env.DB_PASSWORD = req.body.password),
+            (process.env.DB_DATABASE = req.body.database)
+        }
+        Connect.update({ _id: req.body._id }, { $set: req.body })
+          .exec()
+          .then(() => res.redirect('/connects')) // redirect phải có /exp/
+          .catch((err) => res.status(500).json({ success: false }))
       }
-      Connect.update({ _id: req.body._id }, { $set: req.body })
-        .exec()
-        .then(() => res.redirect('/connects')) // redirect phải có /exp/
-        .catch((err) => res.status(500).json({ success: false }))
     }
   }
 })
@@ -139,5 +150,63 @@ router.delete('/connect/:id', (req, res) => {
       }),
     )
 })
+
+function createDatabase(req, res) {
+  const fs = require('fs')
+  const JSZip = require('jszip')
+  const tmp = require('tmp')
+  let host = req.body.host
+  let user = req.body.username
+  let password = req.body.password
+  let database = req.body.database
+  const Importer = require('../../data/connect/mysql-import')
+  const importer = new Importer({ host, user, password, database })
+  let localfile = __dirname + '/../../data/ketoan_acn_FULL.sql.zip'
+  //console.log(111, localfile)
+  fs.readFile(localfile, function (err, data) {
+    if (!err) {
+      var zip = new JSZip()
+      zip.loadAsync(data).then(function (contents) {
+        Object.keys(contents.files).forEach(function (filename) {
+          if (filename.includes('.sql') && !filename.includes('__MACOSX/')) {
+            zip
+              .file(filename)
+              .async('nodebuffer')
+              .then(function (content) {
+                // var destfile = './' + filename
+                var destfile = tmp.tmpNameSync() + '_' + filename
+                fs.writeFileSync(destfile, content)
+                if (!fs.existsSync(destfile)) throw 'Not file : ' + filename
+                // New onProgress method, added in version 5.0!
+                let total_bytes = 0
+                importer.onProgress((progress) => {
+                  total_bytes = progress.total_bytes
+                  var percent = Math.floor((progress.bytes_processed / progress.total_bytes) * 10000) / 100
+                  console.log(`${percent}% Completed`)
+                })
+
+                try {
+                  importer.import('', destfile).then(() => {
+                    var files_imported = importer.getImported()
+                    let mess = `${files_imported.length} SQL file(s): ${total_bytes} bytes imported.`
+                    console.log(mess)
+                    // res.status(200).json({ success: true, message: mess, filename: filename_s }).end()
+                    res.render('pages/addconnect', {
+                      connect: req.body,
+                      btndisabled: '',
+                      success_msg: mess,
+                      // error_msg:
+                    })
+                  })
+                } catch (err) {
+                  console.error(err)
+                }
+              })
+          }
+        })
+      })
+    } else console.error('Not read file : ' + localfile)
+  })
+}
 
 module.exports = router

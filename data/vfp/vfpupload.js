@@ -367,8 +367,9 @@ exports.vfpUpload = async function (req, res) {
     return res.status(200).json({ success: true, message: 'Vfp upload thành công...' })
   } catch (error) {
     conn.destroy()
-    console.log(error)
-    return res.status(500).json({ error: error, command: command })
+    // console.log(error)
+    throw error
+    // return res.status(500).json({ error: error, command: command })
   }
 }
 

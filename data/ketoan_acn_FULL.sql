@@ -1,32 +1,25 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Máy chủ: database:3306
--- Thời gian đã tạo: Th9 04, 2022 lúc 11:33 AM
--- Phiên bản máy phục vụ: 10.3.35-MariaDB-1:10.3.35+maria~focal
--- Phiên bản PHP: 8.0.21
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET GLOBAL sql_mode = `NO_ENGINE_SUBSTITUTION,NO_AUTO_VALUE_ON_ZERO`;
 START TRANSACTION;
 SET time_zone = "+00:00";
+SET foreign_key_checks = 0;
+SET GLOBAL log_bin_trust_function_creators = 1; 
 
+DROP TABLE IF EXISTS `chitiet`;
+DROP TABLE IF EXISTS `ctuvattu`;
+DROP TABLE IF EXISTS `hoadon`;
+DROP TABLE IF EXISTS `ctuktoan`;
+DROP TABLE IF EXISTS `dmsodutk`;
+DROP TABLE IF EXISTS `dmkhohag`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Cơ sở dữ liệu: `ketoan_upload`
---
 
 DELIMITER $$
---
--- Thủ tục
---
 DROP PROCEDURE IF EXISTS `BoSungMahangPS`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `BoSungMahangPS` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BoSungMahangPS` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
     DECLARE cnam CHAR (4) DEFAULT concat(YEAR(tod),'');
     SET SESSION sql_mode = `NO_ENGINE_SUBSTITUTION`;
     INSERT INTO dmkhohag (nam,mahang,makho)
@@ -37,7 +30,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `BoSungMahangPS` (IN `fromd` DATE, I
 END$$
 
 DROP PROCEDURE IF EXISTS `BoSungTaiKhoanPS`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `BoSungTaiKhoanPS` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BoSungTaiKhoanPS` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 SET SESSION sql_mode = `NO_ENGINE_SUBSTITUTION`;
 INSERT INTO dmsodutk (nam,sotk,tkhoan)
@@ -54,7 +47,7 @@ UPDATE dmsodutk as cd RIGHT JOIN tenmuc as dm ON cd.tkhoan = dm.tkhoan SET cd.te
 END$$
 
 DROP PROCEDURE IF EXISTS `ChuyenSoDuHangHoa`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ChuyenSoDuHangHoa` (IN `fromd` DATE, IN `tod` DATE, IN `nlan` TINYINT(1))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ChuyenSoDuHangHoa` (IN `fromd` DATE, IN `tod` DATE, IN `nlan` TINYINT(1))  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 DECLARE cnamt CHAR (4) DEFAULT concat(year(fromd)-1,'');
 DECLARE fromdt DATE DEFAULT MAKEDATE(YEAR(tod)-1,1);
@@ -71,7 +64,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `ChuyenSoDuTaiKhoan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ChuyenSoDuTaiKhoan` (IN `fromd` DATE, IN `tod` DATE, IN `nlan` TINYINT(1))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ChuyenSoDuTaiKhoan` (IN `fromd` DATE, IN `tod` DATE, IN `nlan` TINYINT(1))  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 DECLARE cnamt CHAR (4) DEFAULT concat(year(fromd)-1,'');
 DECLARE fromdt DATE DEFAULT MAKEDATE(YEAR(tod)-1,1);
@@ -88,7 +81,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `CopyChungtuID`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CopyChungtuID` (IN `cCtid` VARCHAR(12), IN `newd` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CopyChungtuID` (IN `cCtid` VARCHAR(12), IN `newd` DATE)  BEGIN
 DECLARE newCtid CHAR (12) DEFAULT "";
 SELECT GetNextCtid() INTO newCtid;
 INSERT INTO ctuktoan (
@@ -124,7 +117,7 @@ SELECT * ,count(*) as count FROM `ctuktoan` WHERE ctid = newCtid;
 END$$
 
 DROP PROCEDURE IF EXISTS `CopyChungtuKt`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CopyChungtuKt` (IN `fromd` DATE, IN `tod` DATE, IN `newd` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CopyChungtuKt` (IN `fromd` DATE, IN `tod` DATE, IN `newd` DATE)  BEGIN
 	DECLARE finished INTEGER DEFAULT 0;
 	DECLARE listFld varchar(100) DEFAULT "";
 
@@ -153,7 +146,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `CopyChungtuKt` (IN `fromd` DATE, IN
 END$$
 
 DROP PROCEDURE IF EXISTS `CreateDanhMucToiThieu`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateDanhMucToiThieu` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateDanhMucToiThieu` ()  BEGIN
 DECLARE cmaso CHAR (3) DEFAULT '001' ;
 INSERT INTO dmtiente (loaitien,tengoi,viettat)
 SELECT * FROM (SELECT cmaso as loaitien , 'Tiền Việt Nam', 'VND') AS tmp WHERE NOT EXISTS (SELECT loaitien FROM dmtiente WHERE loaitien = cmaso) LIMIT 1 ;
@@ -167,57 +160,57 @@ select 'Check OK';
 END$$
 
 DROP PROCEDURE IF EXISTS `CreateView_Ctuktoan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateView_Ctuktoan` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateView_Ctuktoan` ()  BEGIN
 DROP VIEW IF EXISTS ctuktoanview;
 CREATE VIEW ctuktoanview AS SELECT kt.soct, kt.ngay, IFNULL(ct.diengiai,kt.diengiai) AS diengiai, IFNULL(ct.tkno,kt.tkno) AS tkno, IFNULL(ct.tkco,kt.tkco) AS tkco, IFNULL(ct.sotien,kt.sotien) AS sotien, IFNULL(ct.ngoaite,kt.ngoaite) AS ngoaite FROM ctuktoan as kt LEFT OUTER JOIN chitiet as ct ON  kt.ctid = ct.ctid ;
 END$$
 
 DROP PROCEDURE IF EXISTS `CreateView_Ctuvattu`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateView_Ctuvattu` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateView_Ctuvattu` ()  BEGIN
 DROP VIEW IF EXISTS ctuvattuview;
 CREATE VIEW ctuvattuview AS SELECT kt.soct, kt.ngay,kt.tkno,kt.tkco, vt.mahang, vt.makho ,th.tenhang,th.donvi,vt.soluong,vt.sotien,vt.ngoaite FROM ctuktoan as kt RIGHT OUTER JOIN ctuvattu as vt ON kt.ctid = vt.ctid LEFT OUTER JOIN tenhang as th ON vt.mahang = th.mahang where (LEFT(kt.tkno,3) IN ('151','152','153','155','156','157','158','002','003') or LEFT(kt.tkco,3) IN ('151','152','153','155','156','157','158','002','003'));
 END$$
 
 DROP PROCEDURE IF EXISTS `Create_Ctuketoan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuketoan` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuketoan` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
 SELECT kt.ctid,kt.soct, kt.ngay, kt.sotien as sotienkt,"" as sotienvn, kt.tkno as tknokt, kt.tkco as tkcokt, IFNULL(ct.diengiai,kt.diengiai) AS diengiai, IFNULL(ct.tkno,kt.tkno) AS tkno,IFNULL(ct.matkno,kt.matkno) AS matkno, IFNULL(ct.tkco,kt.tkco) AS tkco,IFNULL(ct.matkco,kt.matkco) AS matkco, IFNULL(ct.sotien,kt.sotien) AS sotien, IFNULL(ct.ngoaite,kt.ngoaite) AS ngoaite,kt.ctid,kt.ghichu FROM ctuktoan as kt LEFT OUTER JOIN chitiet as ct ON  kt.ctid = ct.ctid where kt.ngay BETWEEN fromd AND tod ;
 END$$
 
 DROP PROCEDURE IF EXISTS `Create_Ctuketoan2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuketoan2` (IN `fromd` DATE, IN `tod` DATE, IN `ctid` VARCHAR(15))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuketoan2` (IN `fromd` DATE, IN `tod` DATE, IN `ctid` VARCHAR(15))  BEGIN
 SELECT kt.id,kt.ctid,kt.soct, kt.ngay, kt.sotien as sotienkt,"" as sotienvn, kt.tkno as tknokt, kt.tkco as tkcokt, IFNULL(ct.diengiai,kt.diengiai) AS diengiai, IFNULL(ct.tkno,kt.tkno) AS tkno,IFNULL(ct.matkno,kt.matkno) AS matkno, IFNULL(ct.tkco,kt.tkco) AS tkco,IFNULL(ct.matkco,kt.matkco) AS matkco, IFNULL(ct.sotien,kt.sotien) AS sotien, IFNULL(ct.ngoaite,kt.ngoaite) AS ngoaite,kt.ctid,kt.ghichu FROM ctuktoan as kt LEFT OUTER JOIN chitiet as ct ON  kt.ctid = ct.ctid where IF(ctid, kt.ngay BETWEEN fromd AND tod AND kt.ctid = ctid ,kt.ngay BETWEEN fromd AND tod ) ORDER BY CONCAT(ngay, soct);
 END$$
 
 DROP PROCEDURE IF EXISTS `Create_Ctuketoan_Rg`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuketoan_Rg` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuketoan_Rg` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
 SELECT kt.ngay, IFNULL(ct.tkno,kt.tkno) AS tkno,IFNULL(ct.matkno,kt.matkno) AS matkno, IFNULL(ct.tkco,kt.tkco) AS tkco,IFNULL(ct.matkco,kt.matkco) AS matkco, SUM(IFNULL(ct.sotien,kt.sotien)) AS sotien, SUM(IFNULL(ct.ngoaite,kt.ngoaite)) AS ngoaite FROM ctuktoan as kt LEFT OUTER JOIN chitiet as ct ON  kt.ctid = ct.ctid where kt.ngay BETWEEN fromd AND tod GROUP BY 1,2,3,4,5;
 END$$
 
 DROP PROCEDURE IF EXISTS `Create_Ctuvattu`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuvattu` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuvattu` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
 SELECT kt.ctid,kt.soct, kt.ngay,kt.diengiai,kt.tkno, kt.tkco,kt.sotien as sotienkt,"" as sotienvn, vt.mahang, vt.makho ,th.tenhang,th.donvi,vt.soluong,vt.sotien FROM ctuktoan as kt RIGHT OUTER JOIN ctuvattu as vt ON  kt.ctid = vt.ctid LEFT OUTER JOIN tenhang as th ON  vt.mahang = th.mahang where kt.ngay BETWEEN fromd AND tod AND (LEFT(kt.tkno,3) IN ('151','152','153','155','156','157','158','002','003') or LEFT(kt.tkco,3) IN ('151','152','153','155','156','157','158','002','003')) 
 ;
 END$$
 
 DROP PROCEDURE IF EXISTS `Create_Ctuvattu2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuvattu2` (IN `fromd` DATE, IN `tod` DATE, IN `ctid` VARCHAR(15))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_Ctuvattu2` (IN `fromd` DATE, IN `tod` DATE, IN `ctid` VARCHAR(15))  BEGIN
 SELECT kt.ctid,kt.soct, kt.ngay,kt.diengiai,kt.tkno, kt.tkco,kt.sotien as sotienkt,"" as sotienvn, vt.mahang, vt.makho ,th.tenhang,th.donvi,vt.soluong,vt.sotien ,kh.tengoi,kh.diachi FROM ctuktoan as kt RIGHT OUTER JOIN ctuvattu as vt ON  kt.ctid = vt.ctid LEFT OUTER JOIN tenhang as th ON  vt.mahang = th.mahang LEFT OUTER JOIN dmtenkho as kh ON  vt.makho = kh.makho where IF(ctid, kt.ngay BETWEEN fromd AND tod AND kt.ctid = ctid ,kt.ngay BETWEEN fromd AND tod ) AND (LEFT(kt.tkno,3) IN ('151','152','153','155','156','157','158','002','003') or LEFT(kt.tkco,3) IN ('151','152','153','155','156','157','158','002','003')) 
  ORDER BY CONCAT(ngay, soct);
 END$$
 
 DROP PROCEDURE IF EXISTS `Create_CtuvattuHoadon`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_CtuvattuHoadon` (IN `fromd` DATE, IN `tod` DATE, IN `ctid` VARCHAR(15))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_CtuvattuHoadon` (IN `fromd` DATE, IN `tod` DATE, IN `ctid` VARCHAR(15))  BEGIN
 SELECT kt.ctid,kt.soct, kt.ngay,kt.diengiai,kt.tkno, kt.tkco,kt.sotien as sotienkt,"" as sotienvn, vt.mahang, vt.makho ,th.tenhang,th.donvi,vt.soluong,vt.sotien ,kh.tengoi,kh.diachi,COUNT('hd.ctid') as demHoadon FROM ctuktoan as kt LEFT OUTER JOIN ctuvattu as vt ON  kt.ctid = vt.ctid RIGHT OUTER JOIN tenhang as th ON  vt.mahang = th.mahang RIGHT OUTER JOIN dmtenkho as kh ON  vt.makho = kh.makho RIGHT OUTER JOIN hoadon as hd ON  kt.ctid = hd.ctid where IF(ctid, kt.ngay BETWEEN fromd AND tod AND kt.ctid = ctid ,kt.ngay BETWEEN fromd AND tod ) AND LEFT(kt.tkco,3)="511" GROUP BY kt.ctid,vt.mahang ;
 END$$
 
 DROP PROCEDURE IF EXISTS `Create_MathangBan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_MathangBan` (IN `fromd` DATE, IN `tod` DATE, IN `ctid` VARCHAR(15))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_MathangBan` (IN `fromd` DATE, IN `tod` DATE, IN `ctid` VARCHAR(15))  BEGIN
 SELECT kt.ctid,kt.soct, kt.ngay,kt.diengiai,kt.tkno, kt.tkco,kt.sotien as sotienkt,"" as sotienvn, vt.mahang, vt.makho ,th.tenhang,th.donvi,vt.soluong,vt.sotien ,kh.tengoi,kh.diachi FROM ctuktoan as kt RIGHT OUTER JOIN ctuvattu as vt ON  kt.ctid = vt.ctid LEFT OUTER JOIN tenhang as th ON  vt.mahang = th.mahang LEFT OUTER JOIN dmtenkho as kh ON  vt.makho = kh.makho where IF(ctid, kt.ngay BETWEEN fromd AND tod AND kt.ctid = ctid ,kt.ngay BETWEEN fromd AND tod ) AND LEFT(kt.tkco,3) ='511' 
  ORDER BY CONCAT(ngay, soct);
 END$$
 
 DROP PROCEDURE IF EXISTS `DelAllTables`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DelAllTables` (IN `dbname` VARCHAR(20))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DelAllTables` (IN `dbname` VARCHAR(20))  BEGIN
     SET FOREIGN_KEY_CHECKS = 0; 
     SET @tables = NULL;
     SET @dbname = dbname;
@@ -234,7 +227,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `DelAllTables` (IN `dbname` VARCHAR(
 END$$
 
 DROP PROCEDURE IF EXISTS `DelAndAlterTableCtid`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DelAndAlterTableCtid` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DelAndAlterTableCtid` ()  BEGIN
 	
 	DROP TABLE IF EXISTS `categories`,`companies`,`ctutensp`,`dmkygui`,`customers`,`dulieu`,`giathanh`,`ibc_dss`,`khauhao`,`dmtaisan`,`dmtensp`,`gtrinhqt`,`ngaytran`,`migrations`,`nhanvien`,`noidatts`,`password_resets`,
  `phanbo`,`posts`,`products`,`products_attributes`,`repolist`,`sanpham`,`sessions`,`settings`,`social_accounts`,`spdauky`,
@@ -265,7 +258,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `DelAndAlterTableCtid` ()   BEGIN
 END$$
 
 DROP PROCEDURE IF EXISTS `DelChungtuID`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DelChungtuID` (IN `cCtid` VARCHAR(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DelChungtuID` (IN `cCtid` VARCHAR(10))  BEGIN
 
 DELETE FROM hoadon WHERE ctid = cCtid;
 DELETE FROM ctuvattu WHERE ctid = cCtid;
@@ -276,7 +269,7 @@ SELECT cCtid as ctid ,count(*) as count FROM `ctuktoan` WHERE ctid = cCtid;
 END$$
 
 DROP PROCEDURE IF EXISTS `DelChungtuNam`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DelChungtuNam` (IN `fromdate` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DelChungtuNam` (IN `fromdate` DATE)  BEGIN
 	DECLARE cnam CHAR (4) DEFAULT concat(year(fromdate),'');
     DECLARE fromd DATE DEFAULT MAKEDATE(YEAR(fromdate),1);
     DECLARE tod DATE DEFAULT DATE(concat(year(fromdate),'-12-31') );
@@ -290,7 +283,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `DelChungtuNam` (IN `fromdate` DATE)
 END$$
 
 DROP PROCEDURE IF EXISTS `GanTienHangHoadon`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GanTienHangHoadon` (IN `cCtid` VARCHAR(15), IN `nSotien` DECIMAL(15), IN `nThue` DECIMAL(15), IN `tkThue` VARCHAR(15))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GanTienHangHoadon` (IN `cCtid` VARCHAR(15), IN `nSotien` DECIMAL(15), IN `nThue` DECIMAL(15), IN `tkThue` VARCHAR(15))  BEGIN
 -- SELECT cCtid,nSotien,nThue,tkThue ;
 DECLARE nid INT(12) DEFAULT 0;
 DECLARE nid2 INT(12) DEFAULT 0;
@@ -353,11 +346,11 @@ SELECT * FROM chitiet WHERE ctid = cCtid;
 END$$
 
 DROP PROCEDURE IF EXISTS `getCountAllTables`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getCountAllTables` ()   BEGIN                                                                                                                                                                         DECLARE table_name VARCHAR(255);                                                                                                                                     DECLARE end_of_tables INT DEFAULT 0;                                                                                                                                 DECLARE cur CURSOR FOR                                                                                                                                                   SELECT t.table_name                                                                                                                                                   FROM information_schema.tables t                                                                                                                                     WHERE t.table_schema = DATABASE() AND t.table_type='BASE TABLE';                                                                                                 DECLARE CONTINUE HANDLER FOR NOT FOUND SET end_of_tables = 1;                                                                                                         OPEN cur;                                                                                                                                                             tables_loop: LOOP                                                                                                                                                         FETCH cur INTO table_name;                                                                                                                                           IF end_of_tables = 1 THEN                                                                                                                                                 LEAVE tables_loop;                                                                                                                                               END IF;                                                                                                                                                             
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getCountAllTables` ()  BEGIN                                                                                                                                                                         DECLARE table_name VARCHAR(255);                                                                                                                                     DECLARE end_of_tables INT DEFAULT 0;                                                                                                                                 DECLARE cur CURSOR FOR                                                                                                                                                   SELECT t.table_name                                                                                                                                                   FROM information_schema.tables t                                                                                                                                     WHERE t.table_schema = DATABASE() AND t.table_type='BASE TABLE';                                                                                                 DECLARE CONTINUE HANDLER FOR NOT FOUND SET end_of_tables = 1;                                                                                                         OPEN cur;                                                                                                                                                             tables_loop: LOOP                                                                                                                                                         FETCH cur INTO table_name;                                                                                                                                           IF end_of_tables = 1 THEN                                                                                                                                                 LEAVE tables_loop;                                                                                                                                               END IF;                                                                                                                                                             
             SET @s = CONCAT('SELECT ''', table_name, ''', COUNT(*) AS Count FROM ' , table_name);                                                                                 PREPARE stmt FROM @s;                                                                                                                                                 EXECUTE stmt;                                                                                                                                                     END LOOP;                                                                                                                                                             CLOSE cur;                                                                                                                                                 END$$
 
 DROP PROCEDURE IF EXISTS `getCtuktoan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getCtuktoan` ()   BEGIN  
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getCtuktoan` ()  BEGIN  
     DECLARE total INT; 
     ##Create variables to receive cursor data  
     DECLARE ctid VARCHAR(12);  
@@ -383,14 +376,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getCtuktoan` ()   BEGIN
 END$$
 
 DROP PROCEDURE IF EXISTS `getFieldsAllTables`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getFieldsAllTables` (IN `dataname` TEXT)  NO SQL BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getFieldsAllTables` (IN `dataname` TEXT)  NO SQL
+BEGIN
 
 SELECT TABLE_NAME , COLUMN_NAME FROM information_schema.columns WHERE table_schema = dataname ORDER BY table_name,ordinal_position;
 
 END$$
 
 DROP PROCEDURE IF EXISTS `getHoadon`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getHoadon` (IN `fromdate` DATE, IN `todate` DATE, IN `maso` VARCHAR(10), IN `sapxep` VARCHAR(10), IN `ctid` VARCHAR(15))  NO SQL SELECT  hoadon.id,hoadon.ctid,hoadon.sohd,hoadon.ngay,customer.company,customer.maso,customer.address, RIGHT(CONCAT("   ",TRIM(REPLACE(hoadon.thuesuat,"%",""))),3) as orderthues, hoadon.thuesuat ,hoadon.giaban as sotien,hoadon.thuegtgt,hoadon.giaban+hoadon.thuegtgt as congtienvn,customer.ghichu as mathang, hoadon.diengiai, customer.account,customer.bank,customer.citibank,customer.fullname,IFNULL(chitiet.tkno,ctuktoan.tkno) AS tkno, IFNULL(chitiet.tkco,ctuktoan.tkco) AS tkco,ctuktoan.soct,ctuktoan.ngay as ngayct from `hoadon` left join `ctuktoan` on `hoadon`.`ctid` = `ctuktoan`.`ctid` left join `customer` on `hoadon`.`masothue` = `customer`.`maso` left join `chitiet` on `chitiet`.`ctid` = `hoadon`.`ctid` where 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getHoadon` (IN `fromdate` DATE, IN `todate` DATE, IN `maso` VARCHAR(10), IN `sapxep` VARCHAR(10), IN `ctid` VARCHAR(15))  NO SQL
+SELECT  hoadon.id,hoadon.ctid,hoadon.sohd,hoadon.ngay,customer.company,customer.maso,customer.address, RIGHT(CONCAT("   ",TRIM(REPLACE(hoadon.thuesuat,"%",""))),3) as orderthues, hoadon.thuesuat ,hoadon.giaban as sotien,hoadon.thuegtgt,hoadon.giaban+hoadon.thuegtgt as congtienvn,customer.ghichu as mathang, hoadon.diengiai, customer.account,customer.bank,customer.citibank,customer.fullname,IFNULL(chitiet.tkno,ctuktoan.tkno) AS tkno, IFNULL(chitiet.tkco,ctuktoan.tkco) AS tkco,ctuktoan.soct,ctuktoan.ngay as ngayct from `hoadon` left join `ctuktoan` on `hoadon`.`ctid` = `ctuktoan`.`ctid` left join `customer` on `hoadon`.`masothue` = `customer`.`maso` left join `chitiet` on `chitiet`.`ctid` = `hoadon`.`ctid` where 
 CASE 
 WHEN maso= '20' THEN ((LEFT(IFNULL(chitiet.tkco,ctuktoan.tkco),4) !='3331') AND (LEFT(IFNULL(chitiet.tkco,ctuktoan.tkco),3) ='511') )
 WHEN maso= '10' THEN (LEFT(IFNULL(chitiet.tkno,ctuktoan.tkno),4) !='1331') AND (LEFT(IFNULL(chitiet.tkco,ctuktoan.tkco),4) !='3331') AND (LEFT(IFNULL(chitiet.tkco,ctuktoan.tkco),3) !='511')
@@ -407,7 +402,7 @@ ELSE `customer`.`maso`
 END$$
 
 DROP PROCEDURE IF EXISTS `GetNextCTID`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetNextCTID` (IN `NextID` INT(14))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetNextCTID` (IN `NextID` INT(14))  BEGIN
 	-- LOCK TABLE quanlykt WRITE;
     -- DECLARE NextID INT DEFAULT 0;
 	UPDATE quanlykt set numid=numid+1 where UPPER(tentaptin)='CTUKTOAN'; 
@@ -422,7 +417,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GetNextCTID` (IN `NextID` INT(14)) 
 END$$
 
 DROP PROCEDURE IF EXISTS `getRowsAllTables`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getRowsAllTables` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRowsAllTables` ()  BEGIN
 DECLARE table_name VARCHAR(255);
 DECLARE end_of_tables INT DEFAULT 0;
 DECLARE cur CURSOR FOR SELECT t.table_name FROM information_schema.tables t  WHERE t.table_schema = DATABASE() AND t.table_type='BASE TABLE';
@@ -442,7 +437,7 @@ CLOSE cur;
 END$$
 
 DROP PROCEDURE IF EXISTS `getShowCreateAllProcs`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getShowCreateAllProcs` (IN `func_pro` VARCHAR(250))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getShowCreateAllProcs` (IN `func_pro` VARCHAR(250))  BEGIN
 DECLARE table_name VARCHAR(255);
 DECLARE end_of_tables INT DEFAULT 0;
 DECLARE cur CURSOR FOR SELECT ROUTINE_NAME as table_name FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_SCHEMA = database() AND ROUTINE_TYPE = func_pro;
@@ -462,7 +457,7 @@ CLOSE cur;
 END$$
 
 DROP PROCEDURE IF EXISTS `getShowCreateAllTables`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getShowCreateAllTables` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getShowCreateAllTables` ()  BEGIN
 DECLARE table_name VARCHAR(255);
 DECLARE end_of_tables INT DEFAULT 0;
 DECLARE cur CURSOR FOR SELECT t.table_name FROM information_schema.tables t  WHERE t.table_schema = DATABASE() AND t.table_type='BASE TABLE';
@@ -482,7 +477,7 @@ CLOSE cur;
 END$$
 
 DROP PROCEDURE IF EXISTS `ShowCreateProcedure`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ShowCreateProcedure` (IN `db_proc` VARCHAR(250), IN `func_pro` VARCHAR(250))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ShowCreateProcedure` (IN `db_proc` VARCHAR(250), IN `func_pro` VARCHAR(250))  BEGIN
   SET @a=concat("SHOW CREATE ",func_pro ," ", db_proc);                
   PREPARE stmt1 FROM @a;
   EXECUTE stmt1; 
@@ -490,7 +485,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ShowCreateProcedure` (IN `db_proc` 
 END$$
 
 DROP PROCEDURE IF EXISTS `Test`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Test` (IN `tabname` VARCHAR(20))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Test` (IN `tabname` VARCHAR(20))  BEGIN
 
 DECLARE v1 INT DEFAULT 1;
 DECLARE ctids INT DEFAULT 1;
@@ -515,7 +510,8 @@ EXECUTE stmt;
 END$$
 
 DROP PROCEDURE IF EXISTS `TestServerKetoan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TestServerKetoan` (IN `dataname` VARCHAR(20), OUT `nReturn` BIT)  NO SQL BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TestServerKetoan` (IN `dataname` VARCHAR(20), OUT `nReturn` BIT)  NO SQL
+BEGIN
     DECLARE resta INT(11);
     SET resta = 0;
  	SELECT count(*) as ncount FROM information_schema.TABLES WHERE TABLE_SCHEMA = dataname AND TABLE_NAME IN ('ctuktoan','ctuvattu','chitiet','hoadon') INTO resta ;
@@ -527,7 +523,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `TestServerKetoan` (IN `dataname` VA
 END$$
 
 DROP PROCEDURE IF EXISTS `TestSizeDatabse`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TestSizeDatabse` ()  NO SQL SELECT * 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TestSizeDatabse` ()  NO SQL
+SELECT * 
 FROM   (SELECT table_schema AS `DB Name`, 
            ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) AS `DB Size in MB`
         FROM   information_schema.tables 
@@ -535,7 +532,7 @@ FROM   (SELECT table_schema AS `DB Name`,
 ORDER BY `DB Size in MB` DESC$$
 
 DROP PROCEDURE IF EXISTS `TinhCanDoiHangHoa`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiHangHoa` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiHangHoa` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
     DECLARE cnam CHAR (4) DEFAULT concat(YEAR(tod),'');
 	DECLARE fromddn DATE DEFAULT MAKEDATE(YEAR(tod),1);	
 CALL BoSungMahangPS(fromd,tod);        
@@ -564,7 +561,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhCanDoiHangHoa2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiHangHoa2` (IN `fromd` DATE, IN `tod` DATE, IN `filter` VARCHAR(50))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiHangHoa2` (IN `fromd` DATE, IN `tod` DATE, IN `filter` VARCHAR(50))  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 CALL TinhCanDoiHangHoa(fromd,tod);
 IF filter='' THEN
@@ -577,7 +574,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhCanDoiTaiKhoan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiTaiKhoan` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiTaiKhoan` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 DECLARE fromddn DATE DEFAULT MAKEDATE(YEAR(tod),1);
 CALL BoSungTaiKhoanPS(fromd,tod);
@@ -608,7 +605,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhCanDoiTaiKhoan2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiTaiKhoan2` (IN `fromd` DATE, IN `tod` DATE, IN `filter` VARCHAR(50))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiTaiKhoan2` (IN `fromd` DATE, IN `tod` DATE, IN `filter` VARCHAR(50))  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 CALL TinhCanDoiTaiKhoan(fromd,tod);
 IF filter='' THEN
@@ -619,7 +616,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhCanDoiTaiKhoanRg`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiTaiKhoanRg` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhCanDoiTaiKhoanRg` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 INSERT INTO candoips (nam,sotk,nodn,codn) 
 (select cnam as nam ,sotk,nodn,codn from dmtkhoan where concat(cnam,sotk) not in ( select concat(nam,sotk) from candoips));
@@ -646,7 +643,7 @@ WHERE nam = cnam ;
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhPS_HangHoa`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_HangHoa` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_HangHoa` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
     DECLARE cnam CHAR (4) DEFAULT concat(YEAR(tod),'');
     UPDATE dmkhohag AS ux LEFT JOIN
     (SELECT
@@ -677,7 +674,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_HangHoa` (IN `fromd` DATE, I
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhPS_MotBenHH`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_MotBenHH` (IN `fromd` DATE, IN `tod` DATE, IN `nbenno` INT, IN `cmahang` CHAR(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_MotBenHH` (IN `fromd` DATE, IN `tod` DATE, IN `nbenno` INT, IN `cmahang` CHAR(10))  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 IF nbenno =1 THEN
 	IF cmahang='' THEN
@@ -743,7 +740,8 @@ END IF ;
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhPS_MotBenTK`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_MotBenTK` (IN `fromd` DATE, IN `tod` DATE, IN `nbenno` BIT, IN `csotk` CHAR(8))  NO SQL BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_MotBenTK` (IN `fromd` DATE, IN `tod` DATE, IN `nbenno` BIT, IN `csotk` CHAR(8))  NO SQL
+BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 IF nbenno =1 THEN
 	IF csotk='' THEN
@@ -801,7 +799,8 @@ END IF ;
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhPS_MotBenTK_Rg`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_MotBenTK_Rg` (IN `fromd` DATE, IN `tod` DATE, IN `nbenno` BIT, IN `nlentk` TINYINT(1))  NO SQL BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_MotBenTK_Rg` (IN `fromd` DATE, IN `tod` DATE, IN `nbenno` BIT, IN `nlentk` TINYINT(1))  NO SQL
+BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 IF (nlentk <= 0) THEN SET nlentk = 1 ;
 END IF ;
@@ -837,7 +836,7 @@ END IF ;
 END$$
 
 DROP PROCEDURE IF EXISTS `TinhPS_TaiKhoan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_TaiKhoan` (IN `fromd` DATE, IN `tod` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TinhPS_TaiKhoan` (IN `fromd` DATE, IN `tod` DATE)  BEGIN
 DECLARE cnam CHAR (4) DEFAULT concat(year(fromd),'');
 UPDATE dmsodutk SET psno=0,psco=0,ngoaite=0 WHERE nam=cnam ;
 UPDATE dmsodutk AS cd INNER JOIN
@@ -867,7 +866,7 @@ SET cd.psco=pn.sotien,cd.ngoaite=pn.ngoaite;
 END$$
 
 DROP PROCEDURE IF EXISTS `UpdateMaHangKho`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateMaHangKho` (IN `cmahang` CHAR(10), IN `cmakho` CHAR(3), IN `tod` DATE, OUT `nsuccess` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateMaHangKho` (IN `cmahang` CHAR(10), IN `cmakho` CHAR(3), IN `tod` DATE, OUT `nsuccess` INT(10))  BEGIN
 DECLARE cnam CHAR(4) DEFAULT CONCAT(year(tod),'') ;
 SELECT count(*) into nsuccess FROM dmkhohag AS u
   WHERE CONCAT(u.nam,u.mahang,u.makho)= CONCAT(cnam,cmahang,cmakho) ;
@@ -881,7 +880,7 @@ SELECT count(*) into nsuccess FROM dmkhohag AS u
 END$$
 
 DROP PROCEDURE IF EXISTS `UpdateSotkTkhoan`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateSotkTkhoan` (IN `csotk` CHAR(8), IN `ctkhoan` CHAR(6), IN `tod` DATE, OUT `nsuccess` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateSotkTkhoan` (IN `csotk` CHAR(8), IN `ctkhoan` CHAR(6), IN `tod` DATE, OUT `nsuccess` INT(10))  BEGIN
 DECLARE cnam CHAR(4) DEFAULT CONCAT(year(tod),'') ;
 SELECT count(*) into nsuccess FROM dmsodutk AS u
   WHERE CONCAT(u.nam,u.sotk,u.tkhoan)= CONCAT(cnam,csotk,ctkhoan) ;
@@ -895,7 +894,7 @@ SELECT count(*) into nsuccess FROM dmsodutk AS u
 END$$
 
 DROP PROCEDURE IF EXISTS `Watch_InfoMysql`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Watch_InfoMysql` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Watch_InfoMysql` ()  BEGIN
     show variables like "dalocalhost" ;
 	show variables like "pid_filelocalhost" ;
     show variables like "innodb_data_home_dirlocalhost" ;
@@ -907,13 +906,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Watch_InfoMysql` ()   BEGIN
     show variables like "clocalhost" ;
 END$$
 
---
--- Các hàm
---
 DROP FUNCTION IF EXISTS `Example`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `Example`() RETURNS varchar(1000) CHARSET utf8mb4
-    DETERMINISTIC
-BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `Example` () RETURNS VARCHAR(1000) CHARSET utf8mb4 BEGIN
     DECLARE NextID INT DEFAULT 0;
         UPDATE quanlykt set numid=numid+1 where UPPER(tentaptin)='CTUKTOAN'; 
         SELECT numid INTO NextID FROM quanlykt where UPPER(tentaptin)='CTUKTOAN';
@@ -927,10 +921,7 @@ BEGIN
 END$$
 
 DROP FUNCTION IF EXISTS `GetNextCtid`$$
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `GetNextCtid`() RETURNS int
-    DETERMINISTIC
-BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `GetNextCtid` () RETURNS INT BEGIN
     DECLARE NextID INT DEFAULT 0;
         UPDATE quanlykt set numid=numid+1 where UPPER(tentaptin)='CTUKTOAN'; 
         SELECT numid INTO NextID FROM quanlykt where UPPER(tentaptin)='CTUKTOAN';
@@ -943,15 +934,11 @@ BEGIN
 	RETURN NextID;    
 END$$
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `cdketoan`
---
+DELIMITER ;
 
 DROP TABLE IF EXISTS `cdketoan`;
 CREATE TABLE `cdketoan` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `chedokt` char(10) NOT NULL,
   `kyhieu` char(2) NOT NULL,
   `masc` char(6) NOT NULL,
@@ -968,11 +955,7 @@ CREATE TABLE `cdketoan` (
   `tmtsn` char(5) NOT NULL,
   `tsnd` decimal(15,2) NOT NULL,
   `tsnc` decimal(15,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `cdketoan`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `cdketoan` (`id`, `chedokt`, `kyhieu`, `masc`, `tentsc`, `tentscu`, `tk1`, `tmtsc`, `tscd`, `tscc`, `masn`, `tentsn`, `tentsnu`, `tk2`, `tmtsn`, `tsnd`, `tsnc`) VALUES
 (335, 'DNL', '98', '100**', 'A.TÀI SẢN L/ĐỘNG & ĐẦU TƯ NGẮN HẠN', 'A.CURRENT ASSERTS AND SHORT-TERM IN', '1-129-139-159,3', '', '0.00', '0.00', '300*', 'A.NỢ PHẢI TRẢ', 'A.LIABILITIES', '3,13-139,14', '', '2062267216.00', '2062267216.00'),
@@ -1598,15 +1581,9 @@ INSERT INTO `cdketoan` (`id`, `chedokt`, `kyhieu`, `masc`, `tentsc`, `tentscu`, 
 (953, 'DNN', '15', '200**', 'TỔNG CỘNG TÀI SẢN', 'TOTAL ASSETS  (300 = 100 + 200)', '110+120+130+140+150+160+170+180', '', '11.00', '0.00', '', '', '', '', '', '0.00', '0.00'),
 (954, 'DNN', '15', '', '( 200 = 110+120+130+140+150+160+170+180  )', '', '', '', '0.00', '0.00', '', '', '', '', '', '0.00', '0.00');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `chitiet`
---
-
 DROP TABLE IF EXISTS `chitiet`;
 CREATE TABLE `chitiet` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `ctid` char(12) NOT NULL,
   `diengiai` char(100) NOT NULL,
   `tkno` char(13) NOT NULL,
@@ -1616,75 +1593,49 @@ CREATE TABLE `chitiet` (
   `sotien` decimal(15,2) NOT NULL,
   `ngoaite` decimal(15,2) NOT NULL,
   `ctkhac` char(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `connect`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `connect`;
 CREATE TABLE `connect` (
-  `id` int(11) NOT NULL,
-  `company` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `taxcode` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `address` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `host` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `password` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `dataname` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `port` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '3306',
-  `active` tinyint(4) NOT NULL DEFAULT 0
+  `id` int NOT NULL,
+  `company` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `taxcode` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `host` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `password` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `dataname` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `port` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '3306',
+  `active` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
-
---
--- Đang đổ dữ liệu cho bảng `connect`
---
 
 INSERT INTO `connect` (`id`, `company`, `taxcode`, `address`, `host`, `username`, `password`, `dataname`, `port`, `active`) VALUES
 (23, 'DNTN Tin học Xuân Mai ', '0304529821', '118/63 Bạch Đằng, P24, Bình Thạnh - HCM', 'localhost', 'root', 'nghia@tv', 'ketoan_xuanmai', '3306', 0),
 (24, 'Công ty KingMinh', '0304529822', '118/63 Bạch Đằng, P24, Bình Thạnh - HCM', 'localhost', 'root', 'nghia@tv', 'ketoan_kingminh', '3306', 0),
 (26, 'Công ty Nhất Nam', '0304529823', '118/63 Bạch Đằng, P24, Bình Thạnh - HCM', 'localhost', 'root', 'nghia@tv', 'ketoan_nhatnam', '3306', 0);
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `connects`
---
-
 DROP TABLE IF EXISTS `connects`;
 CREATE TABLE `connects` (
-  `id` int(11) NOT NULL,
-  `company` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `taxcode` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `address` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `host` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `password` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `dataname` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `port` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '3306',
-  `active` tinyint(4) NOT NULL DEFAULT 0,
+  `id` int NOT NULL,
+  `company` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `taxcode` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `host` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `password` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `dataname` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `port` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '3306',
+  `active` tinyint NOT NULL DEFAULT '0',
   `fromdate` date NOT NULL,
   `todate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Đang đổ dữ liệu cho bảng `connects`
---
-
 INSERT INTO `connects` (`id`, `company`, `taxcode`, `address`, `host`, `username`, `password`, `dataname`, `port`, `active`, `fromdate`, `todate`) VALUES
 (1, '1', '1', '1', '1', '1', '1', '1', '3306', 0, '0000-00-00', '0000-00-00');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `ctuktoan`
---
-
 DROP TABLE IF EXISTS `ctuktoan`;
 CREATE TABLE `ctuktoan` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `ctid` char(12) NOT NULL,
   `soct` char(8) NOT NULL,
   `ngay` date NOT NULL,
@@ -1699,23 +1650,17 @@ CREATE TABLE `ctuktoan` (
   `nhom` char(8) NOT NULL,
   `loaitien` char(3) NOT NULL,
   `ngoaite` decimal(15,2) NOT NULL,
-  `userid` smallint(6) NOT NULL,
+  `userid` smallint NOT NULL,
   `ghichu` char(50) NOT NULL,
   `khac` char(3) NOT NULL,
   `sodk` char(10) NOT NULL,
   `mamauhd` char(3) NOT NULL,
   `ngaytra` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `ctuvattu`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `ctuvattu`;
 CREATE TABLE `ctuvattu` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `ctid` char(12) NOT NULL,
   `mahang` char(13) NOT NULL,
   `makho` char(3) NOT NULL,
@@ -1729,17 +1674,11 @@ CREATE TABLE `ctuvattu` (
   `thue` decimal(15,2) NOT NULL,
   `soluong2` decimal(16,3) NOT NULL,
   `doituong2` char(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `customer`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `fullname` char(30) NOT NULL,
   `name` char(15) NOT NULL,
   `company` char(100) NOT NULL,
@@ -1755,17 +1694,11 @@ CREATE TABLE `customer` (
   `bank` char(50) NOT NULL,
   `citibank` char(50) NOT NULL,
   `makhach` char(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `dmkhohag`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `dmkhohag`;
 CREATE TABLE `dmkhohag` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `nam` char(4) NOT NULL,
   `mahang` char(13) NOT NULL,
   `makho` char(3) NOT NULL,
@@ -1801,17 +1734,11 @@ CREATE TABLE `dmkhohag` (
   `lklxuat` decimal(16,3) NOT NULL,
   `lktnhap` decimal(16,2) NOT NULL,
   `lktxuat` decimal(16,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `dmsodutk`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `dmsodutk`;
 CREATE TABLE `dmsodutk` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `nam` char(4) NOT NULL,
   `sotk` char(13) NOT NULL,
   `tkhoan` char(6) NOT NULL,
@@ -1833,46 +1760,28 @@ CREATE TABLE `dmsodutk` (
   `thuedt` decimal(4,2) NOT NULL,
   `lcheck` tinyint(1) NOT NULL,
   `hanmuc` decimal(15,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `dmtenkho`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `dmtenkho`;
 CREATE TABLE `dmtenkho` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `makho` char(3) NOT NULL,
   `tengoi` char(100) NOT NULL,
   `diachi` char(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `dmtiente`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `dmtiente`;
 CREATE TABLE `dmtiente` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `loaitien` char(3) NOT NULL,
   `tengoi` char(30) NOT NULL,
   `viettat` char(3) NOT NULL,
   `tygia` decimal(15,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `dmtkhoan`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `dmtkhoan`;
 CREATE TABLE `dmtkhoan` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `sotk` char(13) NOT NULL,
   `tkhoan` char(6) NOT NULL,
   `tentk` char(100) NOT NULL,
@@ -1893,17 +1802,11 @@ CREATE TABLE `dmtkhoan` (
   `thuedt` decimal(4,2) NOT NULL,
   `lcheck` tinyint(1) NOT NULL,
   `hanmuc` decimal(15,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `hoadon`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `hoadon`;
 CREATE TABLE `hoadon` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `ctid` char(12) NOT NULL,
   `mausohd` char(15) NOT NULL,
   `sohd` char(18) NOT NULL,
@@ -1924,17 +1827,11 @@ CREATE TABLE `hoadon` (
   `dienthoai` char(15) NOT NULL,
   `tygia` decimal(15,2) NOT NULL,
   `masothue` varchar(17) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `ketquakd`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `ketquakd`;
 CREATE TABLE `ketquakd` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `chedokt` char(10) NOT NULL,
   `kyhieu` char(2) NOT NULL,
   `swt` char(3) NOT NULL,
@@ -1950,11 +1847,7 @@ CREATE TABLE `ketquakd` (
   `luyke` decimal(15,2) NOT NULL,
   `luykeno` decimal(15,2) NOT NULL,
   `luykeco` decimal(15,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `ketquakd`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `ketquakd` (`id`, `chedokt`, `kyhieu`, `swt`, `maso`, `kyhieu1`, `kyhieu2`, `tminh`, `chitieu`, `chitieuu`, `cachtinh`, `kytruoc`, `kynay`, `luyke`, `luykeno`, `luykeco`) VALUES
 (5953, 'DNL', '98', 'KQ*', '01', '', '', '', ' - Tổng doanh thu', ' - Gross turnover', '51/52,53,333,91', '197936711.00', '37074376658.00', '5645.00', '0.00', '0.00'),
@@ -2953,15 +2846,9 @@ INSERT INTO `ketquakd` (`id`, `chedokt`, `kyhieu`, `swt`, `maso`, `kyhieu1`, `ky
 (6943, 'DNN', '15', 'GT/', '46', '', '', '', ' 7.Thuế giá trị gia tăng hàng bán nội địa còn phải nộp cuối kỳ', ' 7.Thuế giá trị gia tăng hàng bán nội địa còn phải nộp cuối kỳ', '', '0.00', '0.00', '0.00', '0.00', '0.00'),
 (6944, 'DNN', '15', 'GT', '', '', '', '', '     ( 46 = 40+41-42-43-44-45 )', '     ( 46 = 40+41-42-43-44-45 )', '', '0.00', '0.00', '0.00', '0.00', '0.00');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `lctiente`
---
-
 DROP TABLE IF EXISTS `lctiente`;
 CREATE TABLE `lctiente` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `chedokt` char(10) NOT NULL,
   `kyhieu` char(2) NOT NULL,
   `swt` char(3) NOT NULL,
@@ -2969,18 +2856,14 @@ CREATE TABLE `lctiente` (
   `tminh` char(6) NOT NULL,
   `chitieu` char(100) NOT NULL,
   `chitieuu` char(100) NOT NULL,
-  `dau` smallint(6) NOT NULL,
+  `dau` smallint NOT NULL,
   `tkmoi` char(8) NOT NULL,
   `cachtinh` char(35) NOT NULL,
   `kytruoc` decimal(15,2) NOT NULL,
   `kynay` decimal(15,2) NOT NULL,
   `kytruoclk` decimal(15,2) NOT NULL,
   `kynaylk` decimal(15,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `lctiente`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `lctiente` (`id`, `chedokt`, `kyhieu`, `swt`, `maso`, `tminh`, `chitieu`, `chitieuu`, `dau`, `tkmoi`, `cachtinh`, `kytruoc`, `kynay`, `kytruoclk`, `kynaylk`) VALUES
 (2551, 'DNL', '04', 'GT*', '', '', 'I - LƯU CHUYÊN TIÊN TƯ HOAT ĐÔNG SXKD', 'I - CASH FLOW FROM PRODUCTION AND BUSINESS', 1, '', '', '0.00', '0.00', '0.00', '0.00'),
@@ -3410,33 +3293,21 @@ INSERT INTO `lctiente` (`id`, `chedokt`, `kyhieu`, `swt`, `maso`, `tminh`, `chit
 (2974, 'DNN', '15', 'TT', '61', '', 'Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ', '', 0, '', '', '0.00', '0.00', '0.00', '0.00'),
 (2975, 'DNN', '15', 'TT*', '70', '', 'Tiền và tương đương tiền cuối kỳ (50+60+61)', '', 0, '', '', '0.00', '0.00', '0.00', '0.00');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `quanlykt`
---
-
 DROP TABLE IF EXISTS `quanlykt`;
 CREATE TABLE `quanlykt` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `tentaptin` char(12) NOT NULL,
   `numid` char(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `tenhang`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `tenhang`;
 CREATE TABLE `tenhang` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `mahang` char(13) NOT NULL,
   `tenhang` char(100) NOT NULL,
   `donvi` char(8) NOT NULL,
   `sotk` char(6) NOT NULL,
-  `userid` smallint(6) NOT NULL,
+  `userid` smallint NOT NULL,
   `dongiakh` decimal(16,3) NOT NULL,
   `thuedt` decimal(5,2) NOT NULL,
   `dutru` decimal(16,3) NOT NULL,
@@ -3448,64 +3319,44 @@ CREATE TABLE `tenhang` (
   `postion` char(3) NOT NULL,
   `code` char(15) NOT NULL,
   `descriptio` char(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `tenmuc`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `tenmuc`;
 CREATE TABLE `tenmuc` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `tkhoan` char(6) NOT NULL,
   `tenkhoan` char(50) NOT NULL,
   `kyhieu` char(3) NOT NULL,
   `ghichu` char(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `tenmuc`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `tenmuc` (`id`, `tkhoan`, `tenkhoan`, `kyhieu`, `ghichu`) VALUES
 (1497, '', '', '', '');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `users`
---
-
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
   `username` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `datalist` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `admin` tinyint(1) DEFAULT 0,
-  `role` int(11) NOT NULL DEFAULT 1,
+  `admin` tinyint(1) DEFAULT '0',
+  `role` int NOT NULL DEFAULT '1',
   `gender` tinyint(1) DEFAULT NULL,
-  `age` int(3) DEFAULT NULL,
+  `age` int DEFAULT NULL,
   `dob` date DEFAULT NULL,
   `mobile` varchar(20) DEFAULT NULL,
   `city` varchar(50) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `position` varchar(50) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 0,
-  `token` mediumtext DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '0',
+  `token` mediumtext,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `users`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `users` (`id`, `username`, `name`, `email`, `datalist`, `address`, `password`, `admin`, `role`, `gender`, `age`, `dob`, `mobile`, `city`, `image`, `position`, `status`, `token`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Nghĩa ACN', 'Trần Văn Nghĩa', 'nghiatv@gmail.com', 'ketoan_xuanmai;ketoan_kingminh;ketoan_nhatnam', '118/63 Bạch Đằng ,p24,Bình Thạnh - HCM', '$2a$10$/E4TkCoFUEGj2lkr/UrmxuXafULxg.4/QKH2aesj7VlAX5Cz8U58a', 1, 2, 1, 50, '1961-12-15', '0903917963', 'Hồ Chí Minh', '/images/users/User_01.png', 'Software Development', 1, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU4NTI4NDc0MSwiZXhwIjoxNTg1Mjg4MzQxLCJuYmYiOjE1ODUyODQ3NDEsImp0aSI6InBhSlZCazczcW4zSjloMUIiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.877jGS6mgv8lPZW2ktvvVmO3Y5jfSwnIP3HZLK322_8', 'r3H8CRJdjMQkNCpBwU16lkQILwdxnizaRx3wQLdLbbdmmvS0d20P1lNKCMVY', '2018-03-21 00:00:00', '2020-03-27 00:00:00'),
@@ -3516,15 +3367,9 @@ INSERT INTO `users` (`id`, `username`, `name`, `email`, `datalist`, `address`, `
 (18, 'nghiatv', 'Trần Văn Nghĩa', 'twitter@gmail.com', '', '', '$2y$10$Oy8n/fV1OOqEAYYXlOqwBOip6HtHIZNgraW0tt0jIvxMsb22/PWwC', 0, 1, 0, 0, '0000-00-00', '', '', '/images/users/User_18.png', '', 0, 'lio2hpo2IQ7CEZLTbYfpRzqKbUu8tZ', '', '2020-04-08 00:00:00', '2020-04-10 00:00:00'),
 (40, '5555@gmail.com', '5555@gmail.com', '5555@gmail.com', 'ketoan_xuanmai;ketoan_kingminh;', 'null', '$2a$10$nrcmSYG0S72QC8lA1jiuNOJBbdN1l.ckxI7Fk2t9Fg59OlJMxY7Wi', 0, 1, 0, 0, '0000-00-00', 'null', 'null', 'null', 'null', 0, 'null', 'null', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `user_lev`
---
-
 DROP TABLE IF EXISTS `user_lev`;
 CREATE TABLE `user_lev` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `group_id` char(3) NOT NULL,
   `descriptio` char(30) NOT NULL,
   `startup_ac` longtext NOT NULL,
@@ -3537,11 +3382,7 @@ CREATE TABLE `user_lev` (
   `kt7` tinyint(1) NOT NULL,
   `write_` tinyint(1) NOT NULL,
   `locked` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `user_lev`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `user_lev` (`id`, `group_id`, `descriptio`, `startup_ac`, `kt1`, `kt2`, `kt3`, `kt4`, `kt5`, `kt6`, `kt7`, `write_`, `locked`) VALUES
 (67, '  0', 'Quản trị hệ thống', '', 1, 1, 1, 1, 1, 1, 1, 1, ''),
@@ -3556,19 +3397,10 @@ INSERT INTO `user_lev` (`id`, `group_id`, `descriptio`, `startup_ac`, `kt1`, `kt
 (76, '  9', 'Giám đốc điều hành', '', 0, 0, 0, 0, 0, 0, 0, 0, ''),
 (77, ' 10', 'Quan sát viên', '', 1, 1, 1, 1, 1, 1, 1, 0, '');
 
---
--- Chỉ mục cho các bảng đã đổ
---
 
---
--- Chỉ mục cho bảng `cdketoan`
---
 ALTER TABLE `cdketoan`
   ADD PRIMARY KEY (`id`);
 
---
--- Chỉ mục cho bảng `chitiet`
---
 ALTER TABLE `chitiet`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ctid` (`ctid`),
@@ -3577,21 +3409,12 @@ ALTER TABLE `chitiet`
   ADD KEY `tkno` (`tkno`,`matkno`) USING BTREE,
   ADD KEY `tkco` (`tkco`,`matkco`) USING BTREE;
 
---
--- Chỉ mục cho bảng `connect`
---
 ALTER TABLE `connect`
   ADD PRIMARY KEY (`id`);
 
---
--- Chỉ mục cho bảng `connects`
---
 ALTER TABLE `connects`
   ADD PRIMARY KEY (`id`);
 
---
--- Chỉ mục cho bảng `ctuktoan`
---
 ALTER TABLE `ctuktoan`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ctid` (`ctid`),
@@ -3603,9 +3426,6 @@ ALTER TABLE `ctuktoan`
   ADD KEY `tkco` (`tkco`,`matkco`) USING BTREE,
   ADD KEY `ngay` (`ngay`);
 
---
--- Chỉ mục cho bảng `ctuvattu`
---
 ALTER TABLE `ctuvattu`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ctid` (`ctid`),
@@ -3613,9 +3433,6 @@ ALTER TABLE `ctuvattu`
   ADD KEY `makho` (`makho`),
   ADD KEY `mahang` (`mahang`);
 
---
--- Chỉ mục cho bảng `customer`
---
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name` (`name`),
@@ -3624,9 +3441,6 @@ ALTER TABLE `customer`
   ADD KEY `makhach` (`makhach`),
   ADD KEY `company` (`company`);
 
---
--- Chỉ mục cho bảng `dmkhohag`
---
 ALTER TABLE `dmkhohag`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nammahangkho` (`nam`,`mahang`,`makho`),
@@ -3634,9 +3448,6 @@ ALTER TABLE `dmkhohag`
   ADD KEY `makho` (`makho`),
   ADD KEY `nam` (`nam`);
 
---
--- Chỉ mục cho bảng `dmsodutk`
---
 ALTER TABLE `dmsodutk`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `namsotktkhoan` (`nam`,`sotk`,`tkhoan`),
@@ -3644,217 +3455,115 @@ ALTER TABLE `dmsodutk`
   ADD KEY `tkhoan` (`tkhoan`),
   ADD KEY `nam` (`nam`);
 
---
--- Chỉ mục cho bảng `dmtenkho`
---
 ALTER TABLE `dmtenkho`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `makho` (`makho`);
 
---
--- Chỉ mục cho bảng `dmtiente`
---
 ALTER TABLE `dmtiente`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `loaitien` (`loaitien`);
 
---
--- Chỉ mục cho bảng `dmtkhoan`
---
 ALTER TABLE `dmtkhoan`
   ADD PRIMARY KEY (`sotk`),
   ADD UNIQUE KEY `id` (`id`),
   ADD KEY `tkhoan` (`tkhoan`),
   ADD KEY `sotktkhoan` (`sotk`,`tkhoan`);
 
---
--- Chỉ mục cho bảng `hoadon`
---
 ALTER TABLE `hoadon`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ctid` (`ctid`),
   ADD KEY `mamauhd` (`mamauhd`);
 
---
--- Chỉ mục cho bảng `ketquakd`
---
 ALTER TABLE `ketquakd`
   ADD PRIMARY KEY (`id`);
 
---
--- Chỉ mục cho bảng `lctiente`
---
 ALTER TABLE `lctiente`
   ADD PRIMARY KEY (`id`);
 
---
--- Chỉ mục cho bảng `quanlykt`
---
 ALTER TABLE `quanlykt`
   ADD PRIMARY KEY (`id`),
   ADD KEY `tentaptin` (`tentaptin`);
 
---
--- Chỉ mục cho bảng `tenhang`
---
 ALTER TABLE `tenhang`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `mahang` (`mahang`);
 
---
--- Chỉ mục cho bảng `tenmuc`
---
 ALTER TABLE `tenmuc`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tkhoan` (`tkhoan`),
   ADD KEY `tenkhoan` (`tenkhoan`);
 
---
--- Chỉ mục cho bảng `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
---
--- Chỉ mục cho bảng `user_lev`
---
 ALTER TABLE `user_lev`
   ADD PRIMARY KEY (`id`),
   ADD KEY `group_id` (`group_id`),
   ADD KEY `descriptio` (`descriptio`);
 
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
 
---
--- AUTO_INCREMENT cho bảng `cdketoan`
---
 ALTER TABLE `cdketoan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=955;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=955;
 
---
--- AUTO_INCREMENT cho bảng `chitiet`
---
 ALTER TABLE `chitiet`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `connect`
---
 ALTER TABLE `connect`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
---
--- AUTO_INCREMENT cho bảng `connects`
---
 ALTER TABLE `connects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- AUTO_INCREMENT cho bảng `ctuktoan`
---
 ALTER TABLE `ctuktoan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `ctuvattu`
---
 ALTER TABLE `ctuvattu`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `customer`
---
 ALTER TABLE `customer`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `dmkhohag`
---
 ALTER TABLE `dmkhohag`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `dmsodutk`
---
 ALTER TABLE `dmsodutk`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `dmtenkho`
---
 ALTER TABLE `dmtenkho`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `dmtiente`
---
 ALTER TABLE `dmtiente`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `dmtkhoan`
---
 ALTER TABLE `dmtkhoan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `hoadon`
---
 ALTER TABLE `hoadon`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `ketquakd`
---
 ALTER TABLE `ketquakd`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6945;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6945;
 
---
--- AUTO_INCREMENT cho bảng `lctiente`
---
 ALTER TABLE `lctiente`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2976;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2976;
 
---
--- AUTO_INCREMENT cho bảng `quanlykt`
---
 ALTER TABLE `quanlykt`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `tenhang`
---
 ALTER TABLE `tenhang`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT cho bảng `tenmuc`
---
 ALTER TABLE `tenmuc`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1498;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1498;
 
---
--- AUTO_INCREMENT cho bảng `users`
---
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
---
--- AUTO_INCREMENT cho bảng `user_lev`
---
 ALTER TABLE `user_lev`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
---
--- Các ràng buộc cho các bảng đã đổ
---
 
---
--- Các ràng buộc cho bảng `chitiet`
---
 ALTER TABLE `chitiet`
   ADD CONSTRAINT `chitiet_ibfk_1` FOREIGN KEY (`tkno`) REFERENCES `dmtkhoan` (`sotk`) ON UPDATE CASCADE,
   ADD CONSTRAINT `chitiet_ibfk_2` FOREIGN KEY (`tkco`) REFERENCES `dmtkhoan` (`sotk`) ON UPDATE CASCADE,
@@ -3862,9 +3571,6 @@ ALTER TABLE `chitiet`
   ADD CONSTRAINT `chitiet_ibfk_4` FOREIGN KEY (`matkno`) REFERENCES `tenmuc` (`tkhoan`) ON UPDATE CASCADE,
   ADD CONSTRAINT `chitiet_ibfk_5` FOREIGN KEY (`matkco`) REFERENCES `tenmuc` (`tkhoan`) ON UPDATE CASCADE;
 
---
--- Các ràng buộc cho bảng `ctuktoan`
---
 ALTER TABLE `ctuktoan`
   ADD CONSTRAINT `ctuktoan_ibfk_4` FOREIGN KEY (`loaitien`) REFERENCES `dmtiente` (`loaitien`) ON UPDATE CASCADE,
   ADD CONSTRAINT `ctuktoan_ibfk_5` FOREIGN KEY (`tkco`) REFERENCES `dmtkhoan` (`sotk`) ON UPDATE CASCADE,
@@ -3872,31 +3578,19 @@ ALTER TABLE `ctuktoan`
   ADD CONSTRAINT `ctuktoan_ibfk_7` FOREIGN KEY (`matkno`) REFERENCES `tenmuc` (`tkhoan`) ON UPDATE CASCADE,
   ADD CONSTRAINT `ctuktoan_ibfk_8` FOREIGN KEY (`matkco`) REFERENCES `tenmuc` (`tkhoan`) ON UPDATE CASCADE;
 
---
--- Các ràng buộc cho bảng `ctuvattu`
---
 ALTER TABLE `ctuvattu`
   ADD CONSTRAINT `ctuvattu_ibfk_2` FOREIGN KEY (`mahang`) REFERENCES `tenhang` (`mahang`) ON UPDATE CASCADE,
   ADD CONSTRAINT `ctuvattu_ibfk_3` FOREIGN KEY (`makho`) REFERENCES `dmtenkho` (`makho`) ON UPDATE CASCADE,
   ADD CONSTRAINT `ctuvattu_ibfk_4` FOREIGN KEY (`ctid`) REFERENCES `ctuktoan` (`ctid`) ON UPDATE CASCADE;
 
---
--- Các ràng buộc cho bảng `dmkhohag`
---
 ALTER TABLE `dmkhohag`
   ADD CONSTRAINT `dmkhohag_ibfk_1` FOREIGN KEY (`mahang`) REFERENCES `tenhang` (`mahang`) ON UPDATE CASCADE,
   ADD CONSTRAINT `dmkhohag_ibfk_2` FOREIGN KEY (`makho`) REFERENCES `dmtenkho` (`makho`) ON UPDATE CASCADE;
 
---
--- Các ràng buộc cho bảng `dmsodutk`
---
 ALTER TABLE `dmsodutk`
   ADD CONSTRAINT `dmsodutk_ibfk_1` FOREIGN KEY (`sotk`) REFERENCES `dmtkhoan` (`sotk`) ON UPDATE CASCADE,
   ADD CONSTRAINT `dmsodutk_ibfk_2` FOREIGN KEY (`tkhoan`) REFERENCES `tenmuc` (`tkhoan`) ON UPDATE CASCADE;
 
---
--- Các ràng buộc cho bảng `hoadon`
---
 ALTER TABLE `hoadon`
   ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`ctid`) REFERENCES `ctuktoan` (`ctid`) ON UPDATE CASCADE;
 COMMIT;

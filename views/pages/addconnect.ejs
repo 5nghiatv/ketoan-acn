@@ -60,10 +60,10 @@
 
                 <div class="form-group" style="padding-left:0px;" >
                     <button name='addnew' type="submit" class="btn btn-info"><i class="fa fa-file-o"></i> Add New</button>
-                    <a class="btn btn-warning" href="/connects"><i class="fa fa-list-alt"></i> View All</a>
-                    <button <%= btndisabled %> name='update' type="submit" class="btn btn-info"><i class="fa fa-database"></i> Update</button>
-                    <button title='Kiểm tra xem Database có sẵn dùng...' name='checkconnect' type="submit" class="btn btn-success"><i class="fa fa-file-o"></i> Check</button>
-                    <button title='Vui lòng chờ khi thực hiện...' name='createdatabase' type="submit" class="btn btn-danger"><i class="fa fa-database"></i> Create Data</button>
+                    <a class="btn btn-warning" href="/connects"><i class="fa fa-list"></i> View All</a>
+                    <button <%= btndisabled %> name='update' type="submit" class="btn btn-info"><i class="fa fa-floppy-o "></i> Update</button>
+                    <button title='Kiểm tra xem Database có sẵn dùng...' name='checkconnect' type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i> Check</button>
+                    <button onclick="return confirm('Xác nhận muốn tạo dữ liệu mới ( xóa dữ liệu cũ ) ?');" title='Vui lòng chờ khi thực hiện...' name='createdatabase' type="submit" class="btn btn-danger"><i class="fa fa-database"></i> Create Data</button>
                 </div>
 
         </form>

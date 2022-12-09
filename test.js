@@ -361,7 +361,7 @@ var req = {
   },
 }
 
-testConnect()
+// testConnect()
 function testConnect() {
   const conn = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -380,3 +380,9 @@ function testConnect() {
     console.log('OK.....connected', dbConfig)
   })
 }
+
+// SET GLOBAL sql_mode = `NO_ENGINE_SUBSTITUTION,NO_AUTO_VALUE_ON_ZERO`;
+// START TRANSACTION;
+// SET time_zone = "+00:00";
+// SET foreign_key_checks = 0;
+// SET GLOBAL log_bin_trust_function_creators = 1;
