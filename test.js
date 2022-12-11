@@ -361,28 +361,37 @@ var req = {
   },
 }
 
-// testConnect()
-function testConnect() {
-  const conn = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT,
-  })
-
+testConnect()
+async function testConnect() {
+  // const { readFile, connection, query, dbConfig } = require('./data/connect/expAsync')
   dbConfig.host = 'localhost'
-  conn.connect((err) => {
-    conn.close()
-    if (err) {
+  var conn = await connection(dbConfig)
+  if (!conn) {
+    throw new Error('fdgfdg')
+  }
+  await query(conn, 'select * from dmtiente')
+    .then((data) => {
+      console.log(111, data)
+    })
+    .catch((err) => {
       throw err
-    }
-    console.log('OK.....connected', dbConfig)
-  })
-}
+    })
+  conn.close()
 
-// SET GLOBAL sql_mode = `NO_ENGINE_SUBSTITUTION,NO_AUTO_VALUE_ON_ZERO`;
-// START TRANSACTION;
-// SET time_zone = "+00:00";
-// SET foreign_key_checks = 0;
-// SET GLOBAL log_bin_trust_function_creators = 1;
+  // const conn = mysql.createConnection({
+  //   host: process.env.DB_HOST,
+  //   user: process.env.DB_USERNAME,
+  //   password: process.env.DB_PASSWORD,
+  //   database: process.env.DB_DATABASE,
+  //   port: process.env.DB_PORT,
+  // })
+
+  // dbConfig.host = 'localhost'
+  // conn.connect((err) => {
+  //   conn.close()
+  //   if (err) {
+  //     throw err
+  //   }
+  //   console.log('OK.....connected', dbConfig)
+  // })
+}

@@ -151,17 +151,29 @@ router.delete('/connect/:id', (req, res) => {
     )
 })
 
-function createDatabase(req, res) {
+async function createDatabase(req, res) {
+  const { connection, query, dbConfig } = require('../../data/connect/expAsync')
+  dbConfig.host = req.body.host
+  dbConfig.user = req.body.username
+  dbConfig.password = req.body.password
+  dbConfig.database = null
+
+  var conn = await connection(dbConfig)
+  if (conn)
+    await query(
+      conn,
+      'CREATE DATABASE IF NOT EXISTS ' + req.body.database + ' CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci',
+    )
+  else throw new Error('Lỗi kết nối Mysql...')
+  conn.close()
+  //========================= Create database Nếu chưa có
   const fs = require('fs')
   const JSZip = require('jszip')
   const tmp = require('tmp')
-  let host = req.body.host
-  let user = req.body.username
-  let password = req.body.password
-  let database = req.body.database
+  dbConfig.database = req.body.database
   const Importer = require('../../data/connect/mysql-import')
-  const importer = new Importer({ host, user, password, database })
-  let localfile = __dirname + '/../../data/ketoan_acn_FULL.sql.zip'
+  const importer = new Importer(dbConfig)
+  let localfile = __dirname + '/../../data/Backups-ketoan_upload.zip'
   //console.log(111, localfile)
   fs.readFile(localfile, function (err, data) {
     if (!err) {
@@ -185,8 +197,9 @@ function createDatabase(req, res) {
                   console.log(`${percent}% Completed`)
                 })
 
-                try {
-                  importer.import('', destfile).then(() => {
+                importer
+                  .import('', destfile)
+                  .then(() => {
                     var files_imported = importer.getImported()
                     let mess = `${files_imported.length} SQL file(s): ${total_bytes} bytes imported.`
                     console.log(mess)
@@ -198,14 +211,20 @@ function createDatabase(req, res) {
                       // error_msg:
                     })
                   })
-                } catch (err) {
-                  console.error(err)
-                }
+                  .catch((err) => {
+                    console.error(err)
+                    res.status(500).json({ message: 'Please run again...', error: err }).end()
+                  })
               })
           }
         })
       })
-    } else console.error('Not read file : ' + localfile)
+    } else {
+      res
+        .status(500)
+        .json({ success: false, error: 'Not read file : ' + localfile })
+        .end()
+    }
   })
 }
 

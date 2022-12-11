@@ -1,6 +1,16 @@
 const Connect = require('../models/connect')
 const { User } = require('../models/User')
 const mysql = require('mysql2')
+function waitVarEqual(var1, var2) {
+  if (var1 === var2) {
+    //we want it to match
+    setTimeout(doStuff, 50) //wait 50 millisecnds then recheck
+    return
+  }
+  var2 = var1
+  //real action
+}
+
 const {
   createConnectSql,
   getAllConnectSql,
@@ -25,10 +35,10 @@ exports.getFilterConnect = function (req, res) {
           //res.send(allConnect);
           var confilter = [] // Lọc và chọn Database
           var ncount = 0
-          var result = new Promise((resolve, reject) => {
+          var result = new Promise(async (resolve, reject) => {
             if (singleUser.length == 0 || singleUser[0].databases.length == 0) resolve(confilter)
             //console.log(singleUser.length, 1,singleUser[0].databases);
-            allConnect.forEach((kq, index, array) => {
+            await allConnect.forEach((kq, index, array) => {
               //console.log(databases,kq.database)
               const retcon = mysql.createConnection({
                 host: kq.host,
@@ -43,23 +53,24 @@ exports.getFilterConnect = function (req, res) {
                     'SELECT MIN(ngay) AS fromdate ,MAX(ngay) AS todate FROM ctuktoan',
                     (err, rows, fields) => {
                       retcon.destroy()
-                      ncount++
                       if (!err) {
                         var conn = allConnect[index]
                         conn['fromdate'] = rows[0].fromdate
                         conn['todate'] = rows[0].todate
                         if (databases.includes(kq.database)) confilter.push(conn)
                       }
-                      // console.log(ncount, array.length, kq.database)
-                      if (ncount === array.length - 1) resolve(confilter)
+                      ncount++
+                      // console.log(ncount, '/', array.length, '+', kq.database, 'total: ', confilter.length)
+                      if (ncount === array.length) resolve(confilter)
                     },
                   )
-                }
+                } else ncount++
               }) //  retcon.connect()
             }) // allConnect.forEach()
+            waitVarEqual(ncount, allConnect.length)
           }) // result = new Promise()
           result.then((ret) => {
-            // console.log(111,ret)
+            console.log('===>', 'Total Database: ', ret.length)
             return res.status(200).json({
               success: true,
               message: 'A list of all Connect OK',

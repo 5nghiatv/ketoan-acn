@@ -32,19 +32,24 @@ exports.vfpUpload = async function (req, res) {
     console.log('==== Error Connect Database...')
     return res.status(500).json({ message: '==== Error Connect Database...' })
   }
+  let result = await query(conn, 'SHOW TABLES; ')
+  if (result == 0) return res.status(218).json({ message: 'Database kế toán không hợp lệ...' })
 
-  if (firstYear)
-    var result = await query(
+  if (firstYear) {
+    result = await query(
       conn,
-      'SET GLOBAL sql_mode = `NO_ENGINE_SUBSTITUTION`;SET FOREIGN_KEY_CHECKS=0; TRUNCATE `chitiet`; TRUNCATE `ctuvattu`; TRUNCATE `hoadon`; TRUNCATE `ctuktoan`; TRUNCATE `dmkhohag`; TRUNCATE `dmsodutk`; TRUNCATE `dmtkhoan`; TRUNCATE `dmtiente`; TRUNCATE `tenhang`; TRUNCATE `dmtenkho`; TRUNCATE `customer`; TRUNCATE `quanlykt`; TRUNCATE `dmsodutk`; TRUNCATE `dmkhohag`; SET FOREIGN_KEY_CHECKS=1; ',
+      'SET SESSION sql_mode = `NO_ENGINE_SUBSTITUTION`;SET GLOBAL sql_mode = `NO_ENGINE_SUBSTITUTION`;SET FOREIGN_KEY_CHECKS=0; TRUNCATE `chitiet`; TRUNCATE `ctuvattu`; TRUNCATE `hoadon`; TRUNCATE `ctuktoan`; TRUNCATE `dmkhohag`; TRUNCATE `dmsodutk`; TRUNCATE `dmtkhoan`; TRUNCATE `dmtiente`; TRUNCATE `tenhang`; TRUNCATE `dmtenkho`; TRUNCATE `customer`; TRUNCATE `quanlykt`; TRUNCATE `dmsodutk`; TRUNCATE `dmkhohag`; SET FOREIGN_KEY_CHECKS=1; ',
     )
+  }
+  let soluongquery = 18
+  // Sửa số lượng trả về trên khi query trên thay đổi
   // firstYear is : Xóa hết danh mục
 
   var cfileCheck = `${dir}/ctuktoan.dbf`
-  if (!fs.existsSync(cfileCheck) || (firstYear && result.length !== 17)) {
+  if (!fs.existsSync(cfileCheck) || (firstYear && result.length !== soluongquery)) {
     conn.destroy()
     var mess =
-      firstYear && result.length !== 16
+      firstYear && result.length !== soluongquery
         ? 'Chuẩn bị danh mục kế toán (del-ins) để upload không thành công. '
         : 'Chuẩn bị Danh mục thành công (del), nhưng file dữ liệu không tồn tại : ' + cfileCheck
     console.log(0, mess, 1, 'Database được Xóa rỗng.')
@@ -73,7 +78,10 @@ exports.vfpUpload = async function (req, res) {
         iconv1252(record.TENTAPTIN) +
         "'); "
     })
-    if (command) await query(conn, command)
+    if (command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
     console.log('quanlykt:', records.length)
     //===========================
     dbf = await DBFFile.open(`${dir}/dmtenkho.dbf`)
@@ -91,7 +99,10 @@ exports.vfpUpload = async function (req, res) {
         iconv1252(record.MAKHO) +
         "') LIMIT 1;"
     })
-    if (command) await query(conn, command)
+    if (command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
     console.log('dmtenkho:', records.length)
     //===========================
     dbf = await DBFFile.open(`${dir}/dmtiente.dbf`)
@@ -111,7 +122,10 @@ exports.vfpUpload = async function (req, res) {
         iconv1252(record.LOAITIEN) +
         "') LIMIT 1;"
     })
-    if (command) await query(conn, command)
+    if (command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
     console.log('dmttiente:', records.length)
     //===========================
     dbf = await DBFFile.open(`${dir}/dmtkhoan.dbf`)
@@ -146,15 +160,22 @@ exports.vfpUpload = async function (req, res) {
           iconv1252(namnay + record.SOTK) +
           "') LIMIT 1;"
       if ((index + 1) % instline == 0) {
-        query(conn, command)
+        query(conn, command).catch((err) => {
+          throw err
+        })
         command = ''
       }
     })
-    if (command) await query(conn, command)
+    if (command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
     console.log('dmtkhoan:', records.length)
     //=========================== dmsodutk
     if (namnay && command_) {
-      await query(conn, command_)
+      await query(conn, command_).catch((err) => {
+        throw err
+      })
       console.log('dmsodutk:', records.length)
     } // sau dmtkhoan
     //===========================
@@ -173,11 +194,16 @@ exports.vfpUpload = async function (req, res) {
         iconv1252(record.MAHANG) +
         "') LIMIT 1;"
       if ((index + 1) % instline == 0) {
-        query(conn, command)
+        query(conn, command).catch((err) => {
+          throw err
+        })
         command = ''
       }
     })
-    if (command) await query(conn, command)
+    if (command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
     console.log('tenhang:', records.length)
     //===========================
     dbf = await DBFFile.open(`${dir}/dmkhohag.dbf`)
@@ -205,7 +231,9 @@ exports.vfpUpload = async function (req, res) {
           "') LIMIT 1;"
     })
     if (namnay && command) {
-      await query(conn, command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
       console.log('dmkhohag:', records.length)
     }
     //===========================
@@ -233,11 +261,16 @@ exports.vfpUpload = async function (req, res) {
         ErrNum(record.SOTIEN) +
         '); '
       if ((index + 1) % instline == 0) {
-        query(conn, command)
+        query(conn, command).catch((err) => {
+          throw err
+        })
         command = ''
       }
     })
-    if (command) await query(conn, command)
+    if (command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
     console.log('ctuktoan:', records.length)
     //===========================
     dbf = await DBFFile.open(`${dir}/chitiet.dbf`)
@@ -258,11 +291,16 @@ exports.vfpUpload = async function (req, res) {
         ErrNum(record.SOTIEN) +
         '); '
       if ((index + 1) % instline == 0) {
-        query(conn, command)
+        query(conn, command).catch((err) => {
+          throw err
+        })
         command = ''
       }
     })
-    if (command) await query(conn, command)
+    if (command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
     console.log('chitiet:', records.length)
     //===========================
     dbf = await DBFFile.open(`${dir}/ctuvattu.dbf`)
@@ -283,11 +321,16 @@ exports.vfpUpload = async function (req, res) {
         ErrNum(record.SOTIEN) +
         '); '
       if ((index + 1) % instline == 0) {
-        query(conn, command)
+        query(conn, command).catch((err) => {
+          throw err
+        })
         command = ''
       }
     })
-    if (command) await query(conn, command)
+    if (command)
+      await query(conn, command).catch((err) => {
+        throw err
+      })
     console.log('ctuvattu:', records.length)
     //===========================
     var custList = [] // Dành riêng gán cho hoadon.masothue
@@ -310,11 +353,16 @@ exports.vfpUpload = async function (req, res) {
           iconv1252(record.MASO) +
           "') LIMIT 1;"
         if ((index + 1) % instline == 0) {
-          query(conn, command)
+          query(conn, command).catch((err) => {
+            throw err
+          })
           command = ''
         }
       })
-      if (command) await query(conn, command)
+      if (command)
+        await query(conn, command).catch((err) => {
+          throw err
+        })
       console.log('customer:', records.length)
     } else console.log('customer:', 0, 'Không tồn tại trong thư mục.')
     //===========================
@@ -350,18 +398,25 @@ exports.vfpUpload = async function (req, res) {
           ErrNum(record.THUEGTGT) +
           '); '
         if ((index + 1) % instline == 0) {
-          query(conn, command)
+          query(conn, command).catch((err) => {
+            throw err
+          })
           command = ''
         }
       })
-      if (command) await query(conn, command)
+      if (command)
+        await query(conn, command).catch((err) => {
+          throw err
+        })
       console.log('hoadon:', records.length)
     } catch (error) {
       console.log('hoadon:', records.length, '===> Not 100%')
     }
     //===========================
     command = "UPDATE quanlykt SET numid = (select MAX(ctid) from ctuktoan) WHERE tentaptin ='CTUKTOAN' "
-    await query(conn, command)
+    await query(conn, command).catch((err) => {
+      throw err
+    })
     conn.destroy()
     console.log('Vfp upload thành công...')
     return res.status(200).json({ success: true, message: 'Vfp upload thành công...' })
