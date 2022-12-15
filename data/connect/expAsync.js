@@ -30,23 +30,24 @@ exports.connection = function (params) {
     connection.connect((error) => {
       if (error) {
         reject(error)
-        return
-      }
-      resolve(connection)
+      } else resolve(connection)
     })
   })
 }
 
 exports.query = function (conn, q, params) {
   return new Promise((resolve, reject) => {
-    const handler = (error, result) => {
-      if (error) {
-        reject(error)
-        return
-      }
-      resolve(result)
-    }
-    conn.query(q, params, handler)
+    conn.query(q, params, (err, results) => {
+      if (err) reject(err)
+      resolve(results)
+    })
+
+    // conn.query(q, params)
+    // const handler = (error, result) => {
+    //   if (error) {
+    //     reject(error)
+    //   } else resolve(result)
+    // }
+    // conn.query(q, params, handler)
   })
 }
-

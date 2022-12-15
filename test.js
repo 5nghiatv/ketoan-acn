@@ -361,22 +361,32 @@ var req = {
   },
 }
 
-testConnect()
+// testConnect()
 async function testConnect() {
   // const { readFile, connection, query, dbConfig } = require('./data/connect/expAsync')
   dbConfig.host = 'localhost'
+  dbConfig.database = 'ketoan_upload'
   var conn = await connection(dbConfig)
+  console.error(666)
   if (!conn) {
     throw new Error('fdgfdg')
   }
-  await query(conn, 'select * from dmtiente')
+
+  console.error(333)
+  let quer =
+    'SET SESSION sql_mode = `NO_ENGINE_SUBSTITUTION`;SET GLOBAL sql_mode = `NO_ENGINE_SUBSTITUTION`;SET FOREIGN_KEY_CHECKS=0; TRUNCATE `chitiet`; TRUNCATE `ctuvattu`; TRUNCATE `hoadon`; TRUNCATE `ctuktoan`; TRUNCATE `dmkhohag`; TRUNCATE `dmsodutk`; TRUNCATE `dmtkhoan`; TRUNCATE `dmtiente`; TRUNCATE `tenhang`; TRUNCATE `dmtenkho`; TRUNCATE `customer`; TRUNCATE `quanlykt`; TRUNCATE `dmsodutk`; TRUNCATE `dmkhohag`; SET FOREIGN_KEY_CHECKS=1; '
+  // let result = await query(conn, quer)
+  // await query(conn, 'select * from dmtiente limit 2')
+  let abc = await query(conn, quer)
     .then((data) => {
       console.log(111, data)
     })
     .catch((err) => {
-      throw err
+      console.log(222)
+      // throw err
     })
   conn.close()
+  console.error(444, !abc)
 
   // const conn = mysql.createConnection({
   //   host: process.env.DB_HOST,
@@ -395,3 +405,8 @@ async function testConnect() {
   //   console.log('OK.....connected', dbConfig)
   // })
 }
+
+console.log('your name111')
+setTimeout(function () {
+  console.log('your name')
+}, 5000)

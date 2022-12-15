@@ -2647,10 +2647,14 @@ exports.backupData = async function (req, res) {
     cReturn = '',
     ncount = 0
   cReturn = PHP_EOL
-  cReturn += "SET sql_mode = '';" + PHP_EOL
+  cReturn += 'SET sql_mode = "NO_ENGINE_SUBSTITUTION,NO_AUTO_VALUE_ON_ZERO";' + PHP_EOL
   cReturn += 'START TRANSACTION;' + PHP_EOL
   cReturn += 'SET time_zone = "+00:00";' + PHP_EOL
   cReturn += 'SET foreign_key_checks = 0;' + PHP_EOL
+  cReturn += 'SET GLOBAL log_bin_trust_function_creators = 1;' + PHP_EOL
+  cReturn += 'DROP TABLE IF EXISTS `chitiet`; DROP TABLE IF EXISTS `ctuvattu`;' + PHP_EOL
+  cReturn += 'DROP TABLE IF EXISTS `hoadon`; DROP TABLE IF EXISTS `ctuktoan`;' + PHP_EOL
+  cReturn += 'DROP TABLE IF EXISTS `dmsodutk`; DROP TABLE IF EXISTS `dmkhohag`;' + PHP_EOL
   cReturn += PHP_EOL
   // cReturn += "-- "+PHP_EOL;
   // cReturn += "-- Cơ sở dữ liệu: `"+ connect.database+"`"+PHP_EOL;

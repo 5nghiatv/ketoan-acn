@@ -4,7 +4,7 @@ const fs = require('fs')
 const moment = require('moment')
 const iconv = require('iconv-lite')
 const _ = require('lodash')
-const { readFile, connection, query, dbConfig } = require('../connect/expAsync')
+const { connection, query, dbConfig } = require('../connect/expAsync')
 dbConfig.database = process.env.DB_DATABASE_
 const { DBFFile } = require('./dbffile/dbf-file')
 if (!String.prototype.hasOwnProperty('addSlashes')) {
@@ -27,20 +27,26 @@ exports.vfpUpload = async function (req, res) {
   var firstYear = req.body.firstYear
   var instline = 500
   // async function uploadVfp(dir, instline = 500){
-  var conn = await connection(dbConfig)
+  var conn = await connection(dbConfig).catch(() => {})
   if (!conn) {
     console.log('==== Error Connect Database...')
-    return res.status(500).json({ message: '==== Error Connect Database...' })
+    return res.status(218).json({ message: '==== Error Connect Database...' })
   }
-  let result = await query(conn, 'SHOW TABLES; ')
-  if (result == 0) return res.status(218).json({ message: 'Database kế toán không hợp lệ...' })
+  let result = await query(conn, 'SHOW TABLES; ').catch(() => {})
+  if (!result || result.length === 0) return res.status(218).json({ message: 'Database kế toán không hợp lệ...1' })
 
   if (firstYear) {
     result = await query(
       conn,
       'SET SESSION sql_mode = `NO_ENGINE_SUBSTITUTION`;SET GLOBAL sql_mode = `NO_ENGINE_SUBSTITUTION`;SET FOREIGN_KEY_CHECKS=0; TRUNCATE `chitiet`; TRUNCATE `ctuvattu`; TRUNCATE `hoadon`; TRUNCATE `ctuktoan`; TRUNCATE `dmkhohag`; TRUNCATE `dmsodutk`; TRUNCATE `dmtkhoan`; TRUNCATE `dmtiente`; TRUNCATE `tenhang`; TRUNCATE `dmtenkho`; TRUNCATE `customer`; TRUNCATE `quanlykt`; TRUNCATE `dmsodutk`; TRUNCATE `dmkhohag`; SET FOREIGN_KEY_CHECKS=1; ',
-    )
+    ).catch((err) => {
+      return res.status(218).json({ message: 'Database kế toán không hợp lệ...2' })
+    })
   }
+  // await setTimeout(function () {
+  //   console.log('your name')
+  // }, 5000)
+
   let soluongquery = 18
   // Sửa số lượng trả về trên khi query trên thay đổi
   // firstYear is : Xóa hết danh mục

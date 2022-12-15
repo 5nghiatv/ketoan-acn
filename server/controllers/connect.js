@@ -1,16 +1,6 @@
 const Connect = require('../models/connect')
 const { User } = require('../models/User')
 const mysql = require('mysql2')
-function waitVarEqual(var1, var2) {
-  if (var1 === var2) {
-    //we want it to match
-    setTimeout(doStuff, 50) //wait 50 millisecnds then recheck
-    return
-  }
-  var2 = var1
-  //real action
-}
-
 const {
   createConnectSql,
   getAllConnectSql,
@@ -67,7 +57,6 @@ exports.getFilterConnect = function (req, res) {
                 } else ncount++
               }) //  retcon.connect()
             }) // allConnect.forEach()
-            waitVarEqual(ncount, allConnect.length)
           }) // result = new Promise()
           result.then((ret) => {
             console.log('===>', 'Total Database: ', ret.length)
