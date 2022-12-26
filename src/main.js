@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+// import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -16,7 +16,29 @@ import VueGoodTablePlugin from 'vue-good-table-next'
 import 'vue-good-table-next/dist/vue-good-table-next.css'
 import VueMask from '@devindex/vue-mask'
 
-const app = createApp(App)
+//=============================== for Graphql
+import { createApp, provide, h } from 'vue'
+import { DefaultApolloClient, provideApolloClient } from '@vue/apollo-composable'
+import { ApolloClient, InMemoryCache } from '@apollo/client/core'
+
+// import App from './App.vue'
+const cache = new InMemoryCache()
+const apolloClient = new ApolloClient({
+  cache,
+  uri: process.env.VUE_APP_URL_GRAPHQL || 'http://localhost:4000/graphql',
+})
+
+const app = createApp({
+  setup() {
+    provide(DefaultApolloClient, apolloClient)
+    provideApolloClient(apolloClient)
+  },
+  render: () => h(App),
+})
+//===============================
+// const app = createApp(App)
+//===============================
+
 app.use(store)
 app.use(router)
 app.use(CoreuiVue)

@@ -1,9 +1,54 @@
 <template>
+  <!-- <ApolloProvider client={client}>
+			<Container className='py-3 mt-3' style={{ backgroundColor: 'lightcyan' }}>
+				<h1 className='text-center text-info mb-3'>My Books</h1>
+				<hr />
+				<Forms />
+				<hr />
+				<BookList />
+			</Container>
+		</ApolloProvider> -->
+
+  <!-- Forms -->
+  <!-- <Row>
+			<Col>
+				<BookForm />
+			</Col>
+			<Col>
+				<AuthorForm />
+			</Col>
+		</Row> -->
+  <!-- BookList -->
+  <!-- <Row>
+			<Col xs={8}>
+				<CardColumns>
+					{data.books.map(book => (
+						<Card
+							border='info'
+							text='info'
+							className='text-center shadow'
+							key={book.id}
+							onClick={setBookSelected.bind(this, book.id)}
+							style={{ cursor: 'pointer' }}
+						>
+							<Card.Body>{book.name}</Card.Body>
+						</Card>
+					))}
+				</CardColumns>
+			</Col>
+			<Col>
+				<BookDetails bookId={bookSelected} />
+			</Col>
+		</Row> -->
+
   <div>
     <h1>My Books</h1>
+    <div>
+      <button @click="sendMessage({ text: 'Hello' })">Send message</button>
+    </div>
     <hr />
     <CRow v-if="updaterec">
-      <!-- <CCol sm="6">
+      <CCol sm="6">
         <CCard>
           <CCardHeader style="font-size: 25px"> Book &#8482; </CCardHeader>
           <CCardBody>
@@ -14,36 +59,36 @@
                     <CInputGroupText>Name</CInputGroupText>
                     <CFormInput
                       class="form-control"
-                      :class="{ 'is-valid': checkInput('bookName') }"
-                      v-model="bookName"
+                      :class="{ 'is-valid': testValidator('bookname') }"
+                      v-model="todo.bookname"
                     />
                   </CInputGroup>
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Genre</CInputGroupText>
                     <CFormInput
                       class="form-control"
-                      :class="{ 'is-valid': checkInput('bookGenre') }"
-                      v-model="bookGenre"
+                      :class="{ 'is-valid': testValidator('genre') }"
+                      v-model="todo.genre"
                     />
                   </CInputGroup>
 
-                  <FormListAuthor v-model="bookAuthorId" />
+                  <FormListAuthor />
                 </CCol>
               </CRow>
 
               <div class="form-group form-actions">
                 <CButton
                   class="btn btn-info btn-sm"
-                  @click="createBook()"
-                  :disabled="!bookName || !bookGenre || bookAuthorId == 'Select author'"
+                  @click="createTodo('book')"
+                  :disabled="!Validator.bookname || !Validator.genre"
                   id="addnew"
                 >
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
                   class="btn btn-info btn-sm"
-                  @click="updateBook()"
-                  :disabled="!bookName || !bookGenre || bookAuthorId == 'Select author' || !bookAuthorId"
+                  @click="updateTodo('book')"
+                  :disabled="!todo.id || !isValid"
                   id="update"
                 >
                   Update </CButton
@@ -58,9 +103,7 @@
             </CForm>
           </CCardBody>
         </CCard>
-      </CCol> -->
-
-      <FormCreateBook @CreateNewBook="CreateNewBook" ref="callChild" />
+      </CCol>
 
       <CCol sm="6">
         <CCard>
@@ -73,25 +116,26 @@
                     <CInputGroupText>Name</CInputGroupText>
                     <CFormInput
                       class="form-control"
-                      :class="{ 'is-valid': checkInput('authorName') }"
-                      v-model="authorName"
+                      :class="{ 'is-valid': testValidator('authorname') }"
+                      v-model="todo.authorname"
                     />
                   </CInputGroup>
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Age...</CInputGroupText>
                     <CFormInput
-                      v-model="authorAge"
+                      v-model="todo.age"
                       v-mask-decimal.br="0"
+                      type="number"
                       class="form-control"
-                      :class="{ 'is-valid': checkInput('authorAge') }"
+                      :class="{ 'is-valid': testValidator('age') }"
                     />
                   </CInputGroup>
                   <CInputGroup class="mb-3">
                     <CInputGroupText>Birthplace</CInputGroupText>
                     <CFormInput
-                      v-model="authorBirthplace"
+                      v-model="todo.birthplace"
                       class="form-control"
-                      :class="{ 'is-valid': checkInput('authorBirthplace') }"
+                      :class="{ 'is-valid': testValidator('birthplace') }"
                     />
                   </CInputGroup>
                 </CCol>
@@ -100,15 +144,15 @@
               <div class="form-group form-actions">
                 <CButton
                   class="btn btn-info btn-sm"
-                  @click="callChildMethod()"
-                  :disabled="!authorName || !authorAge || !authorBirthplace"
+                  @click="createTodo('author')"
+                  :disabled="!Validator.authorname || !Validator.age || !Validator.birthplace"
                   id="addnew"
                 >
                   Add New </CButton
                 >&nbsp;&nbsp;
                 <CButton
                   class="btn btn-info btn-sm"
-                  @click="updateAuthor('author')"
+                  @click="updateTodo('author')"
                   :disabled="!todo.id || !isValid"
                   id="update"
                 >
@@ -133,14 +177,12 @@
         <p v-if="loading">Loading...</p>
         <div v-else v-for="(book, stt) in listBooks" :key="book.id">
           <CCard style="width: 15rem; padding: 5px">
-            <CCardImage @click="getDetails(book.id)" v-if="stt % 8 == 0" orientation="top" :src="avatar1" />
-            <CCardImage @click="getDetails(book.id)" v-if="stt % 8 == 1" orientation="top" :src="avatar2" />
-            <CCardImage @click="getDetails(book.id)" v-if="stt % 8 == 2" orientation="top" :src="avatar3" />
-            <CCardImage @click="getDetails(book.id)" v-if="stt % 8 == 3" orientation="top" :src="avatar4" />
-            <CCardImage @click="getDetails(book.id)" v-if="stt % 8 == 4" orientation="top" :src="avatar5" />
-            <CCardImage @click="getDetails(book.id)" v-if="stt % 8 == 5" orientation="top" :src="avatar6" />
-            <CCardImage @click="getDetails(book.id)" v-if="stt % 8 == 6" orientation="top" :src="avatar7" />
-            <CCardImage @click="getDetails(book.id)" v-if="stt % 8 == 7" orientation="top" :src="avatar8" />
+            <CCardImage @click="getDetails(book.id)" v-if="stt % 6 == 0" orientation="top" :src="avatar1" />
+            <CCardImage @click="getDetails(book.id)" v-if="stt % 6 == 1" orientation="top" :src="avatar2" />
+            <CCardImage @click="getDetails(book.id)" v-if="stt % 6 == 2" orientation="top" :src="avatar3" />
+            <CCardImage @click="getDetails(book.id)" v-if="stt % 6 == 3" orientation="top" :src="avatar4" />
+            <CCardImage @click="getDetails(book.id)" v-if="stt % 6 == 4" orientation="top" :src="avatar5" />
+            <CCardImage @click="getDetails(book.id)" v-if="stt % 6 == 5" orientation="top" :src="avatar6" />
             <CCardBody>
               <CCardTitle>{{ book.name }}</CCardTitle>
               <CCardText>
@@ -180,21 +222,19 @@ import avatar3 from '@/assets/images/avatars/3.jpg'
 import avatar4 from '@/assets/images/avatars/4.jpg'
 import avatar5 from '@/assets/images/avatars/5.jpg'
 import avatar6 from '@/assets/images/avatars/6.jpg'
-import avatar7 from '@/assets/images/avatars/7.jpg'
-import avatar8 from '@/assets/images/avatars/8.jpg'
 import VueImg from '@/assets/images/vue.jpg'
 
-import FormCreateBook from './FormCreateBook.vue'
+import FormListAuthor from './FormListAuthor.vue'
 import { mapState } from 'vuex'
 import { useQuery, useMutation } from '@vue/apollo-composable'
 import { getBooks, getSingleBook } from '@/graphql-client/queries'
-import { defineComponent, ref, watch, computed, isProxy, toRaw } from 'vue'
-import { addSingleBook, addSingleAuthor } from '@/graphql-client/mutations'
+import { ref, watch, computed } from 'vue'
+import { addSingleAuthor, sendMessage } from '@/graphql-client/mutations'
 
-export default defineComponent({
+export default {
   name: 'Books',
   components: {
-    FormCreateBook,
+    FormListAuthor,
   },
   data() {
     return {
@@ -223,8 +263,6 @@ export default defineComponent({
       avatar4,
       avatar5,
       avatar6,
-      avatar7,
-      avatar8,
       // googletheme: '',
     }
   },
@@ -236,22 +274,24 @@ export default defineComponent({
       this.googletheme = this.theme === 'default' ? '' : 'nocturnal'
     },
   },
-  // setup(props, context: { attrs, slots, emit, expose })
-  setup() {
-    let bookDetails = ref([])
-    let authorName = ref('Trần Trọng Thủy')
-    let authorAge = ref(60)
-    let authorBirthplace = ref('Long An - Việt Nam')
-    let bookObject = ref([])
 
+  setup() {
+    const { mutate: sendMessage } = useMutation(sendMessage)
+    let bookDetails = ref([])
     const { result, loading } = useQuery(getBooks)
     const listBooks = computed(() => result.value?.books ?? [])
+    // setTimeout(() => {
+    //   // console.log('authors==>', listAuthors)
+    // }, 800)
+
+    // console.log('authors==>', authors)
 
     async function getDetails(bookId) {
       let src = ''
       window.onclick = (e) => {
         src = e.target.src
       }
+      console.log('bookId', bookId)
       const { result, loading } = await useQuery(getSingleBook, { id: bookId })
       setTimeout(
         () => {
@@ -263,73 +303,33 @@ export default defineComponent({
       )
     }
 
-    function CreateNewBook(bookObj) {
-      bookObject = bookObj
-      // console.log('bookObj',bookObject)
-      createBook()
-    } // Do formChild FormCreateBook.vue Call: @click="$emit('CreateNewBook', { })"
+    watch(bookDetails, (currentValue) => {
+      console.log('bookDetails.value =>', currentValue, bookDetails.value)
+    })
 
-    // GraphQL operations
-    const { mutate: createBook } = useMutation(addSingleBook, () => ({
-      variables: bookObject,
-      // variables: { name: bookObject.name, genre: bookObject.genre, authorId: bookObject.authorId },
-      update: (cache, { data: { createBook } }) => {
-        let data = cache.readQuery({ query: getBooks })
-        data = {
-          ...data,
-          books: [...data.books, createBook],
-        }
-        cache.writeQuery({ query: getBooks, data })
-      },
-    }))
-
-    let callChild = ref()
-    const callChildMethod = () => {
-      // <FormCreateBook @CreateNewBook="CreateNewBook" ref="callChild" />
-      callChild.value?.CreateNewAuthor({ name: authorName.value, age: authorAge.value, birthplace: authorBirthplace.value }) // Phải có Dấu hỏi <=== OK
-      // console.log(111, callChild.value, callChild.value.listAuthors.authors)
-    }
-
-    function checkInput(keyVar) {
-      // console.log('checkInput->bookAuthorId', bookAuthorId.value)
-      switch (keyVar) {
-        case 'authorName':
-          return authorName.value != ''
-        case 'authorAge':
-          return authorAge.value > 0
-        case 'authorBirthplace':
-          return authorBirthplace.value != ''
-        default:
-          return false
-      }
-    }
-    // watch(() => {
-    //   console.log('watch','authorName.value =>', authorName.value)
-    // })
     return {
-      authorName,
-      authorAge,
-      authorBirthplace,
-      CreateNewBook,
-      createBook,
       listBooks,
       loading,
       bookDetails,
       getDetails,
-      // updateBook,
-      // updateAuthor,
-      checkInput,
-      callChildMethod,
-      callChild,
+      sendMessage,
     }
   },
   methods: {
-    test(bookObj) {
-      // 'test' method has 2 parameters.
-      alert('OK-----')
-      console.log(bookObj)
-    },
     submitForm() {},
+    createTodo(opt) {
+      alert('createTodo ' + opt)
+      console.log(111, opt, this.todo)
+      // addAuthor({
+      //   variables: { name: this.todo.authorname, age: this.todo.age },
+      //   refetchQueries: [{ query: getAuthors }],
+      // })
+      // // GraphQL operations
+      // const [addAuthor, dataMutation] = useMutation(addSingleAuthor)
+      // // console.log(dataMutation)
+      // // Tránh Error
+      // if (!dataMutation) return console.log(dataMutation)
+    },
     updateTodo(opt) {
       alert('updateTodo: ' + opt)
     },
@@ -365,7 +365,7 @@ export default defineComponent({
       return passe
     },
   },
-})
+}
 </script>
 <style scoped>
 .flex-container {
@@ -401,12 +401,3 @@ export default defineComponent({
   }
 }
 </style>
-
-<!-- attrs và slot là các đối tượng trạng thái luôn được cập nhật khi chính thành phần đó được cập nhật. 
-Điều này có nghĩa là bạn nên tránh phá hủy chúng và luôn tham chiếu các thuộc tính 
-dưới dạng attrs.x hoặc slots.x. Cũng lưu ý rằng, không giống như props, 
-các thuộc tính của attrs và slot không phản ứng. Nếu bạn có ý định áp dụng các tác dụng phụ dựa trên 
-các thay đổi đối với attrs hoặc vị trí, thì bạn nên thực hiện điều đó bên trong hook vòng đời onB BeforeUpdate. 
-Exposure là một chức năng có thể được sử dụng để giới hạn rõ ràng các thuộc tính được hiển thị khi phiên bản 
-thành phần được truy cập bởi một thành phần cha mẹ thông qua các tham chiếu mẫu:
--->

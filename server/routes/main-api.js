@@ -171,9 +171,9 @@ const { googleUpload, googleDelete } = require('../controllers/googleapis')
 
 // ============== TẮT sẽ tạm thời Tắt Đăng Nhập ==========
 
-// router.use(auth, function (req, res, next) {
-//   next()
-// })
+router.use(auth, function (req, res, next) {
+  next()
+})
 
 //router.get('/users/:filename', (req, res) => {
 // products dùng trong e-commerce/productApi

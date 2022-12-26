@@ -1,9 +1,6 @@
 {
 	"folders": [
 		{
-			"path": "."
-		},
-		{
 			"path": "../EXAMPLE-awesome-compose"
 		},
 		{
@@ -13,7 +10,13 @@
 			"path": "../docker-ketoan-acn"
 		},
 		{
-			"path": "../graphql-js-main"
+			"path": "../GraphQL-Apollo"
+		},
+		{
+			"path": "../Graphql-Vuejs-example"
+		},
+		{
+			"path": "."
 		}
 	],
 	"settings": {

@@ -29,6 +29,23 @@ const path = require('path')
 
 // set up dependencies
 const app = express()
+//===========================
+const { ApolloServer } = require('apollo-server-express')
+// Load schema & resolvers
+const typeDefs = require('./server/graphql/schema/schema')
+const resolvers = require('./server/graphql/resolver/resolver')
+// Load db methods
+const mongoDataMethods = require('./server/graphql/data/db')
+const apolloSv = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: () => ({ mongoDataMethods }),
+})
+// const app = express()
+// app.use(cors())
+apolloSv.applyMiddleware({ app })
+//===========================
+
 app.use(serveStatic(path.join(__dirname, 'dist')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -281,7 +298,8 @@ global.runQuerySql = async function (query, req, res) {
   connection.connect((err) => {
     if (err) {
       console.log('Error: ' + err.message)
-      throw err
+      process.exit(1)
+      // throw err
     }
   })
   try {
@@ -295,7 +313,7 @@ global.runQuerySql = async function (query, req, res) {
     return response
   } catch (err) {
     console.log(500, err)
-    throw err
+    // throw err
   }
 }
 
@@ -303,7 +321,8 @@ global.runQuerySync = async function (query, params) {
   if (!__poolmysql) __poolmysql = mysql.createPool(choiceConnect())
   const resp = await new Promise((resolve, reject) => {
     __poolmysql.getConnection(async function (err, connection) {
-      if (err) throw err // not connected!
+      if (err) return console.log('Error: ' + err.message)
+      // throw err // not connected!
       // Use the connection
       try {
         const response = await new Promise((resolve, reject) => {
