@@ -320,6 +320,23 @@ const routes = [
         ],
       },
       {
+        path: '/graphql-client',
+        redirect: '/graphql-client/graphql-book',
+        name: 'Graphql-client',
+        component: {
+          render() {
+            return h(resolveComponent('router-view'))
+          },
+        },
+        children: [
+          {
+            path: 'graphql-book',
+            name: 'Graphql-book',
+            component: () => import('@/views/graphql-client/graphql-book.vue'),
+          },
+        ],
+      },
+      {
         path: 'ketoan/dm-ketoan',
         redirect: '/ketoan/dm-ketoan/dmtkhoan-kt',
         name: 'dm-ketoan',

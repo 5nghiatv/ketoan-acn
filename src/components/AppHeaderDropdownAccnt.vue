@@ -42,6 +42,16 @@
         <CBadge color="secondary" class="ml-auto"></CBadge>
       </CDropdownItem> -->
       <CDropdownHeader tag="div" class="text-center" color="light">
+        <strong>BookStore</strong>
+      </CDropdownHeader>
+      <CDropdownItem href="#/graphql-client">
+        <CIcon class="text-danger" name="cil-book" /> Graphql-client
+        <CBadge color="secondary" class="ml-auto"></CBadge>
+      </CDropdownItem>
+
+      <CDropdownDivider />
+
+      <CDropdownHeader tag="div" class="text-center" color="light">
         <strong>Games</strong>
       </CDropdownHeader>
       <CDropdownItem href="#/games/peek-a-vue-main">
