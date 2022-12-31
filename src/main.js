@@ -19,19 +19,29 @@ import VueMask from '@devindex/vue-mask'
 //=============================== for Graphql
 import { createApp, provide, h } from 'vue'
 import { DefaultApolloClient, provideApolloClient } from '@vue/apollo-composable'
-import { ApolloClient, InMemoryCache } from '@apollo/client/core'
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
 
 // import App from './App.vue'
+
+// --------------------------
+const authToken = localStorage.getItem('token') // in common/jwt.servicew.js
+const httpLink = createHttpLink({
+  uri: process.env.VUE_APP_URL_GRAPHQL || 'http://localhost:4000/graphql',
+  headers: {
+    Authorization: 'Bearer ' + authToken,
+  },
+})
 const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
+  link: httpLink,
   cache,
-  uri: process.env.VUE_APP_URL_GRAPHQL || 'http://localhost:4000/graphql',
 })
+provideApolloClient(apolloClient)
+// --------------------------
 
 const app = createApp({
   setup() {
     provide(DefaultApolloClient, apolloClient)
-    provideApolloClient(apolloClient)
   },
   render: () => h(App),
 })

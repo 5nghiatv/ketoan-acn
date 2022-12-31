@@ -7,13 +7,7 @@
 			"path": "../ACN-ketoan-docker-lamp"
 		},
 		{
-			"path": "../docker-ketoan-acn"
-		},
-		{
 			"path": "../GraphQL-Apollo"
-		},
-		{
-			"path": "../Graphql-Vuejs-example"
 		},
 		{
 			"path": "."

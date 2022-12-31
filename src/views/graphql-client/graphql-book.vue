@@ -8,7 +8,8 @@
         <CCard>
           <CCardHeader style="font-size: 25px"> Book &#8482; </CCardHeader>
           <CCardBody>
-            <CForm @submit.prevent="submitForm">
+            <!-- <CForm @submit.prevent="submitForm"> -->
+            <CForm>
               <CRow>
                 <CCol col="6">
                   <CInputGroup class="mb-3">
@@ -75,7 +76,7 @@
         <CCard>
           <CCardHeader style="font-size: 25px"> Author &#8482; </CCardHeader>
           <CCardBody>
-            <CForm @submit.prevent="submitForm">
+            <CForm>
               <CRow>
                 <CCol col="6">
                   <CInputGroup class="mb-3">
@@ -244,7 +245,7 @@ export default defineComponent({
     let authorObject = ref([])
     let bookDetails = ref([])
     let authorName = ref('')
-    let authorAge = ref()
+    let authorAge = ref('')
     let authorBirthplace = ref('')
     let bookObject = ref([])
 
@@ -273,7 +274,7 @@ export default defineComponent({
           bookGenre.value = bookDetails.value.book.genre
           bookAuthorId.value = bookDetails.value.book.author?.id
           authorName.value = bookDetails.value.book.author?.name
-          authorAge.value = bookDetails.value.book.author?.age
+          authorAge.value = bookDetails.value.book.author?.age.toString()
           authorBirthplace.value = bookDetails.value.book.author?.birthplace
           // console.log( bookDetails.value.book.author)
         },
@@ -285,7 +286,6 @@ export default defineComponent({
     const letsChoiceBook = () => {
       alert('YOU haven not clicked on a BOOK yet...')
     }
-
 
     function createTodo(opt) {
       if (!confirm(`PLEASE, Confirm you want to CREATE the ${opt} ?`)) {

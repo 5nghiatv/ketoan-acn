@@ -43,6 +43,7 @@ const apolloSv = new ApolloServer({
 })
 // const app = express()
 // app.use(cors())
+apolloSv.start()
 apolloSv.applyMiddleware({ app })
 //===========================
 
@@ -172,7 +173,7 @@ const HOST = '0.0.0.0'
 //Create a Server -------> process.env.PORT || 8080  // VÔ CÙNG QUAN TRỌNG --> HEROKU
 var server = app.listen(process.env.APP_PORT || 8081, HOST, function () {
   var port = server.address().port
-  console.log(`Server is running on : ${port}`)
+  console.log(`Server is running on : ${port} & graphql`)
 })
 //----------------------------------------------------
 //"mongodb+srv://nghiatv:Tranmeji1@cluster0-ql9ch.mongodb.net/ketoan?retryWrites=true&w=majority";

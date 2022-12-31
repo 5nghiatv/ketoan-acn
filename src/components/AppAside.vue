@@ -289,9 +289,11 @@ export default {
   setup() {
     const store = useStore()
     //console.log(store.state.fontsize)
-    const valueFontsize = ref(store.state.fontsize == 'small' ? 0 : store.state.fontsize == 'medium' ? 5 : 10)
+    const valueFontsize = ref(
+      store.state.fontsize == 'small' ? '0' : store.state.fontsize == 'medium' ? '5' : '10',
+    )
     const changeFontsize = () => {
-      store.state.fontsize = valueFontsize.value == 0 ? 'small' : valueFontsize.value == 5 ? 'medium' : 'large'
+      store.state.fontsize = valueFontsize.value == '0' ? 'small' : valueFontsize.value == '5' ? 'medium' : 'large'
       store.commit('toggleFontsize', store.state.fontsize)
     }
     const activeKey = ref(1)
