@@ -458,4 +458,7 @@ Content-Type: application/json
   "download": "1"
 }
 
+### token - Nghĩa
+GET http://localhost:8081/graphql
+# GET http://localhost:8081/customers
 

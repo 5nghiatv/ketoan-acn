@@ -16,9 +16,15 @@ const typeDefs = gql`
     books: [Book]
   }
 
+  type LoginReturnType {
+    token: String
+    userId: ID
+  }
+
   # ROOT TYPE
   type Query {
     hello(name: String): String!
+    login(email: String!, password: String!): LoginReturnType!
     books: [Book]
     book(id: ID!): Book
     authors: [Author]

@@ -34,17 +34,25 @@ const { ApolloServer } = require('apollo-server-express')
 // Load schema & resolvers
 const typeDefs = require('./server/graphql/schema/schema')
 const resolvers = require('./server/graphql/resolver/resolver')
+const verifyToken = require('./server/graphql/check-jwt')
+
 // Load db methods
-const mongoDataMethods = require('./server/graphql/data/db')
 const apolloSv = new ApolloServer({
+  introspection: true,
   typeDefs,
   resolvers,
-  context: () => ({ mongoDataMethods }),
+  formatError: (error) => {
+    return error
+  },
+  context: async ({ req }) => {
+    await verifyToken(req)
+    // console.log('isAuth:', req.isAuth)
+    const isAuth = req.isAuth
+    return { isAuth }
+  },
 })
-// const app = express()
-// app.use(cors())
-apolloSv.start()
-apolloSv.applyMiddleware({ app })
+// app.use('/graphql', verifyToken())
+apolloSv.applyMiddleware({ app, path: '/graphql' })
 //===========================
 
 app.use(serveStatic(path.join(__dirname, 'dist')))
@@ -158,6 +166,7 @@ app.use('/exp/', otherRoutes)
 app.use('/users', require('./server/routes/users.js'))
 app.use('/social', require('./server/routes/story'))
 app.use('/mysql', require('./server/routes/mysql-heroku'))
+
 //app.use('/', products); Không dùng hiệu chỉnh trên server
 app.use('/', employees)
 app.use('/', customers)
@@ -166,16 +175,23 @@ app.use('/', usersexp)
 app.use('/', strip)
 
 app.use('/upl', require('./server/routes/uploads.js'))
+app.get('/restart', function (req, res, next) {
+  process.exit(1)
+})
 
-//----------------------------------------------------
+app.use('*', (req, res) => {
+  res.render('pages/404')
+  // res.render(path + "404.ejs");
+})
+//===================================================
 const HOST = '0.0.0.0'
 // const HOST = "localhost";
 //Create a Server -------> process.env.PORT || 8080  // VÔ CÙNG QUAN TRỌNG --> HEROKU
 var server = app.listen(process.env.APP_PORT || 8081, HOST, function () {
   var port = server.address().port
-  console.log(`Server is running on : ${port} & graphql`)
+  console.log(`🦀 Server is running on : ${port} 🚀 graphql`)
 })
-//----------------------------------------------------
+//===================================================
 //"mongodb+srv://nghiatv:Tranmeji1@cluster0-ql9ch.mongodb.net/ketoan?retryWrites=true&w=majority";
 // var uri = 'mongodb+srv://nghiatv:Tranmeji1@cluster0-qf5xp.mongodb.net/test?retryWrites=true&w=majority';
 // 'mongodb://root:nghiatv@localhost:27017/?authMechanism=DEFAULT'
@@ -200,16 +216,8 @@ mongoose.connect(
   },
 )
 
-//----------------------------------------------------
+//===================================================
 
-app.get('/restart', function (req, res, next) {
-  process.exit(1)
-})
-
-app.use('*', (req, res) => {
-  res.render('pages/404')
-  // res.render(path + "404.ejs");
-})
 global.choiceConnect = function () {
   let connect2 = {
     // Database GỐC
@@ -344,3 +352,5 @@ global.runQuerySync = async function (query, params) {
   })
   return resp
 }
+
+// ` ~   Unicode: U+0060, UTF-8: 60 Unicode: U+007E, UTF-8: 7E
