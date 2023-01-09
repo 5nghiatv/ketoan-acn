@@ -406,7 +406,36 @@ async function testConnect() {
   // })
 }
 
-console.log('your name111')
-setTimeout(function () {
-  console.log('your name')
-}, 5000)
+var mongoose = require('mongoose'),
+  Admin = mongoose.mongo.Admin
+var ur5 = process.env.MONGODB_URL_KETOAN
+
+var conn = mongoose.createConnection(ur5)
+conn.on('open', function () {
+  // connection established
+  let listDb = new Promise((resolve, reject) => {
+    new Admin(conn.db).listDatabases(function (err, result) {
+      var strdb = 'List Database : '
+      if (err) reject(strdb + ' Read Error ')
+      // console.log('listDatabases succeeded')
+      // database list stored in result.databases
+      var Dbs = result.databases
+      // console.log(Dbs)
+      Dbs.forEach((element) => {
+        strdb = strdb + '  &#8226;  ' + element.name
+      })
+      resolve(strdb)
+    })
+  })
+  listDb.then(
+    (dat) => {
+      console.log(dat)
+      // res.status(200).json({ success: strdb })
+      conn.close()
+    },
+    (err) => {
+      console.log(err)
+      conn.close()
+    },
+  )
+})

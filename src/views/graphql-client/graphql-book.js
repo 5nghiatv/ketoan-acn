@@ -8,7 +8,7 @@ export default function getlistAuthors() {
 
   let loading_ = ref(loading)
   let error_ = ref(error)
-  console.log('listBooks', listAuthors)
+  // console.log('listAuthors', listAuthors)
 
   return { listAuthors, loading_, error_ }
 }

@@ -209,7 +209,6 @@ import {
   deleteSingleAuthor,
 } from './mutations'
 import getlistAuthors from './graphql-book'
-
 export default defineComponent({
   name: 'Books',
   components: {},
@@ -251,10 +250,10 @@ export default defineComponent({
 
     const { result, loading } = useQuery(getBooks)
     const listBooks = computed(() => result.value?.books ?? [])
-    // console.log('listBooks', listBooks)
+    console.log('listBooks', listBooks)
 
     let { listAuthors } = getlistAuthors()
-    console.log('listAuthors in user', listAuthors)
+    console.log('listAuthors', listAuthors)
 
     // watch((listAuthors) => { console.log('listAuthors', listAuthors) })
 

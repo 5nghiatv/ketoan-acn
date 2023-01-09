@@ -45,20 +45,33 @@ router.get('/getdb', (req, res) => {
   var conn = mongoose.createConnection(ur5)
   conn.on('open', function () {
     // connection established
-    new Admin(conn.db).listDatabases(function (err, result) {
-      if (err) throw err
-      console.log('listDatabases succeeded')
-      // database list stored in result.databases
-      var Dbs = result.databases
-      console.log(Dbs)
-      var strdb = 'List Database : '
-      Dbs.forEach((element) => {
-        strdb = strdb + '  &#8226;  ' + element.name
+    let listDb = new Promise((resolve, reject) => {
+      new Admin(conn.db).listDatabases(function (err, result) {
+        var strdb = 'List Database : '
+        if (err) reject(strdb + ' Read Error ')
+        // console.log('listDatabases succeeded')
+        // database list stored in result.databases
+        var Dbs = result.databases
+        // console.log(Dbs)
+        Dbs.forEach((element) => {
+          strdb = strdb + '  &#8226;  ' + element.name
+        })
+        resolve(strdb)
       })
-      res.status(200).json({ success: strdb })
     })
+    listDb.then(
+      (dat) => {
+        // console.log(dat)
+        res.status(200).json({ success: dat })
+        conn.close()
+      },
+      (err) => {
+        // console.log(err)
+        res.status(200).json({ success: err })
+        conn.close()
+      },
+    )
   })
-  conn.close()
 })
 
 //---------------------------------

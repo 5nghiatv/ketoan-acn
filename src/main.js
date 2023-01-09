@@ -17,35 +17,34 @@ import 'vue-good-table-next/dist/vue-good-table-next.css'
 import VueMask from '@devindex/vue-mask'
 
 //=============================== for Graphql
-import { createApp, provide, h } from 'vue'
-import { DefaultApolloClient, provideApolloClient } from '@vue/apollo-composable'
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
-
+import { createApp, h } from 'vue'
+import { provideApolloClient } from '@vue/apollo-composable'
+import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from '@apollo/client/core'
 // import App from './App.vue'
 
-// --------------------------
-const authToken = localStorage.getItem('token') // in common/jwt.servicew.js
-const httpLink = createHttpLink({
-  uri: process.env.VUE_APP_URL_GRAPHQL || 'http://localhost:4000/graphql',
-  headers: {
-    Authorization: 'Bearer ' + authToken,
-  },
+const httpLink = new HttpLink({ uri: process.env.VUE_APP_URL_GRAPHQL })
+const authLink = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  const token = localStorage.getItem('token')
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  })
+  return forward(operation)
 })
-const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
-  link: httpLink,
-  cache,
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 })
-provideApolloClient(apolloClient)
-// --------------------------
 
 const app = createApp({
   setup() {
-    provide(DefaultApolloClient, apolloClient)
+    provideApolloClient(apolloClient)
   },
   render: () => h(App),
 })
-//===============================
+//============================================
 // const app = createApp(App)
 //===============================
 

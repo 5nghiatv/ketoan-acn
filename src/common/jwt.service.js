@@ -16,7 +16,6 @@ export const saveRefreshToken = (token) => {
 }
 
 export const saveToken = (token) => {
-  //console.log('Token :'+ token )
   window.localStorage.setItem(TOKEN_KEY, token)
   // Nếu Object phải ====> window.localStorage.setItem("nguoikyten", JSON.stringify(this.nguoikyten));
   // this.nguoikyten = JSON.parse(window.localStorage.getItem("nguoikyten") );
